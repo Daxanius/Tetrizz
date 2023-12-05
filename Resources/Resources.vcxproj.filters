@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Textures">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>ico;bmp;jpg;jpeg;jpe;tiff;tif;png</Extensions>
+    </Filter>
+    <Filter Include="Sounds">
+      <UniqueIdentifier>{5810f453-0ccc-4880-b912-8c892565517f}</UniqueIdentifier>
+      <Extensions>wav;mp3;ogg;aa;aac;flac;m4a;oga;mogg;opus;raw</Extensions>
+    </Filter>
+    <Filter Include="Fonts">
+      <UniqueIdentifier>{94af7414-5b24-45a6-b49f-d4b6f99190d8}</UniqueIdentifier>
+      <Extensions>ttf;fnt;fon;otf</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="dyson.png">
+      <Filter>Textures</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
