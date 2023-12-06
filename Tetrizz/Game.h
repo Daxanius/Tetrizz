@@ -13,7 +13,6 @@ static const Point2f L_SHAPE[MINO_COUNT]{ { -1, 0 }, { 0,  0 }, { 1,  0 }, { 2, 
 static const Point2f O_SHAPE[MINO_COUNT]{ { 0,  0 }, { 1,  0 }, { 0,  1 }, { 1, 1 } };
 static const Point2f T_SHAPE[MINO_COUNT]{ { 0,  0 }, { 0,  1 }, { -1, 1 }, { 1, 1 } };
 static const Point2f J_SHAPE[MINO_COUNT]{ { 0,  0 }, { -1, 0 }, { 0,  1 }, { 0, 2 } };
-static const Point2f L_SHAPE[MINO_COUNT]{ { 0,  0 }, { 1,  0 }, { 0,  1 }, { 0, 2 } };
 static const Point2f S_SHAPE[MINO_COUNT]{ { 0,  0 }, { -1, 0 }, { 0,  1 }, { 1, 1 } };
 static const Point2f Z_SHAPE[MINO_COUNT]{ { 0,  0 }, { -1, 1 }, { 0,  1 }, { 1, 0 } };
 
