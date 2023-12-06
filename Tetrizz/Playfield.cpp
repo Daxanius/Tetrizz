@@ -33,12 +33,22 @@ void Playfield::MoveRight()
 
 }
 
+void Playfield::MoveDown()
+{
+
+}
+
 void  Playfield::Rotate()
 {
 
 }
 
 void  Playfield::SaveTetromino()
+{
+
+}
+
+void Playfield::QuickPlace()
 {
 
 }

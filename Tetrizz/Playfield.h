@@ -16,34 +16,37 @@ struct Playstate
 class Playfield
 {
 private:
-  const Tetromino*  m_TetriminosArr;   // DO NOT DELETE, array pointer to all predefined tetriminos
-  int               m_TetriminosArrSize;
+  const Tetromino* m_TetriminosArr;   // DO NOT DELETE, array pointer to all predefined tetriminos
+  int              m_TetriminosArrSize;
 
-  Color4f*          m_GridArr[FIELD_HEIGHT][FIELD_WIDTH]{nullptr};
-  Playstate         m_Playstate{};
-  int               m_Score{};
+  Color4f*         m_GridArr[FIELD_HEIGHT][FIELD_WIDTH]{nullptr};
+  Playstate        m_Playstate{};
+  int              m_Score{};
 
-  bool              CanRotate();      // Checks if the Tetromino can rotate
-  bool              CanMoveLeft();    // Checks if the tetrmino can move right on the grid
-  bool              CanMoveRight();   // Checks if the tetrmino can move left on the grid
-  bool              CanMoveDown();    // Checks if the current Tetromino can move down
+  bool             CanRotate();      // Checks if the Tetromino can rotate
+  bool             CanMoveLeft();    // Checks if the tetrmino can move right on the grid
+  bool             CanMoveRight();   // Checks if the tetrmino can move left on the grid
+  bool             CanMoveDown();    // Checks if the current Tetromino can move down
 
-  void              ClearLines();     // Clears the lines and sets the score
-  void              PlaceTetrimino(); // Places the current Tetromino on the grid
+  void             ClearLines();     // Clears the lines and sets the score
+  void             PlaceTetrimino(); // Places the current Tetromino on the grid
 public:
   Playfield(const Tetromino tetriminosArr[], int tetrminosArrSize);
   ~Playfield();
 
-  void              MoveLeft();
-  void              MoveRight();
-  void              Rotate();
-  void              SaveTetromino();    // Swaps the current tetrimo with the one storage
+  void            MoveLeft();
+  void            MoveRight();
+  void            MoveDown();         // Moves the tetromino down
+  void            Rotate();
 
-  void              NextTetrimino();
+  void            SaveTetromino();    // Swaps the current tetrimo with the one storage
+  void            QuickPlace();       // Instantly places tetromino
 
-  void              Draw(Point2f position);
-  void              Update(float deltaTime);
+  void            NextTetrimino();
 
-  Playstate         GetPlaystate() const;
-  const int         GetScore() const;
+  void            Draw(Point2f position);
+  void            Update(float deltaTime);
+
+  Playstate       GetPlaystate() const;
+  const int       GetScore() const;
 };

@@ -83,6 +83,12 @@ void OnKeyDownEvent(SDL_Keycode key)
 	  break;
   case SDLK_UP:
     g_PlayfieldPtr->Rotate();
+  case SDLK_DOWN:
+    g_PlayfieldPtr->MoveDown();
+    break;
+  case SDLK_SPACE:
+    g_PlayfieldPtr->QuickPlace();
+    break;
   case SDLK_c:
     g_PlayfieldPtr->SaveTetromino();
 	  break;
