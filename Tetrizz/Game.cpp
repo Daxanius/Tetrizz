@@ -59,6 +59,7 @@ void Draw()
 
 void Update(float deltaTime)
 {
+  g_PlayfieldPtr->Update(deltaTime);
   // process input, do physics 
 
   //const Uint8 *pStates = SDL_GetKeyboardState( nullptr );

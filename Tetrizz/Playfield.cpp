@@ -22,3 +22,13 @@ const int Playfield::GetScore() const
 {
   return m_Score;
 }
+
+void Playfield::Draw(Point2f position)
+{
+  // DRAW THE BOARD HERE
+}
+
+void Playfield::Update(float deltaTime)
+{
+  // UPDATE THE BOARD HERE
+}
