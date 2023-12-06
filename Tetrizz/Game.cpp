@@ -42,15 +42,6 @@ void Draw()
 	ClearBackground();
 
   // const WindowSettings windowSettings{ GetWindowInfo() };
-
-  //Point2f position{
-  //  windowSettings.width  / 2.f - g_Texture.width  / 2.f,
-  //  windowSettings.height / 2.f - g_Texture.height / 2.f
-  //};
-
-  // const float rotation{ 50.f * sin((g_Pi * 2 / 500.f) * g_TickCount) };
-  // DrawTexture(g_Texture, position, Rectf{ 0.0f, 0.0f, g_Texture.width, g_Texture.height }, rotation);
-
   g_PlayfieldPtr->Draw({0.f, 0.f});
 
   // [DYSON] Repaints on the current window
@@ -59,29 +50,9 @@ void Draw()
 
 void Update(float deltaTime)
 {
-  g_PlayfieldPtr->Update(deltaTime);
-  // process input, do physics 
-
-  //const Uint8 *pStates = SDL_GetKeyboardState( nullptr );
-  //if ( pStates[SDL_SCANCODE_RIGHT] )
-  //{
-  //  MoveCamera(-1.f, 0.f);
-  //}
-
-  //if ( pStates[SDL_SCANCODE_LEFT])
-  //{
-  //  MoveCamera(1.f, 0.f);
-  //}
-
-  //if (pStates[SDL_SCANCODE_UP])
-  //{
-  //  MoveCamera(0.f, 1.f);
-  //}
-
-  //if (pStates[SDL_SCANCODE_DOWN])
-  //{
-  //  MoveCamera(0.f, -1.f);
-  //}
+  if (g_TickCount % TICKS_PER_UPDATE == 0) {
+    g_PlayfieldPtr->Update(deltaTime);
+  }
 }
 
 // [DYSON] Gets executed 50x per second
@@ -94,6 +65,7 @@ void End()
 {
 	// free game resources here
   delete g_PlayfieldPtr;
+  g_PlayfieldPtr = nullptr;
 }
 #pragma endregion gameFunctions
 

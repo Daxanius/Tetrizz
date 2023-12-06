@@ -5,6 +5,9 @@
 
 #pragma region ownDeclarations
 // CONSTANTS
+static const int TICKS_PER_SECOND{ 50 };
+static const int UPDATES_PER_SECOND{ 1 };
+static const int TICKS_PER_UPDATE{ int(TICKS_PER_SECOND / UPDATES_PER_SECOND) };
 static const float RGB_MAX{ 255.f };
 static const int TETRIMINO_COUNT{ 7 }; // For error purposes
 
