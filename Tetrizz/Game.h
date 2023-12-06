@@ -6,17 +6,18 @@
 #pragma region ownDeclarations
 // CONSTANTS
 static const float RGB_MAX{ 255.f };
+static const int TETRIMINO_COUNT{ 7 }; // For error purposes
 
 // Shapes
-static const Point2f L_SHAPE[]{ { -1, 0 },  { 0,  0 }, { 1,  0 }, { 2, 0 } };
-static const Point2f O_SHAPE[]{ { 0,  0 },  { 1,  0 }, { 0,  1 }, { 1, 1 } };
-static const Point2f T_SHAPE[]{ { 0,  0 },  { 0,  1 }, { -1, 1 }, { 1, 1 } };
-static const Point2f J_SHAPE[]{ { 0,  0 },  { -1, 0 }, { 0,  1 }, { 0, 2 } };
-static const Point2f L_SHAPE[]{ { 0,  0 },  { 1,  0 }, { 0,  1 }, { 0, 2 } };
-static const Point2f S_SHAPE[]{ { 0,  0 },  { -1, 0 }, { 0,  1 }, { 1, 1 } };
-static const Point2f Z_SHAPE[]{ { 0,  0 },  { -1, 1 }, { 0,  1 }, { 1, 0 } };
+static const Point2f L_SHAPE[MINO_COUNT]{ { -1, 0 }, { 0,  0 }, { 1,  0 }, { 2, 0 } };
+static const Point2f O_SHAPE[MINO_COUNT]{ { 0,  0 }, { 1,  0 }, { 0,  1 }, { 1, 1 } };
+static const Point2f T_SHAPE[MINO_COUNT]{ { 0,  0 }, { 0,  1 }, { -1, 1 }, { 1, 1 } };
+static const Point2f J_SHAPE[MINO_COUNT]{ { 0,  0 }, { -1, 0 }, { 0,  1 }, { 0, 2 } };
+static const Point2f L_SHAPE[MINO_COUNT]{ { 0,  0 }, { 1,  0 }, { 0,  1 }, { 0, 2 } };
+static const Point2f S_SHAPE[MINO_COUNT]{ { 0,  0 }, { -1, 0 }, { 0,  1 }, { 1, 1 } };
+static const Point2f Z_SHAPE[MINO_COUNT]{ { 0,  0 }, { -1, 1 }, { 0,  1 }, { 1, 0 } };
 
-static const Tetrimino TETRIMINOS_ARR[] {
+static const Tetrimino TETRIMINOS_ARR[TETRIMINO_COUNT] {
   Tetrimino(L_SHAPE, Color4f{0   / RGB_MAX, 253 / RGB_MAX, 255 / RGB_MAX}),
   Tetrimino(O_SHAPE, Color4f{255 / RGB_MAX, 254 / RGB_MAX, 64  / RGB_MAX}),
   Tetrimino(T_SHAPE, Color4f{255 / RGB_MAX, 42  / RGB_MAX, 248 / RGB_MAX}),
@@ -26,8 +27,8 @@ static const Tetrimino TETRIMINOS_ARR[] {
   Tetrimino(Z_SHAPE, Color4f{255 / RGB_MAX, 35  / RGB_MAX, 18  / RGB_MAX})
 };
 
-// GLOBALS
-Playfield* m_PlayfieldPtr;
+
+Playfield* g_PlayfieldPtr;
 int g_TickCount{};
 
 // Declare your own functions here

@@ -32,7 +32,7 @@ private:
   void        ClearLines();     // Clears the lines and sets the score
   void        PlaceTetrimino(); // Places the current tetrimino on the grid
 public:
-  Playfield(Tetrimino* tetriminosArr, int tetrminosArrSize);
+  Playfield(const Tetrimino* tetriminosArr, int tetrminosArrSize);
   ~Playfield();
 
   void        MoveLeft();
@@ -42,7 +42,7 @@ public:
 
   void        NextTetrimino();
 
-  void        Draw();
+  void        Draw(Point2f position);
   void        Update(float deltaTime);
 
   Color4f*    GetGrid();

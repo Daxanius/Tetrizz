@@ -11,7 +11,7 @@ void Start()
   const float sizeY{ 600.f };
 
   WindowSettings window{
-      "Project name - Name, firstname - 1DAExx", // title
+      "Tetrizz - Balder Huybreghs & Quentin Demuynck - 1DAE16", // title
       0,                                         // Fullscreen mode (SDL_WINDOW_FULLSCREEN_DESKTOP, SDL_WINDOW_FULLSCREEN, 0)
       sizeX,                                     // width
       sizeY,                                     // height
@@ -32,6 +32,7 @@ void Start()
 
 	// initialize game resources here
   // TextureFromFile("Resources/dyson.png", g_Texture);
+  g_PlayfieldPtr = new Playfield(TETRIMINOS_ARR, TETRIMINO_COUNT);
 }
 
 // Put your own draw statements here
@@ -49,6 +50,8 @@ void Draw()
 
   // const float rotation{ 50.f * sin((g_Pi * 2 / 500.f) * g_TickCount) };
   // DrawTexture(g_Texture, position, Rectf{ 0.0f, 0.0f, g_Texture.width, g_Texture.height }, rotation);
+
+  g_PlayfieldPtr->Draw({0.f, 0.f});
 
   // [DYSON] Repaints on the current window
   DrawWindow();
@@ -89,6 +92,7 @@ void FixedUpdate(float fixedDeltaTime)
 void End()
 {
 	// free game resources here
+  delete g_PlayfieldPtr;
 }
 #pragma endregion gameFunctions
 
