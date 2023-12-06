@@ -2,6 +2,7 @@
 
 class Tetrimino
 {
+
 private:
 	static const int  MINOS_COUNT{4};
 	Point2f m_MinosArr[MINOS_COUNT];
@@ -17,4 +18,5 @@ public:
 	Tetrimino(Tetrimino* tetrimino);
 	Tetrimino(const Point2f minosArr[MINOS_COUNT], Color4f minosColor);
 	~Tetrimino();
-};
+};    
+
