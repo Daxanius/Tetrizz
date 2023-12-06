@@ -15,8 +15,8 @@ void Start()
       0,                                         // Fullscreen mode (SDL_WINDOW_FULLSCREEN_DESKTOP, SDL_WINDOW_FULLSCREEN, 0)
       sizeX,                                     // width
       sizeY,                                     // height
-      displayMode.w / 2 - sizeX / 2,             // posX
-      displayMode.h / 2 - sizeY / 2,             // posY
+      int(displayMode.w / 2) - int(sizeX / 2),   // posX
+      int(displayMode.h / 2) - int(sizeY / 2),   // posY
       1.f,                                       // opacity
       true,                                      // vsync
       true,                                      // lineSmoothing
