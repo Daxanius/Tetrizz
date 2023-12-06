@@ -37,7 +37,7 @@ public:
   void              MoveLeft();
   void              MoveRight();
   void              Rotate();
-  void              SaveTetrimo();    // Swaps the current tetrimo with the one storage
+  void              SaveTetromino();    // Swaps the current tetrimo with the one storage
 
   void              NextTetrimino();
 

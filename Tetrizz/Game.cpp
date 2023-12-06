@@ -73,24 +73,24 @@ void End()
 #pragma region inputHandling											
 void OnKeyDownEvent(SDL_Keycode key)
 {
-
+  switch (key)
+  {
+  case SDLK_LEFT:
+    g_PlayfieldPtr->MoveLeft();
+	  break;
+  case SDLK_RIGHT:
+    g_PlayfieldPtr->MoveRight();
+	  break;
+  case SDLK_UP:
+    g_PlayfieldPtr->Rotate();
+  case SDLK_c:
+    g_PlayfieldPtr->SaveTetromino();
+	  break;
+  }
 }
 
 void OnKeyUpEvent(SDL_Keycode key)
 {
-	//switch (key)
-	//{
-	//case SDLK_LEFT:
-	//	//std::cout << "Left arrow key released\n";
-	//	break;
-	//case SDLK_RIGHT:
-	//	//std::cout << "Right arrow key released\n";
-	//	break;
-	//case SDLK_1:
-	//case SDLK_KP_1:
-	//	//std::cout << "Key 1 released\n";
-	//	break;
-	//}
 }
 
 void OnMouseMotionEvent(const SDL_MouseMotionEvent& e)
