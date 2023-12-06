@@ -2,7 +2,11 @@
 #include <Core.h>
 
 #pragma region ownDeclarations
-// Declare your own global variables here
+// Constants
+
+static const int FIELD_WIDTH{ 10 };
+static const int FIELD_HEIGHT{ 24 };
+
 
 // Declare your own functions here
 // Texture g_Texture;
