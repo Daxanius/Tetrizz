@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Playfield.h"
 
-Playfield::Playfield(const Tetrimino* tetriminosArr, int tetrminosArrSize)
+Playfield::Playfield(const Tetromino* tetriminosArr, int tetrminosArrSize)
 {
   m_TetriminosArr = tetriminosArr;
   m_TetriminosArrSize = tetrminosArrSize;

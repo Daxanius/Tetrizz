@@ -21,7 +21,7 @@
     <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Tetrimino.cpp">
+    <ClCompile Include="Tetromino.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Playfield.cpp">
@@ -38,7 +38,7 @@
     <ClInclude Include="Playfield.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Tetrimino.h">
+    <ClInclude Include="Tetromino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,7 +1,7 @@
 #include "pch.h"
-#include "Tetrimino.h"
+#include "Tetromino.h"
 
-Tetrimino::Tetrimino(const Point2f minosArr[MINO_COUNT], Color4f minosColor)
+Tetromino::Tetromino(const Point2f minosArr[MINO_COUNT], Color4f minosColor)
 {
   m_MinosArr = new Point2f[MINO_COUNT];
   m_MinosColor = minosColor;
@@ -11,33 +11,33 @@ Tetrimino::Tetrimino(const Point2f minosArr[MINO_COUNT], Color4f minosColor)
   }
 }
 
-Tetrimino::Tetrimino(const Tetrimino &tetrimino)
+Tetromino::Tetromino(const Tetromino &Tetromino)
 {
   m_MinosArr = new Point2f[MINO_COUNT];
-  m_MinosColor = tetrimino.GetColor();
+  m_MinosColor = Tetromino.GetColor();
 
   for (int i = 0; i < MINO_COUNT; ++i) {
-    m_MinosArr[i] = tetrimino.GetMinos()[i];
+    m_MinosArr[i] = Tetromino.GetMinos()[i];
   }
 }
 
-Tetrimino::~Tetrimino()
+Tetromino::~Tetromino()
 {
   delete m_MinosArr;
   m_MinosArr = nullptr;
 }
 
-const Point2f* Tetrimino::GetMinos() const
+const Point2f* Tetromino::GetMinos() const
 {
   return m_MinosArr;
 }
 
-Color4f Tetrimino::GetColor() const
+Color4f Tetromino::GetColor() const
 {
   return m_MinosColor;
 }
 
-void Tetrimino::Rotate()
+void Tetromino::Rotate()
 {
 
 }
