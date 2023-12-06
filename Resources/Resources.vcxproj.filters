@@ -19,4 +19,21 @@
       <Filter>Textures</Filter>
     </Image>
   </ItemGroup>
+  <ItemGroup>
+    <Media Include="theme.wav">
+      <Filter>Sounds</Filter>
+    </Media>
+    <Media Include="tick.wav">
+      <Filter>Sounds</Filter>
+    </Media>
+    <Media Include="place.wav">
+      <Filter>Sounds</Filter>
+    </Media>
+    <Media Include="clear.wav">
+      <Filter>Sounds</Filter>
+    </Media>
+    <Media Include="rotate.wav">
+      <Filter>Sounds</Filter>
+    </Media>
+  </ItemGroup>
 </Project>

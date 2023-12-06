@@ -129,6 +129,13 @@
   <ItemGroup>
     <Image Include="dyson.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Media Include="clear.wav" />
+    <Media Include="place.wav" />
+    <Media Include="rotate.wav" />
+    <Media Include="theme.wav" />
+    <Media Include="tick.wav" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
