@@ -17,35 +17,34 @@ struct Playstate
 class Playfield
 {
 private:
-  Tetrimino*  m_TetriminosArr;   // DO NOT DELETE, array pointer to all predefined tetriminos
-  int         m_TetriminosArrSize;
+  const Tetrimino*  m_TetriminosArr;   // DO NOT DELETE, array pointer to all predefined tetriminos
+  int               m_TetriminosArrSize;
 
-  Color4f*    m_GridArr[FIELD_HEIGHT][FIELD_WIDTH]{nullptr};
-  Playstate   m_Playstate;
-  int         m_Score{};
+  Color4f*          m_GridArr[FIELD_HEIGHT][FIELD_WIDTH]{nullptr};
+  Playstate         m_Playstate{};
+  int               m_Score{};
 
-  bool        CanRotate();      // Checks if the tetrimino can rotate
-  bool        CanMoveLeft();    // Checks if the tetrmino can move right on the grid
-  bool        CanMoveRight();   // Checks if the tetrmino can move left on the grid
-  bool        CanMoveDown();    // Checks if the current tetrimino can move down
+  bool              CanRotate();      // Checks if the tetrimino can rotate
+  bool              CanMoveLeft();    // Checks if the tetrmino can move right on the grid
+  bool              CanMoveRight();   // Checks if the tetrmino can move left on the grid
+  bool              CanMoveDown();    // Checks if the current tetrimino can move down
 
-  void        ClearLines();     // Clears the lines and sets the score
-  void        PlaceTetrimino(); // Places the current tetrimino on the grid
+  void              ClearLines();     // Clears the lines and sets the score
+  void              PlaceTetrimino(); // Places the current tetrimino on the grid
 public:
-  Playfield(const Tetrimino* tetriminosArr, int tetrminosArrSize);
+  Playfield(const Tetrimino tetriminosArr[], int tetrminosArrSize);
   ~Playfield();
 
-  void        MoveLeft();
-  void        MoveRight();
-  void        Rotate();
-  void        SaveTetrimo();    // Swaps the current tetrimo with the one storage
+  void              MoveLeft();
+  void              MoveRight();
+  void              Rotate();
+  void              SaveTetrimo();    // Swaps the current tetrimo with the one storage
 
-  void        NextTetrimino();
+  void              NextTetrimino();
 
-  void        Draw(Point2f position);
-  void        Update(float deltaTime);
+  void              Draw(Point2f position);
+  void              Update(float deltaTime);
 
-  Color4f*    GetGrid();
-  Playstate   GetPlaystate();
-  int         GetScore();
+  Playstate         GetPlaystate() const;
+  const int         GetScore() const;
 };

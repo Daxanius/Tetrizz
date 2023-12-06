@@ -5,17 +5,16 @@ static const int  MINO_COUNT{ 4 };
 class Tetrimino
 {
 private:
-	Point2f m_MinosArr[MINO_COUNT];
-	Color4f m_MinosColor{};
+	Point2f* m_MinosArr;
+	Color4f  m_MinosColor{};
 
 public:
-	Point2f* GetMinos();
-	Color4f GetColor();
+  Tetrimino(const Point2f minosArr[MINO_COUNT], Color4f minosColor);
+  Tetrimino(const Tetrimino &tetrimino);
+  ~Tetrimino();
 
-	void Rotate();
+	const Point2f* GetMinos() const;
+	Color4f        GetColor() const;
 
-	Tetrimino(Tetrimino* tetrimino);
-	Tetrimino(const Point2f minosArr[MINO_COUNT], Color4f minosColor);
-	~Tetrimino();
-};    
-
+	void           Rotate();
+};
