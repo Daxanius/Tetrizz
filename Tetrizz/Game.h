@@ -5,7 +5,7 @@
 // Declare your own global variables here
 
 // Declare your own functions here
-Texture g_Texture;
+// Texture g_Texture;
 int g_TickCount{};
 
 #pragma endregion ownDeclarations
