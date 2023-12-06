@@ -14,7 +14,7 @@ static const Point2f L_SHAPE[4]{ {-1 , 0 } , { 0 , 0 } , { 1 , 0 } , { 2 ,0 } };
 static const Tetrimino TETRIMINOS_ARR[] {Tetrimino(L_SHAPE , Color4f{0.2f ,0.5f,0.9f} ) } ;
 
 // Declare your own functions here
-Texture g_Texture;
+// Texture g_Texture;
 int g_TickCount{};
 
 #pragma endregion ownDeclarations

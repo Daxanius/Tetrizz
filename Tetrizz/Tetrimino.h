@@ -17,4 +17,4 @@ public:
 	Tetrimino(Tetrimino* tetrimino);
 	Tetrimino(const Point2f minosArr[MINOS_COUNT], Color4f minosColor);
 	~Tetrimino();
-};    
+};

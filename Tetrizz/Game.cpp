@@ -31,7 +31,7 @@ void Start()
   MakeWindow(window);
 
 	// initialize game resources here
-  TextureFromFile("Resources/dyson.png", g_Texture);
+  // TextureFromFile("Resources/dyson.png", g_Texture);
 }
 
 // Put your own draw statements here
@@ -40,15 +40,15 @@ void Draw()
   // [DYSON] Clears the background of the current window
 	ClearBackground();
 
-  const WindowSettings windowSettings{ GetWindowInfo() };
+  // const WindowSettings windowSettings{ GetWindowInfo() };
 
-  Point2f position{
-    windowSettings.width  / 2.f - g_Texture.width  / 2.f,
-    windowSettings.height / 2.f - g_Texture.height / 2.f
-  };
+  //Point2f position{
+  //  windowSettings.width  / 2.f - g_Texture.width  / 2.f,
+  //  windowSettings.height / 2.f - g_Texture.height / 2.f
+  //};
 
-  const float rotation{ 50.f * sin((g_Pi * 2 / 500.f) * g_TickCount) };
-  DrawTexture(g_Texture, position, Rectf{ 0.0f, 0.0f, g_Texture.width, g_Texture.height }, rotation);
+  // const float rotation{ 50.f * sin((g_Pi * 2 / 500.f) * g_TickCount) };
+  // DrawTexture(g_Texture, position, Rectf{ 0.0f, 0.0f, g_Texture.width, g_Texture.height }, rotation);
 
   // [DYSON] Repaints on the current window
   DrawWindow();
@@ -58,26 +58,26 @@ void Update(float deltaTime)
 {
   // process input, do physics 
 
-  const Uint8 *pStates = SDL_GetKeyboardState( nullptr );
-  if ( pStates[SDL_SCANCODE_RIGHT] )
-  {
-    MoveCamera(-1.f, 0.f);
-  }
+  //const Uint8 *pStates = SDL_GetKeyboardState( nullptr );
+  //if ( pStates[SDL_SCANCODE_RIGHT] )
+  //{
+  //  MoveCamera(-1.f, 0.f);
+  //}
 
-  if ( pStates[SDL_SCANCODE_LEFT])
-  {
-    MoveCamera(1.f, 0.f);
-  }
+  //if ( pStates[SDL_SCANCODE_LEFT])
+  //{
+  //  MoveCamera(1.f, 0.f);
+  //}
 
-  if (pStates[SDL_SCANCODE_UP])
-  {
-    MoveCamera(0.f, 1.f);
-  }
+  //if (pStates[SDL_SCANCODE_UP])
+  //{
+  //  MoveCamera(0.f, 1.f);
+  //}
 
-  if (pStates[SDL_SCANCODE_DOWN])
-  {
-    MoveCamera(0.f, -1.f);
-  }
+  //if (pStates[SDL_SCANCODE_DOWN])
+  //{
+  //  MoveCamera(0.f, -1.f);
+  //}
 }
 
 // [DYSON] Gets executed 50x per second

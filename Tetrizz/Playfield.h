@@ -1,5 +1,6 @@
 #pragma once
 #include "Core.h"
+#include "Game.h"
 #include "Tetrimino.h"
 
 static const int FIELD_WIDTH{ 10 };
