@@ -5,6 +5,12 @@ Playfield::Playfield(const Tetromino* tetriminosArr, int tetrminosArrSize)
 {
   m_TetriminosArr = tetriminosArr;
   m_TetriminosArrSize = tetrminosArrSize;
+
+  m_Playstate.currentTetriminoPtr = new Tetromino(TETRIMINOS_ARR[0]) ;
+  m_Playstate.fieldPosition = { 0, 0 };
+  m_Playstate.nextTetriminoPtr = nullptr;
+  m_Playstate.savedTetriminoPtr = nullptr;
+
 }
 
 Playfield::~Playfield()
@@ -25,17 +31,41 @@ const int Playfield::GetScore() const
 
 void Playfield::MoveLeft()
 {
-	m_Playstate.fieldPosition.x -= 1;
+	if (CanMoveLeft())
+	{
+		m_Playstate.fieldPosition.x -= 1;
+	}
+}
+
+bool Playfield::CanMoveLeft()
+{
+	return true;
 }
 
 void Playfield::MoveRight()
 {
-	m_Playstate.fieldPosition.x += 1;
+	if (CanMoveRight())
+	{
+		m_Playstate.fieldPosition.x += 1;
+	}
+}
+
+bool Playfield::CanMoveRight()
+{
+	return true;
 }
 
 void Playfield::MoveDown()
 {
-	m_Playstate.fieldPosition.y += 1;
+	if (CanMoveDown())
+	{
+		m_Playstate.fieldPosition.y += 1;
+	}
+}
+
+bool Playfield::CanMoveDown()
+{
+	return true;
 }
 
 void  Playfield::Rotate()
@@ -44,6 +74,11 @@ void  Playfield::Rotate()
 	{
 		m_Playstate.currentTetriminoPtr->Rotate();
 	}
+}
+
+bool Playfield::CanRotate()
+{
+	return true;
 }
 
 void  Playfield::SaveTetromino()
@@ -70,6 +105,46 @@ void Playfield::QuickPlace()
 
 void Playfield::Draw(Point2f position)
 {
+	static const float TILE_SIZE{ 20.f };
+
+
+
+	for (int colIndex{}; colIndex < FIELD_WIDTH; colIndex++)
+	{
+		for (int rowIndex{}; rowIndex < FIELD_HEIGHT; rowIndex++)
+		{			
+			Rectf sourceRect{};
+			sourceRect.height = TILE_SIZE;
+			sourceRect.width = TILE_SIZE;
+			sourceRect.left = position.x + TILE_SIZE * colIndex;
+			sourceRect.top = position.y + TILE_SIZE * rowIndex;
+
+			SetColor(0, 0, 0);
+			FillRect(sourceRect);
+			SetColor(1.0f, 1.0f, 1.0f);
+			DrawRect(sourceRect);
+		}
+	}
+
+	
+	const Point2f tetriminoPosition{ m_Playstate.fieldPosition };
+
+	for (int minoIndex{}; minoIndex < MINO_COUNT; minoIndex++)
+	{
+		Point2f mino = m_Playstate.currentTetriminoPtr->GetMinos()[minoIndex];
+
+		Rectf sourceRect{};
+		sourceRect.height = TILE_SIZE;
+		sourceRect.width = TILE_SIZE;
+		sourceRect.left = position.x + TILE_SIZE * (tetriminoPosition.x + mino.x) ;
+		sourceRect.top = position.y + TILE_SIZE * (tetriminoPosition.y + mino.y);
+
+		SetColor(m_Playstate.currentTetriminoPtr->GetColor());
+		FillRect(sourceRect);
+		SetColor(1.0f, 1.0f, 1.0f);
+		DrawRect(sourceRect);
+	}
+
   // DRAW THE BOARD HERE
 }
 

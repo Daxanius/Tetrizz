@@ -39,7 +39,7 @@ Color4f Tetromino::GetColor() const
 
 void Tetromino::Rotate()
 {
-  const float angleInRadians{ -float(2 / M_PI) };
+  const float angleInRadians{ -float(M_PI / 2) };
 
   for (int i = 0; i < MINO_COUNT; ++i) {
     Point2f position = m_MinosArr[i];

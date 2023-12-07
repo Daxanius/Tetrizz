@@ -42,7 +42,7 @@ void Draw()
 	ClearBackground();
 
   // const WindowSettings windowSettings{ GetWindowInfo() };
-  g_PlayfieldPtr->Draw({0.f, 0.f});
+  g_PlayfieldPtr->Draw({TILE_X_OFFSET, TILE_Y_OFFSET});
 
   // [DYSON] Repaints on the current window
   DrawWindow();
