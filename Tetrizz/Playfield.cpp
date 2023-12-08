@@ -33,6 +33,11 @@ const int Playfield::GetScore() const
   return m_Score;
 }
 
+bool Playfield::IsTileTaken(int row, int col) const
+{
+  return col < 0 || col >= FIELD_WIDTH || row >= FIELD_HEIGHT || row < 0 || m_GridArr[row][col] != nullptr;
+}
+
 void Playfield::MoveLeft()
 {
 	if (CanMoveLeft() == true)
@@ -43,12 +48,13 @@ void Playfield::MoveLeft()
 
 bool Playfield::CanMoveLeft()
 {
-
 	for (int i = 0; i < MINO_COUNT; ++i)
 	{
-		float minosPos{ m_Playstate.currentTetrominoPtr->GetMinos()[i].x -1 };
+    Point2f minosPos{ m_Playstate.currentTetrominoPtr->GetMinos()[i] };
+    int gridColumn{ int(m_Playstate.fieldPosition.x + minosPos.x) -1 };
+    int gridRow{ int(m_Playstate.fieldPosition.y + minosPos.y) };
 
-    if (m_Playstate.fieldPosition.x + minosPos < 0) {
+    if (IsTileTaken(gridRow, gridColumn)) {
       return false;
     }
 	}
@@ -68,9 +74,11 @@ bool Playfield::CanMoveRight()
 {
 	for (int i = 0; i < MINO_COUNT; ++i)
 	{
-		float minosPos{ m_Playstate.currentTetrominoPtr->GetMinos()[i].x +1 };
+    Point2f minosPos{ m_Playstate.currentTetrominoPtr->GetMinos()[i] };
+    int gridColumn{ int(m_Playstate.fieldPosition.x + minosPos.x) +1 };
+    int gridRow{ int(m_Playstate.fieldPosition.y + minosPos.y) };
 
-    if (m_Playstate.fieldPosition.x + minosPos >= FIELD_WIDTH) {
+    if (IsTileTaken(gridRow, gridColumn)) {
       return false;
     }
 	}
@@ -94,7 +102,7 @@ bool Playfield::CanMoveDown()
 		int gridColumn{ int(m_Playstate.fieldPosition.x + minosPos.x)};
 		int gridRow{ int(m_Playstate.fieldPosition.y + minosPos.y) + 1 };
 
-    if (gridRow >= FIELD_HEIGHT || m_GridArr[gridRow][gridColumn] != nullptr) {
+    if (IsTileTaken(gridRow, gridColumn)) {
       return false;
     }
 	}
