@@ -11,10 +11,13 @@ void Start()
 		SDL_Quit(); // Quit SDL if Mixer initialization fails
 	}
 
-	g_MusicPtr = Mix_LoadWAV("./resources/theme.wav");
-	if (g_MusicPtr == nullptr)
-		std::cerr << "Failed to load sound! Mix_Error: " << Mix_GetError() << std::endl;
+	g_MusicPtr = Mix_LoadWAV("../Resources/theme.wav");
+  if (g_MusicPtr == nullptr) {
+    std::cerr << "Failed to load sound! Mix_Error: " << Mix_GetError() << std::endl;
+    SDL_Quit();
+  }
 
+  Mix_PlayChannel(-1, g_MusicPtr, -1);
 
   SDL_DisplayMode displayMode{ GetDisplayMode() };
   const float sizeX{ 800.f };
@@ -42,7 +45,7 @@ void Start()
 
 	// initialize game resources here
   // TextureFromFile("Resources/dyson.png", g_Texture);
-  g_PlayfieldPtr = new Playfield(TETRIMINOS_ARR, TETRIMINO_COUNT);
+  g_PlayfieldPtr = new Playfield(TETROMINOS_ARR, TETROMINO_COUNT);
 }
 
 // Put your own draw statements here
@@ -51,8 +54,14 @@ void Draw()
   // [DYSON] Clears the background of the current window
 	ClearBackground();
 
-  // const WindowSettings windowSettings{ GetWindowInfo() };
-  g_PlayfieldPtr->Draw({TILE_X_OFFSET, TILE_Y_OFFSET});
+  const WindowSettings windowSettings{ GetWindowInfo() };
+  const float centerX = windowSettings.width / 2.f;
+  const float centerY = windowSettings.height / 2.f;
+
+  const float boardWidthOffset = (TILE_SIZE * FIELD_WIDTH) / 2.f;
+  const float boardHeightOffset = (TILE_SIZE * FIELD_HEIGHT) / 2.f;
+
+  g_PlayfieldPtr->Draw( { centerX - boardWidthOffset, centerY - boardHeightOffset } );
 
   // [DYSON] Repaints on the current window
   DrawWindow();
@@ -60,15 +69,16 @@ void Draw()
 
 void Update(float deltaTime)
 {
-  if (g_TickCount % TICKS_PER_UPDATE == 0) {
-    g_PlayfieldPtr->Update(deltaTime);
-  }
-  int channel1 = Mix_PlayChannel(0, g_MusicPtr, -1);
+
 }
 
 // [DYSON] Gets executed 50x per second
 void FixedUpdate(float fixedDeltaTime)
 {
+  if (g_TickCount % TICKS_PER_UPDATE == 0) {
+    g_PlayfieldPtr->Update();
+  }
+
   ++g_TickCount;
 }
 
@@ -77,6 +87,7 @@ void End()
 	// free game resources here
   delete g_PlayfieldPtr;
   g_PlayfieldPtr = nullptr;
+  Mix_CloseAudio;
 }
 #pragma endregion gameFunctions
 

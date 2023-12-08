@@ -10,12 +10,6 @@ static const int UPDATES_PER_SECOND{ 1 };
 static const int TICKS_PER_UPDATE{ int(TICKS_PER_SECOND / UPDATES_PER_SECOND) };
 
 
-
-static const float TILE_Y_OFFSET{ 10.f };
-static const float TILE_X_OFFSET{ 200.f };
-
-
-
 Mix_Chunk* g_MusicPtr;
 Playfield* g_PlayfieldPtr;
 int g_TickCount{};
