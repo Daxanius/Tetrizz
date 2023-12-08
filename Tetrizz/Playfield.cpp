@@ -6,8 +6,7 @@ Playfield::Playfield(const Tetromino* tetriminosArr, int tetrminosArrSize)
   m_TetriminosArr = tetriminosArr;
   m_TetriminosArrSize = tetrminosArrSize;
 
-  m_Playstate.currentTetriminoPtr = new Tetromino(TETRIMINOS_ARR[6]);
-  m_Playstate.fieldPosition = { 5, 1 };
+  NextTetrimino();
   m_Playstate.nextTetriminoPtr = nullptr;
   m_Playstate.savedTetriminoPtr = nullptr;
 
@@ -43,7 +42,7 @@ bool Playfield::CanMoveLeft()
 	for (int i{}; i < MINO_COUNT; i++)
 	{
 		float minosPos{ m_Playstate.currentTetriminoPtr->GetMinos()[i].x};
-		if (m_Playstate.fieldPosition.x + minosPos - 1  < 0)
+		if (m_Playstate.fieldPosition.x + (minosPos - 1)  < 0)
 			return false;
 	}
 
@@ -84,8 +83,10 @@ bool Playfield::CanMoveDown()
 
 	for (int i = 0; i < MINO_COUNT; i++)
 	{
-		float minosPos{ m_Playstate.currentTetriminoPtr->GetMinos()[i].y};
-		if (m_Playstate.fieldPosition.y + minosPos + 2 > FIELD_HEIGHT)
+		Point2f minosPos{ m_Playstate.currentTetriminoPtr->GetMinos()[i] };
+		int gridColumn{ int(m_Playstate.fieldPosition.x + minosPos.x)};
+		int gridRow{ int(m_Playstate.fieldPosition.y + minosPos.y) + 1 };
+		if (gridRow > FIELD_HEIGHT || m_GridArr[gridRow][gridColumn] != nullptr)
 			canMoveDown = false;
 	}
 	return canMoveDown;
@@ -126,6 +127,28 @@ void Playfield::QuickPlace()
 
 }
 
+void Playfield::PlaceTetrimino()
+{
+	for (int i = 0; i < MINO_COUNT; i++)
+	{
+		Point2f minosPos{ m_Playstate.currentTetriminoPtr->GetMinos()[i] };
+		int gridColumn{int( m_Playstate.fieldPosition.x + minosPos.x) };
+		int gridRow{int( m_Playstate.fieldPosition.y + minosPos.y) };
+
+		m_GridArr[gridRow][gridColumn] = new Color4f{ m_Playstate.currentTetriminoPtr->GetColor() };
+	}
+
+	NextTetrimino();
+}
+
+void Playfield::NextTetrimino()
+{
+	int randomNext{rand() % TETRIMINO_COUNT};
+	delete m_Playstate.currentTetriminoPtr;
+	m_Playstate.currentTetriminoPtr = new Tetromino{ TETRIMINOS_ARR[randomNext] };
+	m_Playstate.fieldPosition = Point2f{ 5 , 0 };
+}
+
 void Playfield::Draw(Point2f position)
 {
 	static const float TILE_SIZE{ 23.f };
@@ -142,7 +165,10 @@ void Playfield::Draw(Point2f position)
 			sourceRect.left = position.x + TILE_SIZE * colIndex;
 			sourceRect.top = position.y + TILE_SIZE * rowIndex;
 
-			SetColor(0, 0, 0);
+			if (m_GridArr[rowIndex][colIndex] == nullptr)
+				SetColor(0, 0, 0);
+			else
+				SetColor(*m_GridArr[rowIndex][colIndex]);
 			FillRect(sourceRect);
 			SetColor(1.0f, 1.0f, 1.0f);
 			DrawRect(sourceRect);
@@ -173,9 +199,13 @@ void Playfield::Draw(Point2f position)
 
 void Playfield::Update(float deltaTime)
 {
-	if (CanMoveDown() && GetTickCount() % 30 == 0)
+	if (CanMoveDown())
 	{
 		MoveDown();
 	}	
+	else
+	{
+		PlaceTetrimino();
+	}
   // UPDATE THE BOARD HERE
 }
