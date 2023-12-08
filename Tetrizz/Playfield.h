@@ -22,6 +22,11 @@ private:
   const Tetromino* m_TetrominosArr;   // DO NOT DELETE, array pointer to all predefined tetrominos
   int              m_TetrominosArrSize;
 
+  // SOUNDS
+  Mix_Chunk*       m_RotateSoundPtr;
+  Mix_Chunk*       m_PlaceSoundPtr;
+  Mix_Chunk*       m_TickSoundPtr;
+
   Color4f*         m_GridArr[FIELD_HEIGHT][FIELD_WIDTH]{nullptr};
   Playstate        m_Playstate{};
   int              m_Score{};

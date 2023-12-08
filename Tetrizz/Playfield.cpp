@@ -6,6 +6,10 @@ Playfield::Playfield(const Tetromino* tetrominosArr, int tetrminosArrSize)
   m_TetrominosArr = tetrominosArr;
   m_TetrominosArrSize = tetrminosArrSize;
 
+  m_RotateSoundPtr = Mix_LoadWAV("../Resources/rotate.wav");
+  m_PlaceSoundPtr = Mix_LoadWAV("../Resources/place.wav");
+  m_TickSoundPtr = Mix_LoadWAV("../Resources/tick.wav");
+
   m_Playstate = {
       -1,
       -1,
@@ -21,6 +25,10 @@ Playfield::~Playfield()
 {
   delete m_Playstate.currentTetrominoPtr;
   m_Playstate.currentTetrominoPtr = nullptr;
+
+  delete m_RotateSoundPtr;
+  delete m_PlaceSoundPtr;
+  delete m_TickSoundPtr;
 }
 
 Playstate Playfield::GetPlaystate() const
@@ -91,6 +99,7 @@ void Playfield::MoveDown()
 	if (CanMoveDown())
 	{
 		m_Playstate.fieldPosition.y += 1;
+    Mix_PlayChannel(-1, m_TickSoundPtr, 0);
 	}
 }
 
@@ -115,6 +124,7 @@ void  Playfield::Rotate()
 	if (CanRotate())
 	{
 		m_Playstate.currentTetrominoPtr->Rotate();
+    Mix_PlayChannel(-1, m_RotateSoundPtr, 0);
 	}
 }
 
@@ -196,6 +206,7 @@ void Playfield::PlaceTetromino()
 	}
 
 	NextTetromino();
+  Mix_PlayChannel(-1, m_PlaceSoundPtr, 0);
 }
 
 void Playfield::SetCurrentTetrimino(int index)
