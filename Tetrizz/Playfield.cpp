@@ -36,6 +36,34 @@ Playstate Playfield::GetPlaystate() const
   return m_Playstate;
 }
 
+bool Playfield::CheckLine(int line)
+{
+	for (float index{}; index < FIELD_WIDTH; index++)
+	{
+		Point2f gridSpace{ index , float(line) };
+		if (m_GridArr[int(gridSpace.y)][int(gridSpace.x)] == nullptr)
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
+void Playfield::ClearLines()
+{
+	for (int lineHeightIndex{ FIELD_HEIGHT - 1 }; lineHeightIndex >= 0; lineHeightIndex--)
+	{
+		if (CheckLine(lineHeightIndex))
+		{
+			for (int lineWidthIndex{}; lineWidthIndex < FIELD_WIDTH; lineWidthIndex++)
+			{ 
+				m_GridArr[lineHeightIndex][lineWidthIndex] = nullptr;
+			}
+		}
+	}
+}
+
 const int Playfield::GetScore() const
 {
   return m_Score;
@@ -205,6 +233,8 @@ void Playfield::PlaceTetromino()
 		m_GridArr[gridRow][gridColumn] = new Color4f{ m_Playstate.currentTetrominoPtr->GetColor() };
 	}
 
+
+	ClearLines();
 	NextTetromino();
   Mix_PlayChannel(-1, m_PlaceSoundPtr, 0);
 }
@@ -281,6 +311,5 @@ void Playfield::Update()
 	{
     PlaceTetromino();
 	}	
-	
   MoveDown();
 }

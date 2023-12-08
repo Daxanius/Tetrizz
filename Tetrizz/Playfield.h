@@ -37,7 +37,9 @@ private:
   bool             CanMoveRight();   // Checks if the tetrmino can move left on the grid
   bool             CanMoveDown();    // Checks if the current Tetromino can move down
 
-  void             ClearLines();     // Clears the lines and sets the score
+  void             ClearLines();    // Clears the lines and sets the score
+  bool             CheckLine(int line);
+  
   void             PlaceTetromino(); // Places the current Tetromino on the grid
 
   void             SetCurrentTetrimino(int index);
