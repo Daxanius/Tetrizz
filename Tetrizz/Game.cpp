@@ -6,6 +6,16 @@
 #pragma region gameFunctions
 void Start()
 {
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
+		std::cerr << "SDL Mixer could not initialize! Mix_Error: " << Mix_GetError() << std::endl;
+		SDL_Quit(); // Quit SDL if Mixer initialization fails
+	}
+
+	g_MusicPtr = Mix_LoadWAV("./resources/theme.wav");
+	if (g_MusicPtr == nullptr)
+		std::cerr << "Failed to load sound! Mix_Error: " << Mix_GetError() << std::endl;
+
+
   SDL_DisplayMode displayMode{ GetDisplayMode() };
   const float sizeX{ 800.f };
   const float sizeY{ 600.f };
@@ -53,6 +63,7 @@ void Update(float deltaTime)
   if (g_TickCount % TICKS_PER_UPDATE == 0) {
     g_PlayfieldPtr->Update(deltaTime);
   }
+  int channel1 = Mix_PlayChannel(0, g_MusicPtr, -1);
 }
 
 // [DYSON] Gets executed 50x per second

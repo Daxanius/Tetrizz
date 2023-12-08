@@ -16,7 +16,7 @@ static const float TILE_X_OFFSET{ 200.f };
 
 
 
-
+Mix_Chunk* g_MusicPtr;
 Playfield* g_PlayfieldPtr;
 int g_TickCount{};
 
