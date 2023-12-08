@@ -11,13 +11,13 @@ void Start()
 		SDL_Quit(); // Quit SDL if Mixer initialization fails
 	}
 
-	g_MusicPtr = Mix_LoadWAV("../Resources/theme.wav");
+	g_MusicPtr = Mix_LoadWAV("../Resources/korobeiniki.wav");
   if (g_MusicPtr == nullptr) {
     std::cerr << "Failed to load sound! Mix_Error: " << Mix_GetError() << std::endl;
     SDL_Quit();
   }
 
-  //Mix_PlayChannel(-1, g_MusicPtr, -1);
+  Mix_PlayChannel(-1, g_MusicPtr, -1);
 
   SDL_DisplayMode displayMode{ GetDisplayMode() };
   const float sizeX{ 800.f };

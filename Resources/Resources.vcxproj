@@ -131,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <Media Include="clear.wav" />
+    <Media Include="korobeiniki.wav" />
     <Media Include="place.wav" />
     <Media Include="rotate.wav" />
     <Media Include="theme.wav" />

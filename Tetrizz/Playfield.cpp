@@ -173,11 +173,14 @@ void Playfield::QuickPlace()
 				break; 
 			}
 		}
-		++gridRow;
+
+    if (!foundPosition) {
+      ++gridRow;
+    }
 	}
 
 	m_Playstate.fieldPosition.x = gridColumn;
-	m_Playstate.fieldPosition.y = gridRow - 2;
+	m_Playstate.fieldPosition.y = gridRow - 1;
 	PlaceTetromino();
 }
 

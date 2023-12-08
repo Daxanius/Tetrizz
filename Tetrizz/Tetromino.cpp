@@ -40,6 +40,6 @@ Color4f Tetromino::GetColor() const
 void Tetromino::Rotate()
 {
     for (int i = 0; i < MINO_COUNT; ++i) {
-      m_MinosArr[i] = { m_MinosArr[i].y,  -m_MinosArr[i].x };
+      m_MinosArr[i] = { -m_MinosArr[i].y,  m_MinosArr[i].x };
     }
 }
