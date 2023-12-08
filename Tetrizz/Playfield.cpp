@@ -36,12 +36,11 @@ Playstate Playfield::GetPlaystate() const
   return m_Playstate;
 }
 
-bool Playfield::CheckLine(int line)
+bool Playfield::IsLineFull(int line) const
 {
-	for (float index{}; index < FIELD_WIDTH; index++)
+	for (int index{}; index < FIELD_WIDTH; index++)
 	{
-		Point2f gridSpace{ index , float(line) };
-		if (m_GridArr[int(gridSpace.y)][int(gridSpace.x)] == nullptr)
+		if (m_GridArr[line][index] == nullptr)
 		{
 			return false;
 		}
@@ -50,18 +49,61 @@ bool Playfield::CheckLine(int line)
 	return true;
 }
 
+bool Playfield::IsLineEmpty(int line) const
+{
+  for (int index{}; index < FIELD_WIDTH; index++)
+  {
+    if (m_GridArr[line][index] != nullptr)
+    {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+void Playfield::MoveLineDown(int line)
+{
+  for (int index{}; index < FIELD_WIDTH; index++)
+  {
+    m_GridArr[line + 1][index] = m_GridArr[line][index];
+    m_GridArr[line][index] = nullptr;
+  }
+}
+
 void Playfield::ClearLines()
 {
-	for (int lineHeightIndex{ FIELD_HEIGHT - 1 }; lineHeightIndex >= 0; lineHeightIndex--)
+  int linesCleared{};
+
+  // Clears the lines
+	for (int rowIndex = 0; rowIndex < FIELD_HEIGHT; ++rowIndex)
 	{
-		if (CheckLine(lineHeightIndex))
+		if (IsLineFull(rowIndex))
 		{
-			for (int lineWidthIndex{}; lineWidthIndex < FIELD_WIDTH; lineWidthIndex++)
-			{ 
-				m_GridArr[lineHeightIndex][lineWidthIndex] = nullptr;
+			for (int colIndex{}; colIndex < FIELD_WIDTH; colIndex++)
+			{
+        delete m_GridArr[rowIndex][colIndex];
+				m_GridArr[rowIndex][colIndex] = nullptr;
 			}
+
+      ++linesCleared;
 		}
 	}
+
+  if (linesCleared < 1) {
+    return;
+  }
+
+  for (int rowIndex = FIELD_HEIGHT -1; rowIndex > 0; --rowIndex)
+  {
+    while (IsLineEmpty(rowIndex) && !IsLineEmpty(rowIndex - 1))
+    {
+      MoveLineDown(rowIndex -1);
+      ++rowIndex;
+    }
+  }
+
+  m_Score += linesCleared;
 }
 
 const int Playfield::GetScore() const
@@ -127,7 +169,6 @@ void Playfield::MoveDown()
 	if (CanMoveDown())
 	{
 		m_Playstate.fieldPosition.y += 1;
-    Mix_PlayChannel(-1, m_TickSoundPtr, 0);
 	}
 }
 
