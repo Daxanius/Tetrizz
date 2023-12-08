@@ -17,7 +17,7 @@ void Start()
     SDL_Quit();
   }
 
-  Mix_PlayChannel(-1, g_MusicPtr, -1);
+  //Mix_PlayChannel(-1, g_MusicPtr, -1);
 
   SDL_DisplayMode displayMode{ GetDisplayMode() };
   const float sizeX{ 800.f };

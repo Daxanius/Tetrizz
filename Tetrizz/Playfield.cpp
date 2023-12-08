@@ -155,6 +155,30 @@ void  Playfield::SaveTetromino()
 void Playfield::QuickPlace()
 {
 
+	
+	int gridColumn{ int(m_Playstate.fieldPosition.x) };
+	int gridRow{ int(m_Playstate.fieldPosition.y) };
+
+	bool foundPosition{};
+	while (gridRow < FIELD_HEIGHT && !foundPosition)
+	{
+		for (int i = 0; i < MINO_COUNT; ++i)
+		{
+			Point2f minosPos{ m_Playstate.currentTetrominoPtr->GetMinos()[i] };
+			int currentGridRow{ int(gridRow + minosPos.y) };
+			int currentGridColumn{ int(gridColumn + minosPos.x)};
+
+			if (IsTileTaken(currentGridRow, currentGridColumn)) {
+				foundPosition = true;
+				break; 
+			}
+		}
+		++gridRow;
+	}
+
+	m_Playstate.fieldPosition.x = gridColumn;
+	m_Playstate.fieldPosition.y = gridRow - 2;
+	PlaceTetromino();
 }
 
 void Playfield::PlaceTetromino()
