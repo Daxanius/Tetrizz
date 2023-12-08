@@ -106,6 +106,7 @@ void Playfield::ClearLines()
   m_Score += linesCleared;
 }
 
+
 const int Playfield::GetScore() const
 {
   return m_Score;
