@@ -120,7 +120,23 @@ void  Playfield::Rotate()
 
 bool Playfield::CanRotate()
 {
-	return true;
+  Tetromino* t = new Tetromino(*m_Playstate.currentTetrominoPtr);
+  t->Rotate();
+
+  for (int i = 0; i < MINO_COUNT; ++i)
+  {
+    Point2f minosPos{ t->GetMinos()[i] };
+    int gridColumn{ int(m_Playstate.fieldPosition.x + minosPos.x) };
+    int gridRow{ int(m_Playstate.fieldPosition.y + minosPos.y) };
+
+    if (IsTileTaken(gridRow, gridColumn)) {
+      delete t;
+      return false;
+    }
+  }
+
+  delete t;
+  return true;
 }
 
 void  Playfield::SaveTetromino()
