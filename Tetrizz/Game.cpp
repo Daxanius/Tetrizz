@@ -59,6 +59,7 @@ void Update(float deltaTime)
 void FixedUpdate(float fixedDeltaTime)
 {
   ++g_TickCount;
+  g_PlayfieldPtr->Update(fixedDeltaTime);
 }
 
 void End()

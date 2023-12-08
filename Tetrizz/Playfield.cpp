@@ -6,8 +6,8 @@ Playfield::Playfield(const Tetromino* tetriminosArr, int tetrminosArrSize)
   m_TetriminosArr = tetriminosArr;
   m_TetriminosArrSize = tetrminosArrSize;
 
-  m_Playstate.currentTetriminoPtr = new Tetromino(TETRIMINOS_ARR[0]) ;
-  m_Playstate.fieldPosition = { 0, 0 };
+  m_Playstate.currentTetriminoPtr = new Tetromino(TETRIMINOS_ARR[6]);
+  m_Playstate.fieldPosition = { 5, 1 };
   m_Playstate.nextTetriminoPtr = nullptr;
   m_Playstate.savedTetriminoPtr = nullptr;
 
@@ -31,7 +31,7 @@ const int Playfield::GetScore() const
 
 void Playfield::MoveLeft()
 {
-	if (CanMoveLeft())
+	if (CanMoveLeft() == true)
 	{
 		m_Playstate.fieldPosition.x -= 1;
 	}
@@ -39,6 +39,14 @@ void Playfield::MoveLeft()
 
 bool Playfield::CanMoveLeft()
 {
+
+	for (int i{}; i < MINO_COUNT; i++)
+	{
+		float minosPos{ m_Playstate.currentTetriminoPtr->GetMinos()[i].x};
+		if (m_Playstate.fieldPosition.x + minosPos - 1  < 0)
+			return false;
+	}
+
 	return true;
 }
 
@@ -52,6 +60,13 @@ void Playfield::MoveRight()
 
 bool Playfield::CanMoveRight()
 {
+
+	for (int i = 0; i < MINO_COUNT; i++)
+	{
+		float minosPos{ m_Playstate.currentTetriminoPtr->GetMinos()[i].x };
+		if (m_Playstate.fieldPosition.x + minosPos + 1 >= FIELD_WIDTH)
+			return false;
+	}
 	return true;
 }
 
@@ -65,7 +80,15 @@ void Playfield::MoveDown()
 
 bool Playfield::CanMoveDown()
 {
-	return true;
+	bool canMoveDown{ true };
+
+	for (int i = 0; i < MINO_COUNT; i++)
+	{
+		float minosPos{ m_Playstate.currentTetriminoPtr->GetMinos()[i].y};
+		if (m_Playstate.fieldPosition.y + minosPos + 2 > FIELD_HEIGHT)
+			canMoveDown = false;
+	}
+	return canMoveDown;
 }
 
 void  Playfield::Rotate()
@@ -105,7 +128,7 @@ void Playfield::QuickPlace()
 
 void Playfield::Draw(Point2f position)
 {
-	static const float TILE_SIZE{ 20.f };
+	static const float TILE_SIZE{ 23.f };
 
 
 
@@ -150,5 +173,9 @@ void Playfield::Draw(Point2f position)
 
 void Playfield::Update(float deltaTime)
 {
+	if (CanMoveDown() && GetTickCount() % 30 == 0)
+	{
+		MoveDown();
+	}	
   // UPDATE THE BOARD HERE
 }

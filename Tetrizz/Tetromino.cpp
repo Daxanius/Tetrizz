@@ -39,13 +39,20 @@ Color4f Tetromino::GetColor() const
 
 void Tetromino::Rotate()
 {
-  const float angleInRadians{ -float(M_PI / 2) };
+    const float angleInRadians = -static_cast<float>(M_PI / 2);
 
-  for (int i = 0; i < MINO_COUNT; ++i) {
-    Point2f position = m_MinosArr[i];
-    m_MinosArr[i] = Point2f{
-      (float)int(position.x * cosf(angleInRadians) - position.y * sinf(angleInRadians)),
-      (float)int(position.x * sinf(angleInRadians) + position.y * cosf(angleInRadians))
-    };
-  }
+    std::vector<Point2f> rotatedPoints;
+    rotatedPoints.reserve(MINO_COUNT);
+
+    for (int i = 0; i < MINO_COUNT; i++) {
+        Point2f position = m_MinosArr[i];
+        float rotatedX = position.x * cosf(angleInRadians) - position.y * sinf(angleInRadians);
+        float rotatedY = position.x * sinf(angleInRadians) + position.y * cosf(angleInRadians);
+
+        rotatedPoints.push_back(Point2f{ rotatedX, rotatedY });
+    }
+
+    for (int i = 0; i < MINO_COUNT; i++) {
+        m_MinosArr[i] = rotatedPoints[i];
+    }
 }
