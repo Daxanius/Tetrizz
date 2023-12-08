@@ -57,12 +57,22 @@ void Playfield::ClearLines()
 		if (CheckLine(lineHeightIndex))
 		{
 			for (int lineWidthIndex{}; lineWidthIndex < FIELD_WIDTH; lineWidthIndex++)
-			{ 
+			{
 				m_GridArr[lineHeightIndex][lineWidthIndex] = nullptr;
+			}
+
+			for (int index{ lineHeightIndex - 1 }; index >= 0; index--)
+			{
+				for (int lineWidthIndex{}; lineWidthIndex < FIELD_WIDTH; lineWidthIndex++)
+				{
+					m_GridArr[index + 1][lineWidthIndex] = m_GridArr[index][lineWidthIndex];
+
+				}
 			}
 		}
 	}
 }
+
 
 const int Playfield::GetScore() const
 {
