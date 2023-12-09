@@ -38,5 +38,8 @@
     <Media Include="korobeiniki.wav">
       <Filter>Sounds</Filter>
     </Media>
+    <Media Include="..\..\..\..\Users\quent\Downloads\welcome.wav">
+      <Filter>Sounds</Filter>
+    </Media>
   </ItemGroup>
 </Project>

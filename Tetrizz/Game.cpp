@@ -17,6 +17,13 @@ void Start()
     SDL_Quit();
   }
 
+  g_WelcomePtr = Mix_LoadWAV("../Resources/welcome.wav");
+  if (g_WelcomePtr == nullptr) {
+	  std::cerr << "Failed to load sound! Mix_Error: " << Mix_GetError() << std::endl;
+	  SDL_Quit();
+  }
+
+  Mix_PlayChannel(0, g_WelcomePtr, 0);
   Mix_PlayChannel(-1, g_MusicPtr, -1);
 
   SDL_DisplayMode displayMode{ GetDisplayMode() };

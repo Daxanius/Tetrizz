@@ -34,6 +34,8 @@ static const Tetromino TETROMINOS_ARR[TETROMINO_COUNT]{
 
 // Variables
 Mix_Chunk* g_MusicPtr;
+Mix_Chunk* g_WelcomePtr;
+
 Playfield* g_PlayfieldPtr;
 int g_TickCount{};
 
