@@ -187,6 +187,7 @@ void DrawString(const std::string& output , const Point2f topLeft, const int fon
 	Texture texturePtr;
 	TextureFromString(output, fontLocation, fontSize, color, texturePtr);
 	DrawTexture(texturePtr, topLeft);
+  DeleteTexture(texturePtr);
 }
 
 #pragma endregion ownDefinitions
