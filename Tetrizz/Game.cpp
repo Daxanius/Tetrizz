@@ -64,7 +64,7 @@ void Draw()
   const float boardHeightOffset = (TILE_SIZE * FIELD_HEIGHT) / 2.f;
 
   DrawSaved(Point2f{ boardWidthOffset , boardHeightOffset });
-  DrawNext(Point2f{ windowSettings.width - boardWidthOffset , boardHeightOffset });
+  DrawNext(Point2f{ windowSettings.width - boardWidthOffset - 30, boardHeightOffset });
 
   g_PlayfieldPtr->Draw( { centerX - boardWidthOffset, centerY - boardHeightOffset } );
 
@@ -195,6 +195,27 @@ void DrawString(const std::string& output , const Point2f topLeft, const int fon
 
 void DrawSaved(const Point2f& position)
 {
+	Rectf sourceRect;
+	sourceRect.height = 120;
+	sourceRect.width = 120;
+	sourceRect.top = position.y - 40;
+	sourceRect.left = position.x - int(sourceRect.width / 3);
+
+	SetColor({ 0.0 ,0.0 , 0.0 ,1.0 });
+	FillRect(sourceRect);
+
+	SetColor({ 1.0 ,1.0 , 1.0 ,1.0 });
+	for (int lineThickness{}; lineThickness < 10; lineThickness++)
+	{
+		Rectf outlineRect;
+		outlineRect.height = sourceRect.height + lineThickness;
+		outlineRect.width = sourceRect.width + lineThickness;
+		outlineRect.top = sourceRect.top + ceil(lineThickness/2);
+		outlineRect.left = sourceRect.left + ceil(lineThickness / 2);
+
+		DrawRect(outlineRect);
+	}
+
 	const int indexOfSavedTetromino{ g_PlayfieldPtr->GetState()->GetSavedTetromino() };
 
 	if (indexOfSavedTetromino > -1)
@@ -204,15 +225,40 @@ void DrawSaved(const Point2f& position)
 
 		delete savedTetromino;
 	}
+
+	DrawString("Saved", { position.x - 12, position.y - 50 }, 30, { 1.0 ,1.0 ,1.0 }, "Resources/dhurjati.otf");
 }
 
 void DrawNext(const Point2f& position)
 {
+	Rectf sourceRect;
+	sourceRect.height = 120;
+	sourceRect.width  = 120;
+	sourceRect.top    = position.y - 40;
+	sourceRect.left   = position.x - int(sourceRect.width / 3);
+
+	SetColor({ 0.0 ,0.0 , 0.0 ,1.0 });
+	FillRect(sourceRect);
+
+	SetColor({ 1.0 ,1.0 , 1.0 ,1.0 });
+	for (int lineThickness{}; lineThickness < 10; lineThickness++)
+	{
+		Rectf outlineRect;
+		outlineRect.height = sourceRect.height + lineThickness;
+		outlineRect.width = sourceRect.width + lineThickness;
+		outlineRect.top = sourceRect.top + ceil(lineThickness / 2);
+		outlineRect.left = sourceRect.left + ceil(lineThickness / 2);
+
+		DrawRect(outlineRect);
+	}
+
 	const int indexOfNextTetromino{ g_PlayfieldPtr->GetState()->GetQueuedTetromino() };
 	Tetromino* nextTetromino{ new Tetromino(TETROMINOS_ARR[indexOfNextTetromino]) };
 	nextTetromino->Draw({ position.x , position.y });
 
 	delete nextTetromino;
+
+	DrawString("Next", {position.x - 4, position.y - 50}, 30, {1.0 ,1.0 ,1.0}, "Resources/dhurjati.otf");
 }
 
 #pragma endregion ownDefinitions
