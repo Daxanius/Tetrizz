@@ -78,13 +78,7 @@ void FixedUpdate(float fixedDeltaTime)
   if (g_TickCount % TICKS_PER_UPDATE == 0) {
     if (!g_PlayfieldPtr->CanMove({ 0, 1 }))
     {
-      g_PlayfieldPtr->PlaceTetromino();
-
-      Mix_PlayChannel(-1, g_PlacePtr, 0);
-
-      g_PlayfieldPtr->ClearFullLines();
-      g_PlayfieldPtr->MoveLinesDown();
-      g_PlayfieldPtr->NextTetromino();
+      PlaceTetromino();
     } else {
       g_PlayfieldPtr->Move({ 0, 1 });
     }
@@ -115,20 +109,15 @@ void OnKeyDownEvent(SDL_Keycode key)
     g_PlayfieldPtr->Move({ 1, 0 });
 	  break;
   case SDLK_UP:
-    g_PlayfieldPtr->Move({ 0, -1 }, 1);
-    Mix_PlayChannel(-1, g_RotatePointer, 0);
+    if (g_PlayfieldPtr->Move({ 0, -1 }, 1)) {
+      Mix_PlayChannel(-1, g_RotatePointer, 0);
+    }
   case SDLK_DOWN:
     g_PlayfieldPtr->Move({ 0, 1 });
     break;
   case SDLK_SPACE:
     g_PlayfieldPtr->QuickPlace();
-    g_PlayfieldPtr->PlaceTetromino();
-
-    Mix_PlayChannel(-1, g_PlacePtr, 0);
-
-    g_PlayfieldPtr->ClearFullLines();
-    g_PlayfieldPtr->MoveLinesDown();
-    g_PlayfieldPtr->NextTetromino();
+    PlaceTetromino();
     break;
   case SDLK_c:
     g_PlayfieldPtr->SaveTetromino();
@@ -180,6 +169,15 @@ void OnMouseUpEvent(const SDL_MouseButtonEvent& e)
 #pragma endregion inputHandling
 
 #pragma region ownDefinitions
-// Define your own functions here
+void PlaceTetromino()
+{
+  g_PlayfieldPtr->PlaceTetromino();
+
+  Mix_PlayChannel(-1, g_PlacePtr, 0);
+
+  g_PlayfieldPtr->ClearFullLines();
+  g_PlayfieldPtr->MoveLinesDown();
+  g_PlayfieldPtr->NextTetromino();
+}
 
 #pragma endregion ownDefinitions

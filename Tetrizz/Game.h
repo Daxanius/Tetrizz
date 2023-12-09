@@ -17,6 +17,7 @@ Playfield* g_PlayfieldPtr;
 int g_TickCount{};
 
 // Declare your own functions here
+void PlaceTetromino();
 
 #pragma endregion ownDeclarations
 
