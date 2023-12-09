@@ -54,6 +54,8 @@ void Draw()
   // [DYSON] Clears the background of the current window
 	ClearBackground();
 
+	DrawString("Hello World", { 10 , 10 }, 20, { 1.0 ,1.0 ,1.0 ,1.0 }, "Resources/spritz.otf");
+
   const WindowSettings windowSettings{ GetWindowInfo() };
   const float centerX = windowSettings.width / 2.f;
   const float centerY = windowSettings.height / 2.f;
@@ -178,6 +180,13 @@ void PlaceTetromino()
   g_PlayfieldPtr->ClearFullLines();
   g_PlayfieldPtr->MoveLinesDown();
   g_PlayfieldPtr->NextTetromino();
+}
+
+void DrawString(const std::string& output , const Point2f topLeft, const int fontSize, const Color4f& color, const std::string& fontLocation)
+{
+	Texture texturePtr;
+	TextureFromString(output, fontLocation, fontSize, color, texturePtr);
+	DrawTexture(texturePtr, topLeft);
 }
 
 #pragma endregion ownDefinitions

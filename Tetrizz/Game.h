@@ -19,6 +19,8 @@ int g_TickCount{};
 // Declare your own functions here
 void PlaceTetromino();
 
+void DrawString(const std::string& output, const Point2f topLeft, const int fontSize, const Color4f& color, const std::string& fontLocation);
+
 #pragma endregion ownDeclarations
 
 #pragma region gameFunctions
