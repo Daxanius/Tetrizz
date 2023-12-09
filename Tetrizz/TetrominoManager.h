@@ -11,7 +11,8 @@ public:
 
   void       SaveTetromino();    // Swaps the current tetromino with the one storage
   void       NextTetromino();    // Generates the next tetromino
-  int        GetQueuedTetromino() const; // Gets the tetromino next in queue
+  int        GetQueuedTetromino() const;// Gets the tetromino next in queue
+  int	     GetSavedTetromino();
 
   Point2f    GetTetrominoPosition() const;
   void       SetTetrominoPosition(Point2f position);

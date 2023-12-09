@@ -13,7 +13,7 @@ public:
 
 	const Point2f* GetMinos() const;
 	Color4f        GetColor() const;
-
+	
 
 	void           Rotate();
   void           Draw(Point2f position, float opacity = 1.f);

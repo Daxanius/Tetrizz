@@ -68,3 +68,9 @@ Tetromino* TetrominoManager::GetTetromino()
 {
   return m_CurrentTetrominoPtr;
 }
+
+int TetrominoManager::GetSavedTetromino()
+{
+    return m_SavedTetrominoIndex;
+  
+}

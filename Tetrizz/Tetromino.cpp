@@ -64,3 +64,4 @@ void Tetromino::Draw(Point2f position, float opacity)
     DrawRect(sourceRect);
   }
 }
+

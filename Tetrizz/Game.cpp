@@ -53,8 +53,8 @@ void Draw()
 {
   // [DYSON] Clears the background of the current window
 	ClearBackground();
+  
 
-	DrawString("Hello World", { 10 , 10 }, 20, { 1.0 ,1.0 ,1.0 ,1.0 }, "Resources/spritz.otf");
 
   const WindowSettings windowSettings{ GetWindowInfo() };
   const float centerX = windowSettings.width / 2.f;
@@ -62,6 +62,22 @@ void Draw()
 
   const float boardWidthOffset = (TILE_SIZE * FIELD_WIDTH) / 2.f;
   const float boardHeightOffset = (TILE_SIZE * FIELD_HEIGHT) / 2.f;
+
+  const int indexOfSavedTetromino{ g_PlayfieldPtr->GetState()->GetSavedTetromino() };
+  
+  if (indexOfSavedTetromino > -1)
+  {
+	  Tetromino* savedTetromino{ new Tetromino(TETROMINOS_ARR[indexOfSavedTetromino]) };
+	  savedTetromino->Draw({ boardWidthOffset , boardHeightOffset });
+
+	  delete savedTetromino;
+  }
+
+  const int indexOfNextTetromino{ g_PlayfieldPtr->GetState()->GetQueuedTetromino() };
+  Tetromino* nextTetromino{ new Tetromino(TETROMINOS_ARR[indexOfNextTetromino]) };
+  nextTetromino->Draw({ windowSettings.width - boardWidthOffset , boardHeightOffset });
+
+  delete nextTetromino;
 
   g_PlayfieldPtr->Draw( { centerX - boardWidthOffset, centerY - boardHeightOffset } );
 

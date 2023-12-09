@@ -24,6 +24,7 @@ public:
   void            NextTetromino();
 
   void            Draw(Point2f position);
+  TetrominoManager* GetState();
 private:
   Color4f* m_GridArr[FIELD_HEIGHT][FIELD_WIDTH]{ nullptr };
   TetrominoManager* m_State{};

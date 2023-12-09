@@ -227,3 +227,8 @@ void  Playfield::SaveTetromino()
 {
   m_State->SaveTetromino();
 }
+
+TetrominoManager* Playfield::GetState()
+{
+    return m_State;
+}
