@@ -18,19 +18,12 @@ private:
   const Tetromino* m_TetrominosArr;   // DO NOT DELETE, array pointer to all predefined tetrominos
   int              m_TetrominosArrSize;
 
-  // SOUNDS
-  Mix_Chunk*       m_RotateSoundPtr;
-  Mix_Chunk*       m_PlaceSoundPtr;
-  Mix_Chunk*       m_TickSoundPtr;
-
   Color4f*         m_GridArr[FIELD_HEIGHT][FIELD_WIDTH]{nullptr};
   Playstate        m_Playstate{};
-  int              m_Score{};
 
   bool             IsTileTaken(int row, int col) const; // Checks if a tile is taken
-  bool             CanMove(Point2f direction, bool rotates = false); // Checks if the tetrmino can move to a position
+  bool             CanMove(Point2f direction, int rotations = 0) const; // Checks if the tetrmino can move to a position
 
-  void             ClearLines();     // Clears the lines and sets the score
   void             MoveLineDown(int line);   // Moves a line down
   bool             IsLineFull(int line) const;
   bool             IsLineEmpty(int line) const;
@@ -42,19 +35,17 @@ public:
   Playfield(const Tetromino tetrominosArr[], int tetrminosArrSize);
   ~Playfield();
 
-  void            MoveLeft();
-  void            MoveRight();
-  void            MoveDown();         // Moves the tetromino down
-  void            Rotate();
+  bool            Move(Point2f direction, int rotations = 0); // Moves the tetrimino, returns false if it can't move
 
   void            SaveTetromino();    // Swaps the current tetrimo with the one storage
   void            QuickPlace();       // Instantly places tetromino
 
+  int             ClearLines();       // Clears all full lines, returns the amount cleared
+
   void            NextTetromino();
 
   void            Draw(Point2f position);
-  void            Update();
+  bool            Update();           // Updates the field, returns true if a tetrimino has been frozen
 
   Playstate       GetPlaystate() const;
-  const int       GetScore() const;
 };

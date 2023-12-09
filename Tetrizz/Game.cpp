@@ -105,15 +105,15 @@ void OnKeyDownEvent(SDL_Keycode key)
   switch (key)
   {
   case SDLK_LEFT:
-    g_PlayfieldPtr->MoveLeft();
+    g_PlayfieldPtr->Move({ -1, 0 });
 	  break;
   case SDLK_RIGHT:
-    g_PlayfieldPtr->MoveRight();
+    g_PlayfieldPtr->Move({ 1, 0 });
 	  break;
   case SDLK_UP:
-    g_PlayfieldPtr->Rotate();
+    g_PlayfieldPtr->Move({ 0, 0 }, 1);
   case SDLK_DOWN:
-    g_PlayfieldPtr->MoveDown();
+    g_PlayfieldPtr->Move({ 0, 1 });
     break;
   case SDLK_SPACE:
     g_PlayfieldPtr->QuickPlace();
