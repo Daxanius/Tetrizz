@@ -43,3 +43,22 @@ void Tetromino::Rotate()
       m_MinosArr[i] = { -m_MinosArr[i].y,  m_MinosArr[i].x };
     }
 }
+
+void Tetromino::Draw(Point2f position)
+{
+  for (int minoIndex = 0; minoIndex < MINO_COUNT; ++minoIndex)
+  {
+    Point2f mino = m_MinosArr[minoIndex];
+
+    Rectf sourceRect{};
+    sourceRect.height = TILE_SIZE;
+    sourceRect.width = TILE_SIZE;
+    sourceRect.left = position.x + TILE_SIZE * mino.x;
+    sourceRect.top = position.y + TILE_SIZE * mino.y;
+
+    SetColor(GetColor());
+    FillRect(sourceRect);
+    SetColor(1.0f, 1.0f, 1.0f);
+    DrawRect(sourceRect);
+  }
+}

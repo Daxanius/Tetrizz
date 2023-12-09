@@ -41,5 +41,11 @@
     <ClInclude Include="Tetromino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GameDefines.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tetrominos.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

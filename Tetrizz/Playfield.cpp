@@ -115,67 +115,41 @@ bool Playfield::IsTileTaken(int row, int col) const
 
 void Playfield::MoveLeft()
 {
-	if (CanMoveLeft() == true)
+  if (CanMove({ -1, 0 }))
 	{
 		m_Playstate.fieldPosition.x -= 1;
 	}
 }
 
-bool Playfield::CanMoveLeft()
-{
-	for (int i = 0; i < MINO_COUNT; ++i)
-	{
-    Point2f minosPos{ m_Playstate.currentTetrominoPtr->GetMinos()[i] };
-    int gridColumn{ int(m_Playstate.fieldPosition.x + minosPos.x) -1 };
-    int gridRow{ int(m_Playstate.fieldPosition.y + minosPos.y) };
-
-    if (IsTileTaken(gridRow, gridColumn)) {
-      return false;
-    }
-	}
-
-	return true;
-}
-
 void Playfield::MoveRight()
 {
-	if (CanMoveRight())
+	if (CanMove({ 1, 0 }))
 	{
 		m_Playstate.fieldPosition.x += 1;
 	}
 }
 
-bool Playfield::CanMoveRight()
-{
-	for (int i = 0; i < MINO_COUNT; ++i)
-	{
-    Point2f minosPos{ m_Playstate.currentTetrominoPtr->GetMinos()[i] };
-    int gridColumn{ int(m_Playstate.fieldPosition.x + minosPos.x) +1 };
-    int gridRow{ int(m_Playstate.fieldPosition.y + minosPos.y) };
-
-    if (IsTileTaken(gridRow, gridColumn)) {
-      return false;
-    }
-	}
-
-	return true;
-}
-
 void Playfield::MoveDown()
 {
-	if (CanMoveDown())
+  if (CanMove({ 0, 1 }))
 	{
 		m_Playstate.fieldPosition.y += 1;
 	}
 }
 
-bool Playfield::CanMoveDown()
+bool Playfield::CanMove(Point2f direction, bool rotates)
 {
+  Tetromino* t = new Tetromino(*m_Playstate.currentTetrominoPtr);
+
+  if (rotates) {
+    t->Rotate();
+  }
+
 	for (int i = 0; i < MINO_COUNT; ++i)
 	{
-		Point2f minosPos{ m_Playstate.currentTetrominoPtr->GetMinos()[i] };
-		int gridColumn{ int(m_Playstate.fieldPosition.x + minosPos.x)};
-		int gridRow{ int(m_Playstate.fieldPosition.y + minosPos.y) + 1 };
+		Point2f minosPos{ t->GetMinos()[i] };
+		int gridColumn{ int(m_Playstate.fieldPosition.x + minosPos.x + direction.x ) };
+		int gridRow{ int((m_Playstate.fieldPosition.y + minosPos.y) + direction.y ) };
 
     if (IsTileTaken(gridRow, gridColumn)) {
       return false;
@@ -187,32 +161,11 @@ bool Playfield::CanMoveDown()
 
 void  Playfield::Rotate()
 {
-	if (CanRotate())
+  if (CanMove({ 0, 0 }, true))
 	{
 		m_Playstate.currentTetrominoPtr->Rotate();
     Mix_PlayChannel(-1, m_RotateSoundPtr, 0);
 	}
-}
-
-bool Playfield::CanRotate()
-{
-  Tetromino* t = new Tetromino(*m_Playstate.currentTetrominoPtr);
-  t->Rotate();
-
-  for (int i = 0; i < MINO_COUNT; ++i)
-  {
-    Point2f minosPos{ t->GetMinos()[i] };
-    int gridColumn{ int(m_Playstate.fieldPosition.x + minosPos.x) };
-    int gridRow{ int(m_Playstate.fieldPosition.y + minosPos.y) };
-
-    if (IsTileTaken(gridRow, gridColumn)) {
-      delete t;
-      return false;
-    }
-  }
-
-  delete t;
-  return true;
 }
 
 void  Playfield::SaveTetromino()
@@ -255,8 +208,8 @@ void Playfield::QuickPlace()
     }
 	}
 
-	m_Playstate.fieldPosition.x = gridColumn;
-	m_Playstate.fieldPosition.y = gridRow - 1;
+	m_Playstate.fieldPosition.x = (float)gridColumn;
+	m_Playstate.fieldPosition.y = (float)gridRow - 1;
 	PlaceTetromino();
 }
 
@@ -321,31 +274,15 @@ void Playfield::Draw(Point2f position)
 		}
 	}
 
-	
-	const Point2f tetrominoPosition{ m_Playstate.fieldPosition };
-
-	for (int minoIndex = 0; minoIndex < MINO_COUNT; ++minoIndex)
-	{
-		Point2f mino = m_Playstate.currentTetrominoPtr->GetMinos()[minoIndex];
-
-		Rectf sourceRect{};
-		sourceRect.height = TILE_SIZE;
-		sourceRect.width = TILE_SIZE;
-		sourceRect.left = position.x + TILE_SIZE * (tetrominoPosition.x + mino.x) ;
-		sourceRect.top = position.y + TILE_SIZE * (tetrominoPosition.y + mino.y);
-
-		SetColor(m_Playstate.currentTetrominoPtr->GetColor());
-		FillRect(sourceRect);
-		SetColor(1.0f, 1.0f, 1.0f);
-		DrawRect(sourceRect);
-	}
-
-  // DRAW THE BOARD HERE
+  m_Playstate.currentTetrominoPtr->Draw({
+    m_Playstate.fieldPosition.x * TILE_SIZE + position.x,
+    m_Playstate.fieldPosition.y * TILE_SIZE + position.y,
+  });
 }
 
 void Playfield::Update()
 {
-	if (!CanMoveDown())
+  if (!CanMove({ 0, 1 }))
 	{
     PlaceTetromino();
 	}	

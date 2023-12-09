@@ -218,6 +218,8 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClCompile Include="Tetromino.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Tetrominos.h" />
+    <ClInclude Include="GameDefines.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Playfield.h" />
     <ClInclude Include="pch.h" />

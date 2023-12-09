@@ -1,11 +1,7 @@
 #pragma once
-#include "Core.h"
+#include <Core.h>
+#include "GameDefines.h"
 #include "Tetromino.h"
-
-static const int FIELD_WIDTH{ 10 };
-static const int FIELD_HEIGHT{ 24 };
-
-static const float TILE_SIZE{ 23.f };
 
 struct Playstate
 {
@@ -32,10 +28,7 @@ private:
   int              m_Score{};
 
   bool             IsTileTaken(int row, int col) const; // Checks if a tile is taken
-  bool             CanRotate();      // Checks if the Tetromino can rotate
-  bool             CanMoveLeft();    // Checks if the tetrmino can move right on the grid
-  bool             CanMoveRight();   // Checks if the tetrmino can move left on the grid
-  bool             CanMoveDown();    // Checks if the current Tetromino can move down
+  bool             CanMove(Point2f direction, bool rotates = false); // Checks if the tetrmino can move to a position
 
   void             ClearLines();     // Clears the lines and sets the score
   void             MoveLineDown(int line);   // Moves a line down

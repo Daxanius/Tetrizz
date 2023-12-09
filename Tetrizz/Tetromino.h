@@ -1,5 +1,6 @@
 #pragma once
-#include "Core.h"
+#include <Core.h>
+#include "GameDefines.h"
 
 static const int  MINO_COUNT{ 4 };
 
@@ -18,4 +19,5 @@ public:
 
 
 	void           Rotate();
+  void           Draw(Point2f position);
 };
