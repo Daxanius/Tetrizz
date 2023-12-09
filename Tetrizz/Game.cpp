@@ -51,6 +51,7 @@ void Start()
 
 	// initialize game resources here
   // TextureFromFile("Resources/dyson.png", g_Texture);
+  g_CameraManager = new CameraManager();
   g_PlayfieldPtr = new Playfield(TETROMINOS_ARR, TETROMINO_COUNT);
 }
 
@@ -93,12 +94,15 @@ void FixedUpdate(float fixedDeltaTime)
     }
   }
 
+  g_CameraManager->Update();
   ++g_TickCount;
 }
 
 void End()
 {
 	// free game resources here
+  delete g_CameraManager;
+  g_CameraManager = nullptr;
   delete g_PlayfieldPtr;
   g_PlayfieldPtr = nullptr;
   Mix_CloseAudio();
@@ -129,6 +133,7 @@ void OnKeyDownEvent(SDL_Keycode key)
     g_PlayfieldPtr->Move({ 0, 1 });
     break;
   case SDLK_SPACE:
+    // g_CameraManager->SetShake(2.f, 10);
     g_PlayfieldPtr->QuickPlace();
     PlaceTetromino();
     break;
@@ -192,24 +197,31 @@ void PlaceTetromino()
   }
 
   Mix_PlayChannel(-1, g_PlacePtr, 0);
+  float intensity{};
 
   switch (g_PlayfieldPtr->ClearFullLines())
   {
   case 1:
 	  Mix_PlayChannel(-1, g_SmallRizzlerPtr, 0);
+    intensity = 1;
 	  break;
   case 2:
 	  Mix_PlayChannel(-1, g_LilBitOfRizzPtr, 0);
+    intensity = 2;
 	  break;
   case 3:
 	  Mix_PlayChannel(-1, g_YouGotRizzPtr, 0);
+    intensity = 3;
 	  break;
   case 4:
 	  Mix_PlayChannel(-1, g_TetRizzPtr, 0);
+    intensity = 4;
 	  break;
   default:
 	  break;
   }
+
+  g_CameraManager->SetShake(intensity, 10);
 
   g_PlayfieldPtr->MoveLinesDown();
   g_PlayfieldPtr->NextTetromino();

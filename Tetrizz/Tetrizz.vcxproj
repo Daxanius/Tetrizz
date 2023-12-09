@@ -207,6 +207,7 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CameraManager.cpp" />
     <ClCompile Include="TetrominoManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="pch.cpp">
@@ -217,8 +218,10 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     </ClCompile>
     <ClCompile Include="Playfield.cpp" />
     <ClCompile Include="Tetromino.cpp" />
+    <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CameraManager.h" />
     <ClInclude Include="TetrominoManager.h" />
     <ClInclude Include="Tetrominos.h" />
     <ClInclude Include="GameDefines.h" />
@@ -226,6 +229,7 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClInclude Include="Playfield.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Tetromino.h" />
+    <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Prog1Engine\Prog1Engine.vcxproj">

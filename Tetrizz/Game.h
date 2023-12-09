@@ -4,6 +4,7 @@
 #include "Playfield.h"
 #include "Tetromino.h"
 #include "Tetrominos.h"
+#include "CameraManager.h"
 
 #pragma region ownDeclarations
 // Variables
@@ -19,6 +20,7 @@ Mix_Chunk* g_TetRizzPtr;
 Mix_Chunk* g_GameOverPtr;
 
 
+CameraManager* g_CameraManager;
 Playfield* g_PlayfieldPtr;
 bool       g_GameOver{};
 int        g_TickCount{};
