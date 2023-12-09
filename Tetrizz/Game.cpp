@@ -63,21 +63,8 @@ void Draw()
   const float boardWidthOffset = (TILE_SIZE * FIELD_WIDTH) / 2.f;
   const float boardHeightOffset = (TILE_SIZE * FIELD_HEIGHT) / 2.f;
 
-  const int indexOfSavedTetromino{ g_PlayfieldPtr->GetState()->GetSavedTetromino() };
-  
-  if (indexOfSavedTetromino > -1)
-  {
-	  Tetromino* savedTetromino{ new Tetromino(TETROMINOS_ARR[indexOfSavedTetromino]) };
-	  savedTetromino->Draw({ boardWidthOffset , boardHeightOffset });
-
-	  delete savedTetromino;
-  }
-
-  const int indexOfNextTetromino{ g_PlayfieldPtr->GetState()->GetQueuedTetromino() };
-  Tetromino* nextTetromino{ new Tetromino(TETROMINOS_ARR[indexOfNextTetromino]) };
-  nextTetromino->Draw({ windowSettings.width - boardWidthOffset , boardHeightOffset });
-
-  delete nextTetromino;
+  DrawSaved(Point2f{ boardWidthOffset , boardHeightOffset });
+  DrawNext(Point2f{ windowSettings.width - boardWidthOffset , boardHeightOffset });
 
   g_PlayfieldPtr->Draw( { centerX - boardWidthOffset, centerY - boardHeightOffset } );
 
@@ -204,6 +191,28 @@ void DrawString(const std::string& output , const Point2f topLeft, const int fon
 	TextureFromString(output, fontLocation, fontSize, color, texturePtr);
 	DrawTexture(texturePtr, topLeft);
   DeleteTexture(texturePtr);
+}
+
+void DrawSaved(const Point2f& position)
+{
+	const int indexOfSavedTetromino{ g_PlayfieldPtr->GetState()->GetSavedTetromino() };
+
+	if (indexOfSavedTetromino > -1)
+	{
+		Tetromino* savedTetromino{ new Tetromino(TETROMINOS_ARR[indexOfSavedTetromino]) };
+		savedTetromino->Draw({ position.x , position.y });
+
+		delete savedTetromino;
+	}
+}
+
+void DrawNext(const Point2f& position)
+{
+	const int indexOfNextTetromino{ g_PlayfieldPtr->GetState()->GetQueuedTetromino() };
+	Tetromino* nextTetromino{ new Tetromino(TETROMINOS_ARR[indexOfNextTetromino]) };
+	nextTetromino->Draw({ position.x , position.y });
+
+	delete nextTetromino;
 }
 
 #pragma endregion ownDefinitions

@@ -20,6 +20,8 @@ int g_TickCount{};
 void PlaceTetromino();
 
 void DrawString(const std::string& output, const Point2f topLeft, const int fontSize, const Color4f& color, const std::string& fontLocation);
+void DrawSaved(const Point2f& position);
+void DrawNext(const Point2f& position);
 
 #pragma endregion ownDeclarations
 
