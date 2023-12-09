@@ -23,8 +23,7 @@ Tetromino::Tetromino(const Tetromino &Tetromino)
 
 Tetromino::~Tetromino()
 {
-  delete m_MinosArr;
-  m_MinosArr = nullptr;
+  delete[] m_MinosArr;
 }
 
 const Point2f* Tetromino::GetMinos() const

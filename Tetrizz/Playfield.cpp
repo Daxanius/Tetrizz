@@ -149,10 +149,12 @@ bool Playfield::CanMove(Point2f direction, int rotations) const
 		int gridRow{ int((m_State->GetTetrominoPosition().y + minosPos.y) + direction.y ) };
 
     if (IsTileTaken(gridRow, gridColumn)) {
+      delete t;
       return false;
     }
 	}
 
+  delete t;
 	return true;
 }
 
@@ -201,14 +203,18 @@ void Playfield::Draw(Point2f position)
 		}
 	}
 
-  m_State->GetTetromino()->Draw({
-    m_State->GetTetrominoPosition().x* TILE_SIZE + position.x,
-    m_State->GetTetrominoPosition().y * TILE_SIZE + position.y,
+  Tetromino* currentTetromino = m_State->GetTetromino();
+  Point2f tetrominoPosition = m_State->GetTetrominoPosition();
+  Point2f quickPlacePosition = GetQuickPlacePosition();
+
+  currentTetromino->Draw({
+    tetrominoPosition.x * TILE_SIZE + position.x,
+    tetrominoPosition.y * TILE_SIZE + position.y,
   });
 
-  m_State->GetTetromino()->Draw({
-    GetQuickPlacePosition().x * TILE_SIZE + position.x,
-    GetQuickPlacePosition().y * TILE_SIZE + position.y,
+  currentTetromino->Draw({
+    quickPlacePosition.x * TILE_SIZE + position.x,
+    quickPlacePosition.y * TILE_SIZE + position.y,
   }, .5f);
 }
 
