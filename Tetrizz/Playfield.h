@@ -18,7 +18,7 @@ public:
   void            QuickPlace();       // Instantly places tetromino
 
   int             ClearFullLines();   // Clears all full lines, returns the amount cleared
-  void            PlaceTetromino();   // Places the current Tetromino on the grid
+  bool            PlaceTetromino();   // Places the current Tetromino on the grid, returns false if it failed to place
   void            MoveLinesDown();    // Move lines down if possible
 
   void            NextTetromino();

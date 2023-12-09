@@ -161,11 +161,12 @@ bool Playfield::CanMove(Point2f direction, int rotations) const
 void Playfield::QuickPlace()
 {
   m_State->SetTetrominoPosition(GetQuickPlacePosition());
-	PlaceTetromino();
 }
 
-void Playfield::PlaceTetromino()
+bool Playfield::PlaceTetromino()
 {
+  bool success = true;
+
 	for (int i = 0; i < MINO_COUNT; ++i)
 	{
 		Point2f minosPos{ m_State->GetTetromino()->GetMinos()[i]};
@@ -173,11 +174,14 @@ void Playfield::PlaceTetromino()
 		int gridRow{ int(m_State->GetTetrominoPosition().y + minosPos.y) };
 
     if (IsTileTaken(gridRow, gridColumn)) {
+      success = false;
       continue;
     }
 
 		m_GridArr[gridRow][gridColumn] = new Color4f{ m_State->GetTetromino()->GetColor() };
 	}
+
+  return success;
 }
 
 void Playfield::Draw(Point2f position)

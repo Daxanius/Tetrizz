@@ -19,11 +19,11 @@ void Start()
   g_LilBitOfRizzPtr = Mix_LoadWAV("../Resources/lil_bit_of_rizz.wav");
   g_YouGotRizzPtr = Mix_LoadWAV("../Resources/you_got_rizz.wav");
   g_TetRizzPtr = Mix_LoadWAV("../Resources/tet_rizz.wav");
+  g_GameOverPtr = Mix_LoadWAV("../Resources/game_over.wav");
 
 
-
-  Mix_PlayChannel(0, g_WelcomePtr, 0);
-  Mix_PlayChannel(-1, g_MusicPtr, -1);
+  Mix_PlayChannel(-1, g_WelcomePtr, 0);
+  Mix_PlayChannel(0, g_MusicPtr, -1);
 
   SDL_DisplayMode displayMode{ GetDisplayMode() };
   const float sizeX{ 800.f };
@@ -60,8 +60,6 @@ void Draw()
   // [DYSON] Clears the background of the current window
 	ClearBackground();
   
-
-
   const WindowSettings windowSettings{ GetWindowInfo() };
   const float centerX = windowSettings.width / 2.f;
   const float centerY = windowSettings.height / 2.f;
@@ -86,7 +84,7 @@ void Update(float deltaTime)
 // [DYSON] Gets executed 50x per second
 void FixedUpdate(float fixedDeltaTime)
 {
-  if (g_TickCount % TICKS_PER_UPDATE == 0) {
+  if (g_TickCount % TICKS_PER_UPDATE == 0 && !g_GameOver) {
     if (!g_PlayfieldPtr->CanMove({ 0, 1 }))
     {
       PlaceTetromino();
@@ -111,6 +109,10 @@ void End()
 #pragma region inputHandling											
 void OnKeyDownEvent(SDL_Keycode key)
 {
+  if (g_GameOver) {
+    return;
+  }
+
   switch (key)
   {
   case SDLK_LEFT:
@@ -182,7 +184,12 @@ void OnMouseUpEvent(const SDL_MouseButtonEvent& e)
 #pragma region ownDefinitions
 void PlaceTetromino()
 {
-  g_PlayfieldPtr->PlaceTetromino();
+  if (!g_PlayfieldPtr->PlaceTetromino()) {
+    g_GameOver = true;
+    Mix_PlayChannel(-1, g_GameOverPtr, 0);
+    Mix_HaltChannel(0);
+    return;
+  }
 
   Mix_PlayChannel(-1, g_PlacePtr, 0);
 
@@ -218,7 +225,7 @@ void DrawString(const std::string& output , const Point2f topLeft, const int fon
 
 void DrawSaved(const Point2f& position)
 {
-	Rectf sourceRect;
+  Rectf sourceRect{};
 	sourceRect.height = 120;
 	sourceRect.width = 120;
 	sourceRect.top = position.y - 40;

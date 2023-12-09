@@ -16,10 +16,12 @@ Mix_Chunk* g_SmallRizzlerPtr;
 Mix_Chunk* g_LilBitOfRizzPtr;
 Mix_Chunk* g_YouGotRizzPtr;
 Mix_Chunk* g_TetRizzPtr;
+Mix_Chunk* g_GameOverPtr;
 
 
 Playfield* g_PlayfieldPtr;
-int g_TickCount{};
+bool       g_GameOver{};
+int        g_TickCount{};
 
 // Declare your own functions here
 void PlaceTetromino();

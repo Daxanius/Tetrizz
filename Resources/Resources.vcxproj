@@ -127,16 +127,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Media Include="..\..\..\..\Users\quent\Downloads\welcome.wav" />
-    <Media Include="clear.wav" />
-    <Media Include="korobeiniki.wav" />
+    <Media Include="game_over.wav" />
+    <Media Include="lil_bit_of_rizz.wav" />
     <Media Include="place.wav" />
     <Media Include="rotate.wav" />
+    <Media Include="small_rizzler.wav" />
+    <Media Include="tet_rizz.wav" />
     <Media Include="theme.wav" />
-    <Media Include="tick.wav" />
+    <Media Include="welcome.wav" />
+    <Media Include="you_got_rizz.wav" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="..\..\..\Users\balde\Downloads\dhurjati.otf" />
+    <Font Include="dhurjati.otf" />
     <Font Include="spritz.otf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

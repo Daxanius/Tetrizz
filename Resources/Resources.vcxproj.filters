@@ -18,22 +18,28 @@
     <Media Include="theme.wav">
       <Filter>Sounds</Filter>
     </Media>
-    <Media Include="tick.wav">
-      <Filter>Sounds</Filter>
-    </Media>
     <Media Include="place.wav">
-      <Filter>Sounds</Filter>
-    </Media>
-    <Media Include="clear.wav">
       <Filter>Sounds</Filter>
     </Media>
     <Media Include="rotate.wav">
       <Filter>Sounds</Filter>
     </Media>
-    <Media Include="korobeiniki.wav">
+    <Media Include="game_over.wav">
       <Filter>Sounds</Filter>
     </Media>
-    <Media Include="..\..\..\..\Users\quent\Downloads\welcome.wav">
+    <Media Include="lil_bit_of_rizz.wav">
+      <Filter>Sounds</Filter>
+    </Media>
+    <Media Include="small_rizzler.wav">
+      <Filter>Sounds</Filter>
+    </Media>
+    <Media Include="tet_rizz.wav">
+      <Filter>Sounds</Filter>
+    </Media>
+    <Media Include="welcome.wav">
+      <Filter>Sounds</Filter>
+    </Media>
+    <Media Include="you_got_rizz.wav">
       <Filter>Sounds</Filter>
     </Media>
   </ItemGroup>
@@ -42,6 +48,9 @@
       <Filter>Fonts</Filter>
     </Font>
     <Font Include="spritz.otf">
+      <Filter>Fonts</Filter>
+    </Font>
+    <Font Include="dhurjati.otf">
       <Filter>Fonts</Filter>
     </Font>
   </ItemGroup>
