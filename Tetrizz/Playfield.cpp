@@ -63,7 +63,19 @@ void Playfield::MoveLineDown(int line)
   }
 }
 
-int Playfield::ClearLines()
+void Playfield::MoveLinesDown()
+{
+  for (int rowIndex = FIELD_HEIGHT - 1; rowIndex > 0; --rowIndex)
+  {
+    while (IsLineEmpty(rowIndex) && !IsLineEmpty(rowIndex - 1))
+    {
+      MoveLineDown(rowIndex - 1);
+      ++rowIndex;
+    }
+  }
+}
+
+int Playfield::ClearFullLines()
 {
   int linesCleared{};
 
@@ -81,19 +93,6 @@ int Playfield::ClearLines()
       ++linesCleared;
 		}
 	}
-
-  if (linesCleared < 1) {
-    return linesCleared;
-  }
-
-  for (int rowIndex = FIELD_HEIGHT -1; rowIndex > 0; --rowIndex)
-  {
-    while (IsLineEmpty(rowIndex) && !IsLineEmpty(rowIndex - 1))
-    {
-      MoveLineDown(rowIndex -1);
-      ++rowIndex;
-    }
-  }
 
   return linesCleared;
 }
@@ -200,9 +199,6 @@ void Playfield::PlaceTetromino()
 
 		m_GridArr[gridRow][gridColumn] = new Color4f{ m_Playstate.currentTetrominoPtr->GetColor() };
 	}
-
-	ClearLines();
-	NextTetromino();
 }
 
 void Playfield::SetCurrentTetrimino(int index)
@@ -253,16 +249,4 @@ void Playfield::Draw(Point2f position)
     m_Playstate.fieldPosition.x * TILE_SIZE + position.x,
     m_Playstate.fieldPosition.y * TILE_SIZE + position.y,
   });
-}
-
-bool Playfield::Update()
-{
-  if (!CanMove({ 0, 1 }))
-	{
-    PlaceTetromino();
-    return true;
-	}
-
-  Move({ 0, 1 });
-  return false;
 }

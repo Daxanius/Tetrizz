@@ -83,7 +83,15 @@ void Update(float deltaTime)
 void FixedUpdate(float fixedDeltaTime)
 {
   if (g_TickCount % TICKS_PER_UPDATE == 0) {
-    g_PlayfieldPtr->Update();
+    if (!g_PlayfieldPtr->CanMove({ 0, 1 }))
+    {
+      g_PlayfieldPtr->PlaceTetromino();
+      g_PlayfieldPtr->ClearFullLines();
+      g_PlayfieldPtr->MoveLinesDown();
+      g_PlayfieldPtr->NextTetromino();
+    } else {
+      g_PlayfieldPtr->Move({ 0, 1 });
+    }
   }
 
   ++g_TickCount;
@@ -117,6 +125,10 @@ void OnKeyDownEvent(SDL_Keycode key)
     break;
   case SDLK_SPACE:
     g_PlayfieldPtr->QuickPlace();
+    g_PlayfieldPtr->PlaceTetromino();
+    g_PlayfieldPtr->ClearFullLines();
+    g_PlayfieldPtr->MoveLinesDown();
+    g_PlayfieldPtr->NextTetromino();
     break;
   case SDLK_c:
     g_PlayfieldPtr->SaveTetromino();
