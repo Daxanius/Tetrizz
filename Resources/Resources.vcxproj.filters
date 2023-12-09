@@ -37,4 +37,12 @@
       <Filter>Sounds</Filter>
     </Media>
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="..\..\..\Users\balde\Downloads\dhurjati.otf">
+      <Filter>Fonts</Filter>
+    </Font>
+    <Font Include="spritz.otf">
+      <Filter>Fonts</Filter>
+    </Font>
+  </ItemGroup>
 </Project>

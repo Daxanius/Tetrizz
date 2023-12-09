@@ -135,6 +135,10 @@
     <Media Include="theme.wav" />
     <Media Include="tick.wav" />
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="..\..\..\Users\balde\Downloads\dhurjati.otf" />
+    <Font Include="spritz.otf" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
