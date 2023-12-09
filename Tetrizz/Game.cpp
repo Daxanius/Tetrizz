@@ -94,7 +94,7 @@ void End()
 	// free game resources here
   delete g_PlayfieldPtr;
   g_PlayfieldPtr = nullptr;
-  Mix_CloseAudio;
+  Mix_CloseAudio();
 }
 #pragma endregion gameFunctions
 
