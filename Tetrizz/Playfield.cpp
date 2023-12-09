@@ -37,6 +37,37 @@ bool Playfield::IsLineEmpty(int line) const
   return true;
 }
 
+Point2f Playfield::GetQuickPlacePosition()
+{
+  int gridColumn{ int(m_State->GetTetrominoPosition().x) };
+  int gridRow{ int(m_State->GetTetrominoPosition().y) };
+
+  bool foundPosition{};
+  while (gridRow < FIELD_HEIGHT && !foundPosition)
+  {
+    for (int i = 0; i < MINO_COUNT; ++i)
+    {
+      Point2f minosPos{ m_State->GetTetromino()->GetMinos()[i] };
+      int currentGridRow{ int(gridRow + minosPos.y) };
+      int currentGridColumn{ int(gridColumn + minosPos.x) };
+
+      if (IsTileTaken(currentGridRow, currentGridColumn)) {
+        foundPosition = true;
+        break;
+      }
+    }
+
+    if (!foundPosition) {
+      ++gridRow;
+    }
+  }
+
+  return {
+    (float)gridColumn,
+    (float)gridRow -1
+  };
+}
+
 void Playfield::MoveLineDown(int line)
 {
   for (int index{}; index < FIELD_WIDTH; index++)
@@ -127,30 +158,7 @@ bool Playfield::CanMove(Point2f direction, int rotations) const
 
 void Playfield::QuickPlace()
 {
-	int gridColumn{ int(m_State->GetTetrominoPosition().x) };
-	int gridRow{ int(m_State->GetTetrominoPosition().y) };
-
-	bool foundPosition{};
-	while (gridRow < FIELD_HEIGHT && !foundPosition)
-	{
-		for (int i = 0; i < MINO_COUNT; ++i)
-		{
-			Point2f minosPos{ m_State->GetTetromino()->GetMinos()[i] };
-			int currentGridRow{ int(gridRow + minosPos.y) };
-			int currentGridColumn{ int(gridColumn + minosPos.x)};
-
-			if (IsTileTaken(currentGridRow, currentGridColumn)) {
-				foundPosition = true;
-				break; 
-			}
-		}
-
-    if (!foundPosition) {
-      ++gridRow;
-    }
-	}
-
-  m_State->SetTetrominoPosition({ (float)gridColumn, (float)gridRow - 1 });
+  m_State->SetTetrominoPosition(GetQuickPlacePosition());
 	PlaceTetromino();
 }
 
@@ -197,6 +205,11 @@ void Playfield::Draw(Point2f position)
     m_State->GetTetrominoPosition().x* TILE_SIZE + position.x,
     m_State->GetTetrominoPosition().y * TILE_SIZE + position.y,
   });
+
+  m_State->GetTetromino()->Draw({
+    GetQuickPlacePosition().x * TILE_SIZE + position.x,
+    GetQuickPlacePosition().y * TILE_SIZE + position.y,
+  }, .5f);
 }
 
 void Playfield::NextTetromino()

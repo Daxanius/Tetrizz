@@ -16,7 +16,7 @@ public:
 
 
 	void           Rotate();
-  void           Draw(Point2f position);
+  void           Draw(Point2f position, float opacity = 1.f);
 
 private:
   Color4f  m_MinosColor{};

@@ -44,7 +44,7 @@ void Tetromino::Rotate()
     }
 }
 
-void Tetromino::Draw(Point2f position)
+void Tetromino::Draw(Point2f position, float opacity)
 {
   for (int minoIndex = 0; minoIndex < MINO_COUNT; ++minoIndex)
   {
@@ -56,7 +56,10 @@ void Tetromino::Draw(Point2f position)
     sourceRect.left = position.x + TILE_SIZE * mino.x;
     sourceRect.top = position.y + TILE_SIZE * mino.y;
 
-    SetColor(GetColor());
+    Color4f color = GetColor();
+    color.a = opacity;
+
+    SetColor(color);
     FillRect(sourceRect);
     SetColor(1.0f, 1.0f, 1.0f);
     DrawRect(sourceRect);

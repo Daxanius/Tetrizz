@@ -31,4 +31,6 @@ private:
   void             MoveLineDown(int line);   // Moves a line down
   bool             IsLineFull(int line) const;
   bool             IsLineEmpty(int line) const;
+
+  Point2f          GetQuickPlacePosition();
 };
