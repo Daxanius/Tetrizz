@@ -12,6 +12,11 @@ Mix_Chunk* g_WelcomePtr;
 Mix_Chunk* g_PlacePtr;
 Mix_Chunk* g_ClearPtr;
 Mix_Chunk* g_RotatePointer;
+Mix_Chunk* g_SmallRizzlerPtr;
+Mix_Chunk* g_LilBitOfRizzPtr;
+Mix_Chunk* g_YouGotRizzPtr;
+Mix_Chunk* g_TetRizzPtr;
+
 
 Playfield* g_PlayfieldPtr;
 int g_TickCount{};

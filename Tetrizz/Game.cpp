@@ -15,6 +15,12 @@ void Start()
   g_WelcomePtr = Mix_LoadWAV("../Resources/welcome.wav");
   g_PlacePtr = Mix_LoadWAV("../Resources/place.wav");
   g_RotatePointer = Mix_LoadWAV("../Resources/rotate.wav");
+  g_SmallRizzlerPtr = Mix_LoadWAV("../Resources/small_rizzler.wav");
+  g_LilBitOfRizzPtr = Mix_LoadWAV("../Resources/lil_bit_of_rizz.wav");
+  g_YouGotRizzPtr = Mix_LoadWAV("../Resources/you_got_rizz.wav");
+  g_TetRizzPtr = Mix_LoadWAV("../Resources/tet_rizz.wav");
+
+
 
   Mix_PlayChannel(0, g_WelcomePtr, 0);
   Mix_PlayChannel(-1, g_MusicPtr, -1);
@@ -180,7 +186,24 @@ void PlaceTetromino()
 
   Mix_PlayChannel(-1, g_PlacePtr, 0);
 
-  g_PlayfieldPtr->ClearFullLines();
+  switch (g_PlayfieldPtr->ClearFullLines())
+  {
+  case 1:
+	  Mix_PlayChannel(-1, g_SmallRizzlerPtr, 0);
+	  break;
+  case 2:
+	  Mix_PlayChannel(-1, g_LilBitOfRizzPtr, 0);
+	  break;
+  case 3:
+	  Mix_PlayChannel(-1, g_YouGotRizzPtr, 0);
+	  break;
+  case 4:
+	  Mix_PlayChannel(-1, g_TetRizzPtr, 0);
+	  break;
+  default:
+	  break;
+  }
+
   g_PlayfieldPtr->MoveLinesDown();
   g_PlayfieldPtr->NextTetromino();
 }
