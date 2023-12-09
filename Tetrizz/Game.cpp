@@ -6,12 +6,12 @@
 #pragma region gameFunctions
 void Start()
 {
-	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 4, 2048) < 0) {
 		std::cerr << "SDL Mixer could not initialize! Mix_Error: " << Mix_GetError() << std::endl;
 		SDL_Quit(); // Quit SDL if Mixer initialization fails
 	}
 
-	g_MusicPtr = Mix_LoadWAV("../Resources/korobeiniki.wav");
+	g_MusicPtr = Mix_LoadWAV("../Resources/theme.wav");
   g_WelcomePtr = Mix_LoadWAV("../Resources/welcome.wav");
   g_PlacePtr = Mix_LoadWAV("../Resources/place.wav");
   g_RotatePointer = Mix_LoadWAV("../Resources/rotate.wav");
