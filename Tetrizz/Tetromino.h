@@ -6,9 +6,6 @@ static const int  MINO_COUNT{ 4 };
 
 class Tetromino
 {
-private:
-	Color4f  m_MinosColor{};
-	Point2f* m_MinosArr;
 public:
   Tetromino(const Point2f minosArr[MINO_COUNT], Color4f minosColor);
   Tetromino(const Tetromino &Tetromino);
@@ -20,4 +17,8 @@ public:
 
 	void           Rotate();
   void           Draw(Point2f position);
+
+private:
+  Color4f  m_MinosColor{};
+  Point2f* m_MinosArr;
 };

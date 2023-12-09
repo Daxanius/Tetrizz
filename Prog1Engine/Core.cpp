@@ -253,7 +253,7 @@ void SetWindowSettings(WindowSettings settings)
   // Apply the updated settings
   SDL_SetWindowTitle(window.pWindow, settings.title.c_str());
   SDL_SetWindowFullscreen(window.pWindow, settings.fullscreenFlags);
-  SDL_SetWindowSize(window.pWindow, settings.width, settings.height);
+  SDL_SetWindowSize(window.pWindow, (int)settings.width, (int)settings.height);
   SDL_SetWindowAlwaysOnTop(window.pWindow, (SDL_bool)settings.alwaysOnTop);
   SDL_SetWindowBordered(window.pWindow, (SDL_bool)settings.bordered);
   SDL_SetWindowPosition(window.pWindow, settings.posX, settings.posY);
