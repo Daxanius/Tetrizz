@@ -12,16 +12,9 @@ void Start()
 	}
 
 	g_MusicPtr = Mix_LoadWAV("../Resources/korobeiniki.wav");
-  if (g_MusicPtr == nullptr) {
-    std::cerr << "Failed to load sound! Mix_Error: " << Mix_GetError() << std::endl;
-    SDL_Quit();
-  }
-
   g_WelcomePtr = Mix_LoadWAV("../Resources/welcome.wav");
-  if (g_WelcomePtr == nullptr) {
-	  std::cerr << "Failed to load sound! Mix_Error: " << Mix_GetError() << std::endl;
-	  SDL_Quit();
-  }
+  g_PlacePtr = Mix_LoadWAV("../Resources/place.wav");
+  g_RotatePointer = Mix_LoadWAV("../Resources/rotate.wav");
 
   Mix_PlayChannel(0, g_WelcomePtr, 0);
   Mix_PlayChannel(-1, g_MusicPtr, -1);
@@ -86,6 +79,9 @@ void FixedUpdate(float fixedDeltaTime)
     if (!g_PlayfieldPtr->CanMove({ 0, 1 }))
     {
       g_PlayfieldPtr->PlaceTetromino();
+
+      Mix_PlayChannel(-1, g_PlacePtr, 0);
+
       g_PlayfieldPtr->ClearFullLines();
       g_PlayfieldPtr->MoveLinesDown();
       g_PlayfieldPtr->NextTetromino();
@@ -119,13 +115,17 @@ void OnKeyDownEvent(SDL_Keycode key)
     g_PlayfieldPtr->Move({ 1, 0 });
 	  break;
   case SDLK_UP:
-    g_PlayfieldPtr->Move({ 0, 0 }, 1);
+    g_PlayfieldPtr->Move({ 0, -1 }, 1);
+    Mix_PlayChannel(-1, g_RotatePointer, 0);
   case SDLK_DOWN:
     g_PlayfieldPtr->Move({ 0, 1 });
     break;
   case SDLK_SPACE:
     g_PlayfieldPtr->QuickPlace();
     g_PlayfieldPtr->PlaceTetromino();
+
+    Mix_PlayChannel(-1, g_PlacePtr, 0);
+
     g_PlayfieldPtr->ClearFullLines();
     g_PlayfieldPtr->MoveLinesDown();
     g_PlayfieldPtr->NextTetromino();

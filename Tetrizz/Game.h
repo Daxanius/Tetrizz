@@ -9,6 +9,9 @@
 // Variables
 Mix_Chunk* g_MusicPtr;
 Mix_Chunk* g_WelcomePtr;
+Mix_Chunk* g_PlacePtr;
+Mix_Chunk* g_ClearPtr;
+Mix_Chunk* g_RotatePointer;
 
 Playfield* g_PlayfieldPtr;
 int g_TickCount{};
