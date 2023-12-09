@@ -25,10 +25,6 @@ Playfield::~Playfield()
 {
   delete m_Playstate.currentTetrominoPtr;
   m_Playstate.currentTetrominoPtr = nullptr;
-
-  delete m_RotateSoundPtr;
-  delete m_PlaceSoundPtr;
-  delete m_TickSoundPtr;
 }
 
 Playstate Playfield::GetPlaystate() const
