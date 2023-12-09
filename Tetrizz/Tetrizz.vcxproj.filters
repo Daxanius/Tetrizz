@@ -27,7 +27,7 @@
     <ClCompile Include="Playfield.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FieldState.cpp">
+    <ClCompile Include="TetrominoManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -50,7 +50,7 @@
     <ClInclude Include="Tetrominos.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FieldState.h">
+    <ClInclude Include="TetrominoManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

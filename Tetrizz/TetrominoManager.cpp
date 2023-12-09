@@ -1,7 +1,7 @@
 #include "pch.h"
-#include "FieldState.h"
+#include "TetrominoManager.h"
 
-FieldState::FieldState(Point2f startPosition, const Tetromino tetrominosArr[], int tetrminosArrSize)
+TetrominoManager::TetrominoManager(Point2f startPosition, const Tetromino tetrominosArr[], int tetrminosArrSize)
 {
   m_TetrominosArr = tetrominosArr;
   m_TetrominosArrSize = tetrminosArrSize;
@@ -10,12 +10,12 @@ FieldState::FieldState(Point2f startPosition, const Tetromino tetrominosArr[], i
   NextTetromino();
 }
 
-FieldState::~FieldState()
+TetrominoManager::~TetrominoManager()
 {
   delete m_CurrentTetrominoPtr;
 }
 
-void FieldState::SaveTetromino()
+void TetrominoManager::SaveTetromino()
 {
   if (m_SavedTetrominoIndex < 0) {
     m_SavedTetrominoIndex = m_CurrentTetrominoIndex;
@@ -28,7 +28,7 @@ void FieldState::SaveTetromino()
   m_SavedTetrominoIndex = currentIndex;
 }
 
-void FieldState::NextTetromino()
+void TetrominoManager::NextTetromino()
 {
   int randomNext{ rand() % m_TetrominosArrSize };
 
@@ -41,7 +41,7 @@ void FieldState::NextTetromino()
   m_QueuedTetrominoIndex = randomNext;
 }
 
-void FieldState::SetCurrentTetromino(int index)
+void TetrominoManager::SetCurrentTetromino(int index)
 {
   delete m_CurrentTetrominoPtr;
   m_CurrentTetrominoPtr = new Tetromino{ m_TetrominosArr[index] };
@@ -49,22 +49,22 @@ void FieldState::SetCurrentTetromino(int index)
   m_TetrominoPosition = Point2f{ FIELD_WIDTH / 2.f, 0 };
 }
 
-int FieldState::GetQueuedTetromino() const
+int TetrominoManager::GetQueuedTetromino() const
 {
   return m_QueuedTetrominoIndex;
 }
 
-Point2f FieldState::GetTetrominoPosition() const
+Point2f TetrominoManager::GetTetrominoPosition() const
 {
   return m_TetrominoPosition;
 }
 
-void FieldState::SetTetrominoPosition(Point2f position)
+void TetrominoManager::SetTetrominoPosition(Point2f position)
 {
   m_TetrominoPosition = position;
 }
 
-Tetromino* FieldState::GetTetromino()
+Tetromino* TetrominoManager::GetTetromino()
 {
   return m_CurrentTetrominoPtr;
 }

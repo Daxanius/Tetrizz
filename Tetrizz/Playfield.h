@@ -2,7 +2,7 @@
 #include <Core.h>
 #include "GameDefines.h"
 #include "Tetromino.h"
-#include "FieldState.h"
+#include "TetrominoManager.h"
 
 class Playfield
 {
@@ -26,7 +26,7 @@ public:
   void            Draw(Point2f position);
 private:
   Color4f* m_GridArr[FIELD_HEIGHT][FIELD_WIDTH]{ nullptr };
-  FieldState* m_State{};
+  TetrominoManager* m_State{};
 
   void             MoveLineDown(int line);   // Moves a line down
   bool             IsLineFull(int line) const;

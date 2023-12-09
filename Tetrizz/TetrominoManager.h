@@ -3,11 +3,11 @@
 #include "GameDefines.h"
 #include "Tetromino.h"
 
-class FieldState
+class TetrominoManager
 {
 public:
-  FieldState(Point2f startPosition, const Tetromino tetrominosArr[], int tetrminosArrSize);
-  ~FieldState();
+  TetrominoManager(Point2f startPosition, const Tetromino tetrominosArr[], int tetrminosArrSize);
+  ~TetrominoManager();
 
   void       SaveTetromino();    // Swaps the current tetromino with the one storage
   void       NextTetromino();    // Generates the next tetromino

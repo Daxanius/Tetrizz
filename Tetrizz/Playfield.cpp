@@ -3,7 +3,7 @@
 
 Playfield::Playfield(const Tetromino tetrominosArr[], int tetrminosArrSize)
 {
-  m_State = new FieldState({ FIELD_WIDTH / 2.f, 0 }, tetrominosArr, tetrminosArrSize);
+  m_State = new TetrominoManager({ FIELD_WIDTH / 2.f, 0 }, tetrominosArr, tetrminosArrSize);
 }
 
 Playfield::~Playfield()
