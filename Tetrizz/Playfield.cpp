@@ -1,39 +1,14 @@
 #include "pch.h"
 #include "Playfield.h"
 
-Playfield::Playfield(const Tetromino* tetrominosArr, int tetrminosArrSize)
+Playfield::Playfield(const Tetromino tetrominosArr[], int tetrminosArrSize)
 {
-  m_TetrominosArr = tetrominosArr;
-  m_TetrominosArrSize = tetrminosArrSize;
-
-  m_RotateSoundPtr = Mix_LoadWAV("../Resources/rotate.wav");
-  m_PlaceSoundPtr = Mix_LoadWAV("../Resources/place.wav");
-  m_TickSoundPtr = Mix_LoadWAV("../Resources/tick.wav");
-
-  m_Playstate = {
-      -1,
-      -1,
-      -1,
-      nullptr,
-     { FIELD_WIDTH / 2.f, 0 }
-  };
-
-  NextTetromino();
+  m_State = new TetrominoManager({ FIELD_WIDTH / 2.f, 0 }, tetrominosArr, tetrminosArrSize);
 }
 
 Playfield::~Playfield()
 {
-  delete m_Playstate.currentTetrominoPtr;
-  m_Playstate.currentTetrominoPtr = nullptr;
-
-  delete m_RotateSoundPtr;
-  delete m_PlaceSoundPtr;
-  delete m_TickSoundPtr;
-}
-
-Playstate Playfield::GetPlaystate() const
-{
-  return m_Playstate;
+  delete m_State;
 }
 
 bool Playfield::IsLineFull(int line) const
@@ -62,6 +37,37 @@ bool Playfield::IsLineEmpty(int line) const
   return true;
 }
 
+Point2f Playfield::GetQuickPlacePosition()
+{
+  int gridColumn{ int(m_State->GetTetrominoPosition().x) };
+  int gridRow{ int(m_State->GetTetrominoPosition().y) };
+
+  bool foundPosition{};
+  while (gridRow < FIELD_HEIGHT && !foundPosition)
+  {
+    for (int i = 0; i < MINO_COUNT; ++i)
+    {
+      Point2f minosPos{ m_State->GetTetromino()->GetMinos()[i] };
+      int currentGridRow{ int(gridRow + minosPos.y) };
+      int currentGridColumn{ int(gridColumn + minosPos.x) };
+
+      if (IsTileTaken(currentGridRow, currentGridColumn)) {
+        foundPosition = true;
+        break;
+      }
+    }
+
+    if (!foundPosition) {
+      ++gridRow;
+    }
+  }
+
+  return {
+    (float)gridColumn,
+    (float)gridRow -1
+  };
+}
+
 void Playfield::MoveLineDown(int line)
 {
   for (int index{}; index < FIELD_WIDTH; index++)
@@ -71,7 +77,19 @@ void Playfield::MoveLineDown(int line)
   }
 }
 
-void Playfield::ClearLines()
+void Playfield::MoveLinesDown()
+{
+  for (int rowIndex = FIELD_HEIGHT - 1; rowIndex > 0; --rowIndex)
+  {
+    while (IsLineEmpty(rowIndex) && !IsLineEmpty(rowIndex - 1))
+    {
+      MoveLineDown(rowIndex - 1);
+      ++rowIndex;
+    }
+  }
+}
+
+int Playfield::ClearFullLines()
 {
   int linesCleared{};
 
@@ -90,26 +108,25 @@ void Playfield::ClearLines()
 		}
 	}
 
-  if (linesCleared < 1) {
-    return;
-  }
-
-  for (int rowIndex = FIELD_HEIGHT -1; rowIndex > 0; --rowIndex)
-  {
-    while (IsLineEmpty(rowIndex) && !IsLineEmpty(rowIndex - 1))
-    {
-      MoveLineDown(rowIndex -1);
-      ++rowIndex;
-    }
-  }
-
-  m_Score += linesCleared;
+  return linesCleared;
 }
 
-
-const int Playfield::GetScore() const
+bool Playfield::Move(Point2f direction, int rotations)
 {
-  return m_Score;
+  if (!CanMove(direction, rotations)) {
+    return false;
+  }
+
+  for (int i = 0; i < rotations; ++i) {
+    m_State->GetTetromino()->Rotate();
+  }
+
+  m_State->SetTetrominoPosition({
+     m_State->GetTetrominoPosition().x + direction.x,
+     m_State->GetTetrominoPosition().y + direction.y
+  });
+
+  return true;
 }
 
 bool Playfield::IsTileTaken(int row, int col) const
@@ -117,150 +134,31 @@ bool Playfield::IsTileTaken(int row, int col) const
   return col < 0 || col >= FIELD_WIDTH || row >= FIELD_HEIGHT || row < 0 || m_GridArr[row][col] != nullptr;
 }
 
-void Playfield::MoveLeft()
+bool Playfield::CanMove(Point2f direction, int rotations) const
 {
-	if (CanMoveLeft() == true)
-	{
-		m_Playstate.fieldPosition.x -= 1;
-	}
-}
+  Tetromino* t = new Tetromino(*m_State->GetTetromino());
 
-bool Playfield::CanMoveLeft()
-{
-	for (int i = 0; i < MINO_COUNT; ++i)
-	{
-    Point2f minosPos{ m_Playstate.currentTetrominoPtr->GetMinos()[i] };
-    int gridColumn{ int(m_Playstate.fieldPosition.x + minosPos.x) -1 };
-    int gridRow{ int(m_Playstate.fieldPosition.y + minosPos.y) };
-
-    if (IsTileTaken(gridRow, gridColumn)) {
-      return false;
-    }
-	}
-
-	return true;
-}
-
-void Playfield::MoveRight()
-{
-	if (CanMoveRight())
-	{
-		m_Playstate.fieldPosition.x += 1;
-	}
-}
-
-bool Playfield::CanMoveRight()
-{
-	for (int i = 0; i < MINO_COUNT; ++i)
-	{
-    Point2f minosPos{ m_Playstate.currentTetrominoPtr->GetMinos()[i] };
-    int gridColumn{ int(m_Playstate.fieldPosition.x + minosPos.x) +1 };
-    int gridRow{ int(m_Playstate.fieldPosition.y + minosPos.y) };
-
-    if (IsTileTaken(gridRow, gridColumn)) {
-      return false;
-    }
-	}
-
-	return true;
-}
-
-void Playfield::MoveDown()
-{
-	if (CanMoveDown())
-	{
-		m_Playstate.fieldPosition.y += 1;
-	}
-}
-
-bool Playfield::CanMoveDown()
-{
-	for (int i = 0; i < MINO_COUNT; ++i)
-	{
-		Point2f minosPos{ m_Playstate.currentTetrominoPtr->GetMinos()[i] };
-		int gridColumn{ int(m_Playstate.fieldPosition.x + minosPos.x)};
-		int gridRow{ int(m_Playstate.fieldPosition.y + minosPos.y) + 1 };
-
-    if (IsTileTaken(gridRow, gridColumn)) {
-      return false;
-    }
-	}
-
-	return true;
-}
-
-void  Playfield::Rotate()
-{
-	if (CanRotate())
-	{
-		m_Playstate.currentTetrominoPtr->Rotate();
-    Mix_PlayChannel(-1, m_RotateSoundPtr, 0);
-	}
-}
-
-bool Playfield::CanRotate()
-{
-  Tetromino* t = new Tetromino(*m_Playstate.currentTetrominoPtr);
-  t->Rotate();
-
-  for (int i = 0; i < MINO_COUNT; ++i)
-  {
-    Point2f minosPos{ t->GetMinos()[i] };
-    int gridColumn{ int(m_Playstate.fieldPosition.x + minosPos.x) };
-    int gridRow{ int(m_Playstate.fieldPosition.y + minosPos.y) };
-
-    if (IsTileTaken(gridRow, gridColumn)) {
-      delete t;
-      return false;
-    }
+  for(int i = 0; i < rotations; ++i) {
+    t->Rotate();
   }
 
-  delete t;
-  return true;
-}
+	for (int i = 0; i < MINO_COUNT; ++i)
+	{
+		Point2f minosPos{ t->GetMinos()[i] };
+		int gridColumn{ int(m_State->GetTetrominoPosition().x + minosPos.x + direction.x)};
+		int gridRow{ int((m_State->GetTetrominoPosition().y + minosPos.y) + direction.y ) };
 
-void  Playfield::SaveTetromino()
-{
-	if (m_Playstate.savedTetrominoIndex < 0) {
-    m_Playstate.savedTetrominoIndex = m_Playstate.currentTetrominoIndex;
-    NextTetromino();
-    return;
+    if (IsTileTaken(gridRow, gridColumn)) {
+      return false;
+    }
 	}
 
-  int currentIndex{ m_Playstate.currentTetrominoIndex };
-  SetCurrentTetrimino(m_Playstate.savedTetrominoIndex);
-  m_Playstate.savedTetrominoIndex = currentIndex;
+	return true;
 }
 
 void Playfield::QuickPlace()
 {
-
-	
-	int gridColumn{ int(m_Playstate.fieldPosition.x) };
-	int gridRow{ int(m_Playstate.fieldPosition.y) };
-
-	bool foundPosition{};
-	while (gridRow < FIELD_HEIGHT && !foundPosition)
-	{
-		for (int i = 0; i < MINO_COUNT; ++i)
-		{
-			Point2f minosPos{ m_Playstate.currentTetrominoPtr->GetMinos()[i] };
-			int currentGridRow{ int(gridRow + minosPos.y) };
-			int currentGridColumn{ int(gridColumn + minosPos.x)};
-
-			if (IsTileTaken(currentGridRow, currentGridColumn)) {
-				foundPosition = true;
-				break; 
-			}
-		}
-
-    if (!foundPosition) {
-      ++gridRow;
-    }
-	}
-
-	m_Playstate.fieldPosition.x = gridColumn;
-	m_Playstate.fieldPosition.y = gridRow - 1;
+  m_State->SetTetrominoPosition(GetQuickPlacePosition());
 	PlaceTetromino();
 }
 
@@ -268,38 +166,16 @@ void Playfield::PlaceTetromino()
 {
 	for (int i = 0; i < MINO_COUNT; ++i)
 	{
-		Point2f minosPos{ m_Playstate.currentTetrominoPtr->GetMinos()[i] };
-		int gridColumn{int( m_Playstate.fieldPosition.x + minosPos.x) };
-		int gridRow{int( m_Playstate.fieldPosition.y + minosPos.y) };
+		Point2f minosPos{ m_State->GetTetromino()->GetMinos()[i]};
+		int gridColumn{ int(m_State->GetTetrominoPosition().x + minosPos.x)};
+		int gridRow{ int(m_State->GetTetrominoPosition().y + minosPos.y) };
 
-		m_GridArr[gridRow][gridColumn] = new Color4f{ m_Playstate.currentTetrominoPtr->GetColor() };
+    if (IsTileTaken(gridRow, gridColumn)) {
+      continue;
+    }
+
+		m_GridArr[gridRow][gridColumn] = new Color4f{ m_State->GetTetromino()->GetColor() };
 	}
-
-
-	ClearLines();
-	NextTetromino();
-  Mix_PlayChannel(-1, m_PlaceSoundPtr, 0);
-}
-
-void Playfield::SetCurrentTetrimino(int index)
-{
-  delete m_Playstate.currentTetrominoPtr;
-  m_Playstate.currentTetrominoPtr = new Tetromino{ m_TetrominosArr[index] };
-  m_Playstate.currentTetrominoIndex = m_Playstate.nextTetrominoIndex;
-  m_Playstate.fieldPosition = Point2f{ FIELD_WIDTH / 2.f, 0 };
-}
-
-void Playfield::NextTetromino()
-{
-  int randomNext{ rand() % m_TetrominosArrSize };
-
-  if (m_Playstate.nextTetrominoIndex < 0) {
-    m_Playstate.nextTetrominoIndex = randomNext;
-    randomNext = rand() % m_TetrominosArrSize;
-  }
-
-  SetCurrentTetrimino(m_Playstate.nextTetrominoIndex);
-  m_Playstate.nextTetrominoIndex = randomNext;
 }
 
 void Playfield::Draw(Point2f position)
@@ -325,33 +201,23 @@ void Playfield::Draw(Point2f position)
 		}
 	}
 
-	
-	const Point2f tetrominoPosition{ m_Playstate.fieldPosition };
+  m_State->GetTetromino()->Draw({
+    m_State->GetTetrominoPosition().x* TILE_SIZE + position.x,
+    m_State->GetTetrominoPosition().y * TILE_SIZE + position.y,
+  });
 
-	for (int minoIndex = 0; minoIndex < MINO_COUNT; ++minoIndex)
-	{
-		Point2f mino = m_Playstate.currentTetrominoPtr->GetMinos()[minoIndex];
-
-		Rectf sourceRect{};
-		sourceRect.height = TILE_SIZE;
-		sourceRect.width = TILE_SIZE;
-		sourceRect.left = position.x + TILE_SIZE * (tetrominoPosition.x + mino.x) ;
-		sourceRect.top = position.y + TILE_SIZE * (tetrominoPosition.y + mino.y);
-
-		SetColor(m_Playstate.currentTetrominoPtr->GetColor());
-		FillRect(sourceRect);
-		SetColor(1.0f, 1.0f, 1.0f);
-		DrawRect(sourceRect);
-	}
-
-  // DRAW THE BOARD HERE
+  m_State->GetTetromino()->Draw({
+    GetQuickPlacePosition().x * TILE_SIZE + position.x,
+    GetQuickPlacePosition().y * TILE_SIZE + position.y,
+  }, .5f);
 }
 
-void Playfield::Update()
+void Playfield::NextTetromino()
 {
-	if (!CanMoveDown())
-	{
-    PlaceTetromino();
-	}	
-  MoveDown();
+  m_State->NextTetromino();
+}
+
+void  Playfield::SaveTetromino()
+{
+  m_State->SaveTetromino();
 }

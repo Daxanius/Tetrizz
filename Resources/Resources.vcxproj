@@ -127,9 +127,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Image Include="dyson.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Media Include="..\..\..\..\Users\quent\Downloads\welcome.wav" />
     <Media Include="clear.wav" />
     <Media Include="korobeiniki.wav" />

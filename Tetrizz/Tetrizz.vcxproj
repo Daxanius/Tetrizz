@@ -207,6 +207,7 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="TetrominoManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -218,6 +219,9 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClCompile Include="Tetromino.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="TetrominoManager.h" />
+    <ClInclude Include="Tetrominos.h" />
+    <ClInclude Include="GameDefines.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Playfield.h" />
     <ClInclude Include="pch.h" />

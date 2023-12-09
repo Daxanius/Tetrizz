@@ -15,11 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="dyson.png">
-      <Filter>Textures</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
     <Media Include="theme.wav">
       <Filter>Sounds</Filter>
     </Media>
