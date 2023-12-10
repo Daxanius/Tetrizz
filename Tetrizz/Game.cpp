@@ -74,6 +74,8 @@ void Draw()
 
   g_PlayfieldPtr->Draw( { centerX - boardWidthOffset, centerY - boardHeightOffset } );
 
+  DrawString("Score: " + std::to_string(g_Score), Point2f{ 10, 0 }, 50, { 1.0 , 1.0 ,1.0 , 1.0 }, "Resources/dhurjati.otf");
+
   if (g_GameOver)
   {
 	  Rectf sourceRect{};
@@ -134,6 +136,7 @@ void OnKeyDownEvent(SDL_Keycode key)
 		{
 			g_PlayfieldPtr->ResetBoard();
 			g_GameOver = false;
+			g_Score = 0;
 			Mix_PlayChannel(0, g_MusicPtr, -1);
 	  }
     return;
@@ -230,18 +233,22 @@ void PlaceTetromino()
   case 1:
 	  Mix_PlayChannel(-1, g_SmallRizzlerPtr, 0);
     intensity = 1;
+	g_Score += intensity * (intensity * LINE_CLEAR_SCORE);
 	  break;
   case 2:
 	  Mix_PlayChannel(-1, g_LilBitOfRizzPtr, 0);
     intensity = 2;
+	g_Score += intensity * (intensity * LINE_CLEAR_SCORE);
 	  break;
   case 3:
 	  Mix_PlayChannel(-1, g_YouGotRizzPtr, 0);
     intensity = 3;
+	g_Score += intensity * (intensity * LINE_CLEAR_SCORE);
 	  break;
   case 4:
 	  Mix_PlayChannel(-1, g_TetRizzPtr, 0);
     intensity = 4;
+	g_Score += intensity * (intensity * LINE_CLEAR_SCORE);
 	  break;
   default:
 	  break;

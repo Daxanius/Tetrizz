@@ -26,6 +26,10 @@ Playfield* g_PlayfieldPtr;
 bool       g_GameOver{};
 int        g_TickCount{};
 
+int        g_Score{0};
+
+static const int LINE_CLEAR_SCORE{ 300 };
+
 // Declare your own functions here
 void PlaceTetromino();
 
