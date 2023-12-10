@@ -59,7 +59,7 @@ void TetrizzScreen::Draw()
 
   m_PlayfieldPtr->Draw({ centerX - boardWidthOffset, centerY - boardHeightOffset });
 
-  DrawString("Rizz: " + std::to_string(m_Score), Point2f{ 10, 0 }, 20, { 1.0 , 1.0 ,1.0 , 1.0 }, "Resources/dhurjati.otf");
+  DrawString("Rizz: " + std::to_string(m_Score), Point2f{ 10, 0 }, 40, { 1.0 , 1.0 ,1.0 , 1.0 }, "Resources/dhurjati.otf");
 
   for (ScoreText scoreText : m_ScoreTextEffects) {
     scoreText.animatedText.Draw();
@@ -307,7 +307,7 @@ void TetrizzScreen::AddToScore(int value)
     {
       startPosition,
       { 0.1f, 1.f, 0.1f, 1.f },
-      24,
+      30,
       1,
       0,
     }
@@ -315,9 +315,9 @@ void TetrizzScreen::AddToScore(int value)
 
   textAnim.AddGoal(
     {
-      { 0.f, 0.f },
+      { 80.f, 35.f },
       { 0.1f, 1.f, 0.1f, 1.f },
-      24,
+      30,
       1,
       0,
     }
