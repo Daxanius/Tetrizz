@@ -236,3 +236,16 @@ TetrominoManager* Playfield::GetState()
 {
     return m_State;
 }
+
+void Playfield::ResetBoard()
+{
+    for (int colIndex = 0; colIndex < FIELD_WIDTH; ++colIndex)
+    {
+        for (int rowIndex = 0; rowIndex < FIELD_HEIGHT; ++rowIndex)
+        {
+            m_GridArr[rowIndex][colIndex] = nullptr;
+        }
+    }
+
+    m_State->Reset();
+}

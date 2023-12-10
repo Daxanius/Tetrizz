@@ -74,3 +74,13 @@ int TetrominoManager::GetSavedTetromino()
     return m_SavedTetrominoIndex;
   
 }
+
+void TetrominoManager::Reset()
+{
+    m_CurrentTetrominoPtr = nullptr;
+    m_QueuedTetrominoIndex = -1;
+    m_SavedTetrominoIndex = -1;
+    m_CurrentTetrominoIndex = -1;
+
+    NextTetromino();
+}
