@@ -16,6 +16,8 @@ public:
 
   Point2f    GetTetrominoPosition() const;
   void       SetTetrominoPosition(Point2f position);
+
+  void       Reset();
   
   Tetromino* GetTetromino();
 private:

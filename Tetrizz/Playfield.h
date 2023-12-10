@@ -23,6 +23,8 @@ public:
 
   void            NextTetromino();
 
+  void			  ResetBoard();
+
   void            Draw(Point2f position);
   TetrominoManager* GetState();
 private:

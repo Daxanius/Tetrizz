@@ -21,7 +21,6 @@ void Start()
   g_TetRizzPtr = Mix_LoadWAV("../Resources/tet_rizz.wav");
   g_GameOverPtr = Mix_LoadWAV("../Resources/game_over.wav");
 
-
   Mix_PlayChannel(-1, g_WelcomePtr, 0);
   Mix_PlayChannel(0, g_MusicPtr, -1);
 
@@ -61,6 +60,7 @@ void Draw()
   // [DYSON] Clears the background of the current window
 	ClearBackground();
   
+
   const WindowSettings windowSettings{ GetWindowInfo() };
   const float centerX = windowSettings.width / 2.f;
   const float centerY = windowSettings.height / 2.f;
@@ -72,6 +72,21 @@ void Draw()
   DrawNext(Point2f{ windowSettings.width - boardWidthOffset - 30, boardHeightOffset });
 
   g_PlayfieldPtr->Draw( { centerX - boardWidthOffset, centerY - boardHeightOffset } );
+
+  if (g_GameOver)
+  {
+	  Rectf sourceRect{};
+	  sourceRect.top = 0;
+	  sourceRect.left = 0;
+	  sourceRect.width = windowSettings.width;
+	  sourceRect.height = windowSettings.height;
+
+	  SetColor({1.0 , 0.0 , 0.0 , 0.5});
+	  FillRect(sourceRect);
+
+	  DrawString("Game Over!", Point2f{ centerX - 105 ,centerY - 75}, 50, {1.0 , 1.0 ,1.0 , 1.0}, "Resources/dhurjati.otf");
+	  DrawString("Press 'R' to Reset", Point2f{ centerX - 155 ,centerY - 15}, 50, {1.0 , 1.0 ,1.0 , 1.0}, "Resources/dhurjati.otf");
+  }
 
   // [DYSON] Repaints on the current window
   DrawWindow();
@@ -113,7 +128,13 @@ void End()
 #pragma region inputHandling											
 void OnKeyDownEvent(SDL_Keycode key)
 {
-  if (g_GameOver) {
+	if (g_GameOver) {
+		if (key == SDLK_r)
+		{
+			g_PlayfieldPtr->ResetBoard();
+			g_GameOver = false;
+			Mix_PlayChannel(0, g_MusicPtr, -1);
+	    }
     return;
   }
 
