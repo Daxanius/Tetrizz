@@ -29,6 +29,8 @@ public:
   TetrominoManager* GetState();
 
   bool            m_CanSaveTetromino{ true };
+
+  Point2f          GetQuickPlacePosition();
 private:
   Color4f* m_GridArr[FIELD_HEIGHT][FIELD_WIDTH]{ nullptr };
   TetrominoManager* m_State{};
@@ -36,6 +38,4 @@ private:
   void             MoveLineDown(int line);   // Moves a line down
   bool             IsLineFull(int line) const;
   bool             IsLineEmpty(int line) const;
-
-  Point2f          GetQuickPlacePosition();
 };

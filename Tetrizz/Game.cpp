@@ -162,6 +162,7 @@ void OnKeyDownEvent(SDL_Keycode key)
     break;
   case SDLK_SPACE:
     // g_CameraManager->SetShake(2.f, 10);
+	g_Score += 2 * (g_PlayfieldPtr->GetQuickPlacePosition().y - g_PlayfieldPtr->GetState()->GetTetrominoPosition().y);
     g_PlayfieldPtr->QuickPlace();
     PlaceTetromino();
     break;
