@@ -141,8 +141,9 @@ void TetrizzScreen::OnKeyDownEvent(SDL_Keycode key)
     if (m_PlayfieldPtr->Move({ 0, -1 }, 1)) {
       Mix_PlayChannel(-1, m_RotatePointer, 0);
       m_PlayfieldPtr->Move({ 0, 1 });
-      break;
     }
+
+    break;
   case SDLK_DOWN:
     m_PlayfieldPtr->Move({ 0, 1 });
     AddToScore(1);
