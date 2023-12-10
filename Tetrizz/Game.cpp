@@ -55,13 +55,22 @@ void Start()
   g_PlayfieldPtr = new Playfield(TETROMINOS_ARR, TETROMINO_COUNT);
 }
 
+void End()
+{
+  // free game resources here
+  delete g_CameraManager;
+  g_CameraManager = nullptr;
+  delete g_PlayfieldPtr;
+  g_PlayfieldPtr = nullptr;
+  Mix_CloseAudio();
+}
+
 // Put your own draw statements here
 void Draw()
 {
   // [DYSON] Clears the background of the current window
 	ClearBackground();
   
-
   const WindowSettings windowSettings{ GetWindowInfo() };
   const float centerX = windowSettings.width / 2.f;
   const float centerY = windowSettings.height / 2.f;
@@ -75,6 +84,10 @@ void Draw()
   g_PlayfieldPtr->Draw( { centerX - boardWidthOffset, centerY - boardHeightOffset } );
 
   DrawString("Score: " + std::to_string(g_Score), Point2f{ 10, 0 }, 20, { 1.0 , 1.0 ,1.0 , 1.0 }, "Resources/dhurjati.otf");
+
+  for (ScoreText scoreText : g_ScoreTextEffects) {
+    scoreText.animatedText.Draw();
+  }
 
   if (g_GameOver)
   {
@@ -97,7 +110,14 @@ void Draw()
 
 void Update(float deltaTime)
 {
+  for (size_t i = 0; i < g_ScoreTextEffects.size(); ++i) {
+    g_ScoreTextEffects[i].animatedText.Update(deltaTime);
 
+    if (g_ScoreTextEffects[i].animatedText.GetGoalsLeft() < 1) {
+      g_Score += g_ScoreTextEffects[i].score;
+      g_ScoreTextEffects.erase(g_ScoreTextEffects.begin() + i);
+    }
+  }
 }
 
 // [DYSON] Gets executed 50x per second
@@ -114,16 +134,6 @@ void FixedUpdate(float fixedDeltaTime)
 
   g_CameraManager->Update();
   ++g_TickCount;
-}
-
-void End()
-{
-	// free game resources here
-  delete g_CameraManager;
-  g_CameraManager = nullptr;
-  delete g_PlayfieldPtr;
-  g_PlayfieldPtr = nullptr;
-  Mix_CloseAudio();
 }
 #pragma endregion gameFunctions
 
@@ -158,14 +168,16 @@ void OnKeyDownEvent(SDL_Keycode key)
     }
   case SDLK_DOWN:
     g_PlayfieldPtr->Move({ 0, 1 });
-	g_Score += 1;
+	  AddToScore(1);
     break;
   case SDLK_SPACE:
-    // g_CameraManager->SetShake(2.f, 10);
-	g_Score += 2 * (g_PlayfieldPtr->GetQuickPlacePosition().y - g_PlayfieldPtr->GetState()->GetTetrominoPosition().y);
+  {
+    int multiplier = g_PlayfieldPtr->GetQuickPlacePosition().y - g_PlayfieldPtr->GetState()->GetTetrominoPosition().y;
     g_PlayfieldPtr->QuickPlace();
+    AddToScore(2 * multiplier);
     PlaceTetromino();
     break;
+  }
   case SDLK_c:
 	  if (g_PlayfieldPtr->m_CanSaveTetromino && g_PlayfieldPtr->GetState()->GetSavedTetromino() != g_PlayfieldPtr->GetState()->GetTetrominoIndex())
 	  {
@@ -237,22 +249,22 @@ void PlaceTetromino()
   case 1:
 	  Mix_PlayChannel(-1, g_SmallRizzlerPtr, 0);
     intensity = 1;
-	g_Score += intensity * (intensity * LINE_CLEAR_SCORE);
+    AddToScore(intensity * (intensity * LINE_CLEAR_SCORE));
 	  break;
   case 2:
 	  Mix_PlayChannel(-1, g_LilBitOfRizzPtr, 0);
     intensity = 2;
-	g_Score += intensity * (intensity * LINE_CLEAR_SCORE);
+    AddToScore(intensity * (intensity * LINE_CLEAR_SCORE));
 	  break;
   case 3:
 	  Mix_PlayChannel(-1, g_YouGotRizzPtr, 0);
     intensity = 3;
-	g_Score += intensity * (intensity * LINE_CLEAR_SCORE);
+    AddToScore(intensity * (intensity * LINE_CLEAR_SCORE));
 	  break;
   case 4:
 	  Mix_PlayChannel(-1, g_TetRizzPtr, 0);
     intensity = 4;
-	g_Score += intensity * (intensity * LINE_CLEAR_SCORE);
+    AddToScore(intensity * (intensity * LINE_CLEAR_SCORE));
 	  break;
   default:
 	  break;
@@ -264,14 +276,6 @@ void PlaceTetromino()
   g_PlayfieldPtr->NextTetromino();
 
   g_PlayfieldPtr->m_CanSaveTetromino = true;
-}
-
-void DrawString(const std::string& output , const Point2f topLeft, const int fontSize, const Color4f& color, const std::string& fontLocation)
-{
-	Texture texturePtr;
-	TextureFromString(output, fontLocation, fontSize, color, texturePtr);
-	DrawTexture(texturePtr, topLeft);
-  DeleteTexture(texturePtr);
 }
 
 void DrawSaved(const Point2f& position)
@@ -340,6 +344,56 @@ void DrawNext(const Point2f& position)
 	delete nextTetromino;
 
 	DrawString("Next", {position.x - 4, position.y - 50}, 30, {1.0 ,1.0 ,1.0}, "Resources/dhurjati.otf");
+}
+
+void AddToScore(int value)
+{
+  const WindowSettings windowSettings{ GetWindowInfo() };
+  const float centerX = windowSettings.width / 2.f;
+  const float centerY = windowSettings.height / 2.f;
+
+  const float boardWidthOffset = (TILE_SIZE * FIELD_WIDTH) / 2.f;
+  const float boardHeightOffset = (TILE_SIZE * FIELD_HEIGHT) / 2.f;
+
+  Point2f startPosition{
+    g_PlayfieldPtr->GetState()->GetTetrominoPosition().x* TILE_SIZE + (centerX - boardWidthOffset),
+    g_PlayfieldPtr->GetState()->GetTetrominoPosition().y * TILE_SIZE + (centerY - boardHeightOffset)
+  };
+
+  AnimatedText textAnim = AnimatedText(
+    startPosition,
+    "+" + std::to_string(value),
+    0,
+    { 0.1f, 1.f, 0.1f, 1.f },
+    "Resources/dhurjati.otf"
+  );
+
+  textAnim.AddGoal(
+    {
+      startPosition,
+      { 0.1f, 1.f, 0.1f, 1.f },
+      24,
+      1,
+      0,
+    }
+  );
+
+  textAnim.AddGoal(
+    {
+      { 0.f, 0.f },
+      { 0.1f, 1.f, 0.1f, 1.f },
+      24,
+      1,
+      0,
+    }
+  );
+
+  g_ScoreTextEffects.push_back(
+    {
+      textAnim,
+      value
+    }
+  );
 }
 
 #pragma endregion ownDefinitions

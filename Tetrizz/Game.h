@@ -1,12 +1,20 @@
 #pragma once
 #include <Core.h>
+#include <vector>
 #include "GameDefines.h"
 #include "Playfield.h"
 #include "Tetromino.h"
 #include "Tetrominos.h"
 #include "CameraManager.h"
+#include "AnimatedText.h";
 
 #pragma region ownDeclarations
+struct ScoreText
+{
+  AnimatedText animatedText;
+  int          score;
+};
+
 // Variables
 Mix_Chunk* g_MusicPtr;
 Mix_Chunk* g_WelcomePtr;
@@ -20,9 +28,10 @@ Mix_Chunk* g_TetRizzPtr;
 Mix_Chunk* g_GameOverPtr;
 Mix_Chunk* g_DeathPtr;
 
-
 CameraManager* g_CameraManager;
 Playfield* g_PlayfieldPtr;
+std::vector<ScoreText> g_ScoreTextEffects;
+
 bool       g_GameOver{};
 int        g_TickCount{};
 
@@ -33,9 +42,9 @@ static const int LINE_CLEAR_SCORE{ 300 };
 // Declare your own functions here
 void PlaceTetromino();
 
-void DrawString(const std::string& output, const Point2f topLeft, const int fontSize, const Color4f& color, const std::string& fontLocation);
 void DrawSaved(const Point2f& position);
 void DrawNext(const Point2f& position);
+void AddToScore(int value);
 
 #pragma endregion ownDeclarations
 
