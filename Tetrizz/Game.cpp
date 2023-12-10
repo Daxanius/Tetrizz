@@ -153,9 +153,12 @@ void OnKeyDownEvent(SDL_Keycode key)
   case SDLK_UP:
     if (g_PlayfieldPtr->Move({ 0, -1 }, 1)) {
       Mix_PlayChannel(-1, g_RotatePointer, 0);
+	  g_PlayfieldPtr->Move({ 0, 1 });
+	  break;
     }
   case SDLK_DOWN:
     g_PlayfieldPtr->Move({ 0, 1 });
+	g_Score += 1;
     break;
   case SDLK_SPACE:
     // g_CameraManager->SetShake(2.f, 10);
