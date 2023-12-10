@@ -20,6 +20,7 @@ void Start()
   g_YouGotRizzPtr = Mix_LoadWAV("../Resources/you_got_rizz.wav");
   g_TetRizzPtr = Mix_LoadWAV("../Resources/tet_rizz.wav");
   g_GameOverPtr = Mix_LoadWAV("../Resources/game_over.wav");
+  g_DeathPtr = Mix_LoadWAV("../Resources/death.wav");
 
   Mix_PlayChannel(-1, g_WelcomePtr, 0);
   Mix_PlayChannel(0, g_MusicPtr, -1);
@@ -134,7 +135,7 @@ void OnKeyDownEvent(SDL_Keycode key)
 			g_PlayfieldPtr->ResetBoard();
 			g_GameOver = false;
 			Mix_PlayChannel(0, g_MusicPtr, -1);
-	    }
+	  }
     return;
   }
 
@@ -214,6 +215,7 @@ void PlaceTetromino()
     g_GameOver = true;
     Mix_PlayChannel(-1, g_GameOverPtr, 0);
     Mix_HaltChannel(0);
+    Mix_PlayChannel(0, g_DeathPtr, -1);
     return;
   }
 

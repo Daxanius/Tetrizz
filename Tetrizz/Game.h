@@ -18,6 +18,7 @@ Mix_Chunk* g_LilBitOfRizzPtr;
 Mix_Chunk* g_YouGotRizzPtr;
 Mix_Chunk* g_TetRizzPtr;
 Mix_Chunk* g_GameOverPtr;
+Mix_Chunk* g_DeathPtr;
 
 
 CameraManager* g_CameraManager;
