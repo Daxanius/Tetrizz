@@ -214,7 +214,6 @@ void PlaceTetromino()
   if (!g_PlayfieldPtr->PlaceTetromino()) {
     g_GameOver = true;
     Mix_PlayChannel(-1, g_GameOverPtr, 0);
-    Mix_HaltChannel(0);
     Mix_PlayChannel(0, g_DeathPtr, -1);
     return;
   }
