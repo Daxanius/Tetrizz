@@ -74,7 +74,7 @@ void Draw()
 
   g_PlayfieldPtr->Draw( { centerX - boardWidthOffset, centerY - boardHeightOffset } );
 
-  DrawString("Score: " + std::to_string(g_Score), Point2f{ 10, 0 }, 50, { 1.0 , 1.0 ,1.0 , 1.0 }, "Resources/dhurjati.otf");
+  DrawString("Score: " + std::to_string(g_Score), Point2f{ 10, 0 }, 20, { 1.0 , 1.0 ,1.0 , 1.0 }, "Resources/dhurjati.otf");
 
   if (g_GameOver)
   {
