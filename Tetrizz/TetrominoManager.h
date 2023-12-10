@@ -20,6 +20,7 @@ public:
   void       Reset();
   
   Tetromino* GetTetromino();
+  int        GetTetrominoIndex();
 private:
   const Tetromino* m_TetrominosArr;   // DO NOT DELETE, array pointer to all predefined tetrominos
   int              m_TetrominosArrSize;
@@ -29,6 +30,7 @@ private:
   int              m_CurrentTetrominoIndex{ -1 };
   Tetromino*       m_CurrentTetrominoPtr{ nullptr };
   Point2f          m_TetrominoPosition;
+
 
   void             SetCurrentTetromino(int index);
 };

@@ -27,6 +27,8 @@ public:
 
   void            Draw(Point2f position);
   TetrominoManager* GetState();
+
+  bool            m_CanSaveTetromino{ true };
 private:
   Color4f* m_GridArr[FIELD_HEIGHT][FIELD_WIDTH]{ nullptr };
   TetrominoManager* m_State{};

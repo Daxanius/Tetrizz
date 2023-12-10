@@ -180,7 +180,6 @@ bool Playfield::PlaceTetromino()
 
 		m_GridArr[gridRow][gridColumn] = new Color4f{ m_State->GetTetromino()->GetColor() };
 	}
-
   return success;
 }
 
@@ -229,7 +228,10 @@ void Playfield::NextTetromino()
 
 void  Playfield::SaveTetromino()
 {
-  m_State->SaveTetromino();
+    if (m_CanSaveTetromino)
+    {
+        m_State->SaveTetromino();
+    }
 }
 
 TetrominoManager* Playfield::GetState()

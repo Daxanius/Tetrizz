@@ -23,7 +23,7 @@ void Start()
   g_DeathPtr = Mix_LoadWAV("../Resources/death.wav");
 
   Mix_PlayChannel(-1, g_WelcomePtr, 0);
-  Mix_PlayChannel(0, g_MusicPtr, -1);
+  Mix_PlayChannel(-1, g_MusicPtr, -1);
 
   SDL_DisplayMode displayMode{ GetDisplayMode() };
   const float sizeX{ 800.f };
@@ -160,7 +160,11 @@ void OnKeyDownEvent(SDL_Keycode key)
     PlaceTetromino();
     break;
   case SDLK_c:
-    g_PlayfieldPtr->SaveTetromino();
+	  if (g_PlayfieldPtr->m_CanSaveTetromino && g_PlayfieldPtr->GetState()->GetSavedTetromino() != g_PlayfieldPtr->GetState()->GetTetrominoIndex())
+	  {
+		  g_PlayfieldPtr->SaveTetromino();
+		  g_PlayfieldPtr->m_CanSaveTetromino = false;
+	  } 
 	  break;
   }
 }
@@ -248,6 +252,8 @@ void PlaceTetromino()
 
   g_PlayfieldPtr->MoveLinesDown();
   g_PlayfieldPtr->NextTetromino();
+
+  g_PlayfieldPtr->m_CanSaveTetromino = true;
 }
 
 void DrawString(const std::string& output , const Point2f topLeft, const int fontSize, const Color4f& color, const std::string& fontLocation)
