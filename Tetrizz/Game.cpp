@@ -6,25 +6,9 @@
 #pragma region gameFunctions
 void Start()
 {
-	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 6, 2048) < 0) {
-		std::cerr << "SDL Mixer could not initialize! Mix_Error: " << Mix_GetError() << std::endl;
-		SDL_Quit(); // Quit SDL if Mixer initialization fails
-	}
-
-	g_MusicPtr = Mix_LoadWAV("../Resources/theme.wav");
-  g_WelcomePtr = Mix_LoadWAV("../Resources/welcome.wav");
-  g_PlacePtr = Mix_LoadWAV("../Resources/place.wav");
-  g_RotatePointer = Mix_LoadWAV("../Resources/rotate.wav");
-  g_SmallRizzlerPtr = Mix_LoadWAV("../Resources/small_rizzler.wav");
-  g_LilBitOfRizzPtr = Mix_LoadWAV("../Resources/lil_bit_of_rizz.wav");
-  g_YouGotRizzPtr = Mix_LoadWAV("../Resources/you_got_rizz.wav");
-  g_TetRizzPtr = Mix_LoadWAV("../Resources/tet_rizz.wav");
-  g_GameOverPtr = Mix_LoadWAV("../Resources/game_over.wav");
-  g_DeathPtr = Mix_LoadWAV("../Resources/death.wav");
-  g_ScorePtr = Mix_LoadWAV("../Resources/score.wav");
-
-  Mix_PlayChannel(0, g_MusicPtr, -1);
-  Mix_PlayChannel(-1, g_WelcomePtr, 0);
+  g_ScreenManagerPtr = new ScreenManager();
+  GameScreen* screen{ new MenuScreen(g_ScreenManagerPtr) };
+  g_ScreenManagerPtr->SetScreen(screen);
 
   SDL_DisplayMode displayMode{ GetDisplayMode() };
   const float sizeX{ 800.f };
@@ -49,20 +33,11 @@ void Start()
   // select the window to update and draw to. 
   // This function returns the int id of the window created
   MakeWindow(window);
-
-	// initialize game resources here
-  // TextureFromFile("Resources/dyson.png", g_Texture);
-  g_CameraManager = new CameraManager();
-  g_PlayfieldPtr = new Playfield(TETROMINOS_ARR, TETROMINO_COUNT);
 }
 
 void End()
 {
-  // free game resources here
-  delete g_CameraManager;
-  g_CameraManager = nullptr;
-  delete g_PlayfieldPtr;
-  g_PlayfieldPtr = nullptr;
+  delete g_ScreenManagerPtr;
   Mix_CloseAudio();
 }
 
@@ -71,39 +46,8 @@ void Draw()
 {
   // [DYSON] Clears the background of the current window
 	ClearBackground();
-  
-  const WindowSettings windowSettings{ GetWindowInfo() };
-  const float centerX = windowSettings.width / 2.f;
-  const float centerY = windowSettings.height / 2.f;
 
-  const float boardWidthOffset = (TILE_SIZE * FIELD_WIDTH) / 2.f;
-  const float boardHeightOffset = (TILE_SIZE * FIELD_HEIGHT) / 2.f;
-
-  DrawSaved(Point2f{ boardWidthOffset , boardHeightOffset });
-  DrawNext(Point2f{ windowSettings.width - boardWidthOffset - 30, boardHeightOffset });
-
-  g_PlayfieldPtr->Draw( { centerX - boardWidthOffset, centerY - boardHeightOffset } );
-
-  DrawString("Score: " + std::to_string(g_Score), Point2f{ 10, 0 }, 20, { 1.0 , 1.0 ,1.0 , 1.0 }, "Resources/dhurjati.otf");
-
-  for (ScoreText scoreText : g_ScoreTextEffects) {
-    scoreText.animatedText.Draw();
-  }
-
-  if (g_GameOver)
-  {
-	  Rectf sourceRect{};
-	  sourceRect.top = 0;
-	  sourceRect.left = 0;
-	  sourceRect.width = windowSettings.width;
-	  sourceRect.height = windowSettings.height;
-
-	  SetColor({1.0 , 0.0 , 0.0 , 0.5});
-	  FillRect(sourceRect);
-
-	  DrawString("Game Over!", Point2f{ centerX - 105 ,centerY - 75}, 50, {1.0 , 1.0 ,1.0 , 1.0}, "Resources/dhurjati.otf");
-	  DrawString("Press 'R' to Reset", Point2f{ centerX - 155 ,centerY - 15}, 50, {1.0 , 1.0 ,1.0 , 1.0}, "Resources/dhurjati.otf");
-  }
+  g_ScreenManagerPtr->GetScreen()->Draw();
 
   // [DYSON] Repaints on the current window
   DrawWindow();
@@ -111,31 +55,13 @@ void Draw()
 
 void Update(float deltaTime)
 {
-  for (size_t i = 0; i < g_ScoreTextEffects.size(); ++i) {
-    g_ScoreTextEffects[i].animatedText.Update(deltaTime);
-
-    if (g_ScoreTextEffects[i].animatedText.GetGoalsLeft() < 1) {
-      Mix_PlayChannel(-1, g_ScorePtr, 0);
-      g_Score += g_ScoreTextEffects[i].score;
-      g_ScoreTextEffects.erase(g_ScoreTextEffects.begin() + i);
-    }
-  }
+  g_ScreenManagerPtr->GetScreen()->Update(deltaTime);
 }
 
 // [DYSON] Gets executed 50x per second
 void FixedUpdate(float fixedDeltaTime)
 {
-  if (g_TickCount % TICKS_PER_UPDATE == 0 && !g_GameOver) {
-    if (!g_PlayfieldPtr->CanMove({ 0, 1 }))
-    {
-      PlaceTetromino();
-    } else {
-      g_PlayfieldPtr->Move({ 0, 1 });
-    }
-  }
-
-  g_CameraManager->Update();
-  ++g_TickCount;
+  g_ScreenManagerPtr->GetScreen()->FixedUpdate(fixedDeltaTime);
 }
 #pragma endregion gameFunctions
 
@@ -143,259 +69,30 @@ void FixedUpdate(float fixedDeltaTime)
 #pragma region inputHandling											
 void OnKeyDownEvent(SDL_Keycode key)
 {
-	if (g_GameOver) {
-		if (key == SDLK_r)
-		{
-			g_PlayfieldPtr->ResetBoard();
-			g_GameOver = false;
-			g_Score = 0;
-			Mix_PlayChannel(0, g_MusicPtr, -1);
-	  }
-    return;
-  }
-
-  switch (key)
-  {
-  case SDLK_LEFT:
-    g_PlayfieldPtr->Move({ -1, 0 });
-	  break;
-  case SDLK_RIGHT:
-    g_PlayfieldPtr->Move({ 1, 0 });
-	  break;
-  case SDLK_UP:
-    if (g_PlayfieldPtr->Move({ 0, -1 }, 1)) {
-      Mix_PlayChannel(-1, g_RotatePointer, 0);
-	  g_PlayfieldPtr->Move({ 0, 1 });
-	  break;
-    }
-  case SDLK_DOWN:
-    g_PlayfieldPtr->Move({ 0, 1 });
-	  AddToScore(1);
-    break;
-  case SDLK_SPACE:
-  {
-    int multiplier = g_PlayfieldPtr->GetQuickPlacePosition().y - g_PlayfieldPtr->GetState()->GetTetrominoPosition().y;
-    g_PlayfieldPtr->QuickPlace();
-    AddToScore(2 * multiplier);
-    PlaceTetromino();
-    break;
-  }
-  case SDLK_c:
-	  if (g_PlayfieldPtr->m_CanSaveTetromino && g_PlayfieldPtr->GetState()->GetSavedTetromino() != g_PlayfieldPtr->GetState()->GetTetrominoIndex())
-	  {
-		  g_PlayfieldPtr->SaveTetromino();
-		  g_PlayfieldPtr->m_CanSaveTetromino = false;
-	  } 
-	  break;
-  }
+  g_ScreenManagerPtr->GetScreen()->OnKeyDownEvent(key);
 }
 
 void OnKeyUpEvent(SDL_Keycode key)
 {
+  g_ScreenManagerPtr->GetScreen()->OnKeyUpEvent(key);
 }
 
 void OnMouseMotionEvent(const SDL_MouseMotionEvent& e)
 {
-	// SAMPLE CODE: print mouse position
-	//const float mouseX{ float(e.x) };
-	//const float mouseY{ float(e.y) };
-	//std::cout << "  [" << mouseX << ", " << mouseY << "]\n";
+  g_ScreenManagerPtr->GetScreen()->OnMouseMotionEvent(e);
 }
 
 void OnMouseDownEvent(const SDL_MouseButtonEvent& e)
 {
-	// SAMPLE CODE: print mouse position
-	//const float mouseX{ float(e.x) };
-	//const float mouseY{ float(e.y) };
-	//std::cout << "  [" << mouseX << ", " << mouseY << "]\n";
+  g_ScreenManagerPtr->GetScreen()->OnMouseDownEvent(e);
 }
 
 void OnMouseUpEvent(const SDL_MouseButtonEvent& e)
 {
-	// SAMPLE CODE: print mouse position
-	//const float mouseX{ float(e.x) };
-	//const float mouseY{ float(e.y) };
-	//std::cout << "  [" << mouseX << ", " << mouseY << "]\n";
-	
-	// SAMPLE CODE: check which mouse button was pressed
-	//switch (e.button)
-	//{
-	//case SDL_BUTTON_LEFT:
-	//	//std::cout << "Left mouse button released\n";
-	//	break;
-	//case SDL_BUTTON_RIGHT:
-	//	//std::cout << "Right mouse button released\n";
-	//	break;
-	//case SDL_BUTTON_MIDDLE:
-	//	//std::cout << "Middle mouse button released\n";
-	//	break;
-	//}
+  g_ScreenManagerPtr->GetScreen()->OnMouseUpEvent(e);
 }
 #pragma endregion inputHandling
 
 #pragma region ownDefinitions
-void PlaceTetromino()
-{
-  if (!g_PlayfieldPtr->PlaceTetromino()) {
-    g_GameOver = true;
-    Mix_PlayChannel(-1, g_GameOverPtr, 0);
-    Mix_PlayChannel(0, g_DeathPtr, -1);
-    return;
-  }
-
-  Mix_PlayChannel(-1, g_PlacePtr, 0);
-  float intensity{};
-
-  switch (g_PlayfieldPtr->ClearFullLines())
-  {
-  case 1:
-	  Mix_PlayChannel(-1, g_SmallRizzlerPtr, 0);
-    intensity = 1;
-    AddToScore(intensity * (intensity * LINE_CLEAR_SCORE));
-	  break;
-  case 2:
-	  Mix_PlayChannel(-1, g_LilBitOfRizzPtr, 0);
-    intensity = 2;
-    AddToScore(intensity * (intensity * LINE_CLEAR_SCORE));
-	  break;
-  case 3:
-	  Mix_PlayChannel(-1, g_YouGotRizzPtr, 0);
-    intensity = 3;
-    AddToScore(intensity * (intensity * LINE_CLEAR_SCORE));
-	  break;
-  case 4:
-	  Mix_PlayChannel(-1, g_TetRizzPtr, 0);
-    intensity = 4;
-    AddToScore(intensity * (intensity * LINE_CLEAR_SCORE));
-	  break;
-  default:
-	  break;
-  }
-
-  g_CameraManager->SetShake(intensity, 10);
-
-  g_PlayfieldPtr->MoveLinesDown();
-  g_PlayfieldPtr->NextTetromino();
-
-  g_PlayfieldPtr->m_CanSaveTetromino = true;
-}
-
-void DrawSaved(const Point2f& position)
-{
-  Rectf sourceRect{};
-	sourceRect.height = 120;
-	sourceRect.width = 120;
-	sourceRect.top = position.y - 40;
-	sourceRect.left = position.x - int(sourceRect.width / 3);
-
-	SetColor({ 0.0 ,0.0 , 0.0 ,1.0 });
-	FillRect(sourceRect);
-
-	SetColor({ 1.0 ,1.0 , 1.0 ,1.0 });
-	for (int lineThickness{}; lineThickness < 10; lineThickness++)
-	{
-		Rectf outlineRect;
-		outlineRect.height = sourceRect.height + lineThickness;
-		outlineRect.width = sourceRect.width + lineThickness;
-		outlineRect.top = sourceRect.top + ceil(lineThickness/2);
-		outlineRect.left = sourceRect.left + ceil(lineThickness / 2);
-
-		DrawRect(outlineRect);
-	}
-
-	const int indexOfSavedTetromino{ g_PlayfieldPtr->GetState()->GetSavedTetromino() };
-
-	if (indexOfSavedTetromino > -1)
-	{
-		Tetromino* savedTetromino{ new Tetromino(TETROMINOS_ARR[indexOfSavedTetromino]) };
-		savedTetromino->Draw({ position.x , position.y });
-
-		delete savedTetromino;
-	}
-
-	DrawString("Saved", { position.x - 12, position.y - 50 }, 30, { 1.0 ,1.0 ,1.0 }, "Resources/dhurjati.otf");
-}
-
-void DrawNext(const Point2f& position)
-{
-	Rectf sourceRect;
-	sourceRect.height = 120;
-	sourceRect.width  = 120;
-	sourceRect.top    = position.y - 40;
-	sourceRect.left   = position.x - int(sourceRect.width / 3);
-
-	SetColor({ 0.0 ,0.0 , 0.0 ,1.0 });
-	FillRect(sourceRect);
-
-	SetColor({ 1.0 ,1.0 , 1.0 ,1.0 });
-	for (int lineThickness{}; lineThickness < 10; lineThickness++)
-	{
-		Rectf outlineRect;
-		outlineRect.height = sourceRect.height + lineThickness;
-		outlineRect.width = sourceRect.width + lineThickness;
-		outlineRect.top = sourceRect.top + ceil(lineThickness / 2);
-		outlineRect.left = sourceRect.left + ceil(lineThickness / 2);
-
-		DrawRect(outlineRect);
-	}
-
-	const int indexOfNextTetromino{ g_PlayfieldPtr->GetState()->GetQueuedTetromino() };
-	Tetromino* nextTetromino{ new Tetromino(TETROMINOS_ARR[indexOfNextTetromino]) };
-	nextTetromino->Draw({ position.x , position.y });
-
-	delete nextTetromino;
-
-	DrawString("Next", {position.x - 4, position.y - 50}, 30, {1.0 ,1.0 ,1.0}, "Resources/dhurjati.otf");
-}
-
-void AddToScore(int value)
-{
-  const WindowSettings windowSettings{ GetWindowInfo() };
-  const float centerX = windowSettings.width / 2.f;
-  const float centerY = windowSettings.height / 2.f;
-
-  const float boardWidthOffset = (TILE_SIZE * FIELD_WIDTH) / 2.f;
-  const float boardHeightOffset = (TILE_SIZE * FIELD_HEIGHT) / 2.f;
-
-  Point2f startPosition{
-    g_PlayfieldPtr->GetState()->GetTetrominoPosition().x* TILE_SIZE + (centerX - boardWidthOffset),
-    g_PlayfieldPtr->GetState()->GetTetrominoPosition().y * TILE_SIZE + (centerY - boardHeightOffset)
-  };
-
-  AnimatedText textAnim = AnimatedText(
-    startPosition,
-    "+" + std::to_string(value),
-    0,
-    { 0.1f, 1.f, 0.1f, 1.f },
-    "Resources/dhurjati.otf"
-  );
-
-  textAnim.AddGoal(
-    {
-      startPosition,
-      { 0.1f, 1.f, 0.1f, 1.f },
-      24,
-      1,
-      0,
-    }
-  );
-
-  textAnim.AddGoal(
-    {
-      { 0.f, 0.f },
-      { 0.1f, 1.f, 0.1f, 1.f },
-      24,
-      1,
-      0,
-    }
-  );
-
-  g_ScoreTextEffects.push_back(
-    {
-      textAnim,
-      value
-    }
-  );
-}
 
 #pragma endregion ownDefinitions
