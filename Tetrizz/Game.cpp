@@ -22,8 +22,8 @@ void Start()
   g_GameOverPtr = Mix_LoadWAV("../Resources/game_over.wav");
   g_DeathPtr = Mix_LoadWAV("../Resources/death.wav");
 
+  Mix_PlayChannel(0, g_MusicPtr, -1);
   Mix_PlayChannel(-1, g_WelcomePtr, 0);
-  Mix_PlayChannel(-1, g_MusicPtr, -1);
 
   SDL_DisplayMode displayMode{ GetDisplayMode() };
   const float sizeX{ 800.f };
