@@ -12,6 +12,12 @@ MenuScreen::~MenuScreen()
 
 void MenuScreen::Draw()
 {
+  const WindowSettings windowSettings{ GetWindowInfo() };
+  const float centerX = windowSettings.width / 2.f;
+  const float centerY = windowSettings.height / 2.f;
+
+  DrawString("Tetrizz", { centerX - 90, 40 }, 70, { 1.f, 1.f, 1.f, 1.f }, "Resources/dhurjati.otf");
+  DrawString("Click to start", { centerX - 95, 100 }, 40, { 1.f, 1.f, 1.f, 1.f }, "Resources/dhurjati.otf");
 }
 
 void MenuScreen::Update(float deltaTime)
