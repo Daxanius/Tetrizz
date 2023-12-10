@@ -34,10 +34,14 @@ void MenuScreen::FixedUpdate(float fixedDeltaTime)
 
 void MenuScreen::OnKeyDownEvent(SDL_Keycode key)
 {
+  if (key == SDLK_ESCAPE) {
+    SDL_Quit();
+  }
 }
 
 void MenuScreen::OnKeyUpEvent(SDL_Keycode key)
 {
+
 }
 
 void MenuScreen::OnMouseMotionEvent(const SDL_MouseMotionEvent& e)

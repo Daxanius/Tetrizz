@@ -138,7 +138,7 @@ void TetrizzScreen::OnKeyDownEvent(SDL_Keycode key)
     m_PlayfieldPtr->Move({ 1, 0 });
     break;
   case SDLK_UP:
-    if (m_PlayfieldPtr->Move({ 0, -1 }, 1)) {
+    if (m_PlayfieldPtr->Move({ 0, 0 }, 1)) {
       Mix_PlayChannel(-1, m_RotatePointer, 0);
       m_PlayfieldPtr->Move({ 0, 1 });
     }
