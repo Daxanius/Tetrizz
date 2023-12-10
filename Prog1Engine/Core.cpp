@@ -282,8 +282,15 @@ void SetWindowSettings(WindowSettings settings)
 WindowSettings GetWindowInfo(int id)
 {
   auto pair{ g_Windows.find(id) };
-  Window window = pair->second;
-  return window.settings;
+
+  int width, height;
+  SDL_GetWindowSize(pair->second.pWindow, &width, &height);
+
+  // Update the window size in the stored settings
+  pair->second.settings.width = static_cast<float>(width);
+  pair->second.settings.height = static_cast<float>(height);
+
+  return pair->second.settings;
 }
 
 WindowSettings GetWindowInfo()

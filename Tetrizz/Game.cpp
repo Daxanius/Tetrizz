@@ -18,9 +18,12 @@ void Start()
   const float sizeX{ 800.f };
   const float sizeY{ 600.f };
 
-  WindowSettings window{
+  WindowSettings window;
+
+#ifdef NDEBUG  // NDEBUG is defined in Release builds
+  window = WindowSettings{
       "Tetrizz - Balder Huybreghs & Quentin Demuynck - 1DAE16", // title
-      0,                                         // Fullscreen mode (SDL_WINDOW_FULLSCREEN_DESKTOP, SDL_WINDOW_FULLSCREEN, 0)
+      SDL_WINDOW_FULLSCREEN,                     // Fullscreen mode
       sizeX,                                     // width
       sizeY,                                     // height
       int(displayMode.w / 2) - int(sizeX / 2),   // posX
@@ -31,6 +34,22 @@ void Start()
       false,                                     // alwaysOnTop
       true                                       // bordered
   };
+
+#else
+  window = WindowSettings{
+      "Tetrizz - Balder Huybreghs & Quentin Demuynck - 1DAE16", // title
+      0,                                        // Windowed mode
+      sizeX,                                     // width
+      sizeY,                                     // height
+      int(displayMode.w / 2) - int(sizeX / 2),   // posX
+      int(displayMode.h / 2) - int(sizeY / 2),   // posY
+      1.f,                                       // opacity
+      true,                                      // vsync
+      true,                                      // lineSmoothing
+      false,                                     // alwaysOnTop
+      true                                       // bordered
+  };
+#endif
 
   // [DYSON] Creates a window, you can call this as many times as you want
   // to create a bunch of windows, just make sure to use SelectWindow(int id) to
