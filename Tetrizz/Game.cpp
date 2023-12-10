@@ -6,9 +6,13 @@
 #pragma region gameFunctions
 void Start()
 {
-  g_ScreenManagerPtr = new ScreenManager();
-  GameScreen* screen{ new MenuScreen(g_ScreenManagerPtr) };
-  g_ScreenManagerPtr->SetScreen(screen);
+  if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 6, 2048) < 0) {
+    SDL_Quit(); // Quit SDL if Mixer initialization fails
+  }
+
+  g_ScreenManager = ScreenManager();
+  GameScreen* screen{ new MenuScreen(&g_ScreenManager) };
+  g_ScreenManager.SetScreen(screen);
 
   SDL_DisplayMode displayMode{ GetDisplayMode() };
   const float sizeX{ 800.f };
@@ -37,7 +41,6 @@ void Start()
 
 void End()
 {
-  delete g_ScreenManagerPtr;
   Mix_CloseAudio();
 }
 
@@ -47,7 +50,7 @@ void Draw()
   // [DYSON] Clears the background of the current window
 	ClearBackground();
 
-  g_ScreenManagerPtr->GetScreen()->Draw();
+  g_ScreenManager.GetScreen()->Draw();
 
   // [DYSON] Repaints on the current window
   DrawWindow();
@@ -55,13 +58,14 @@ void Draw()
 
 void Update(float deltaTime)
 {
-  g_ScreenManagerPtr->GetScreen()->Update(deltaTime);
+  g_ScreenManager.GetScreen()->Update(deltaTime);
 }
 
 // [DYSON] Gets executed 50x per second
 void FixedUpdate(float fixedDeltaTime)
 {
-  g_ScreenManagerPtr->GetScreen()->FixedUpdate(fixedDeltaTime);
+  //g_ScreenManager.Update();
+  g_ScreenManager.GetScreen()->FixedUpdate(fixedDeltaTime);
 }
 #pragma endregion gameFunctions
 
@@ -69,27 +73,27 @@ void FixedUpdate(float fixedDeltaTime)
 #pragma region inputHandling											
 void OnKeyDownEvent(SDL_Keycode key)
 {
-  g_ScreenManagerPtr->GetScreen()->OnKeyDownEvent(key);
+  g_ScreenManager.GetScreen()->OnKeyDownEvent(key);
 }
 
 void OnKeyUpEvent(SDL_Keycode key)
 {
-  g_ScreenManagerPtr->GetScreen()->OnKeyUpEvent(key);
+  g_ScreenManager.GetScreen()->OnKeyUpEvent(key);
 }
 
 void OnMouseMotionEvent(const SDL_MouseMotionEvent& e)
 {
-  g_ScreenManagerPtr->GetScreen()->OnMouseMotionEvent(e);
+  g_ScreenManager.GetScreen()->OnMouseMotionEvent(e);
 }
 
 void OnMouseDownEvent(const SDL_MouseButtonEvent& e)
 {
-  g_ScreenManagerPtr->GetScreen()->OnMouseDownEvent(e);
+  g_ScreenManager.GetScreen()->OnMouseDownEvent(e);
 }
 
 void OnMouseUpEvent(const SDL_MouseButtonEvent& e)
 {
-  g_ScreenManagerPtr->GetScreen()->OnMouseUpEvent(e);
+  g_ScreenManager.GetScreen()->OnMouseUpEvent(e);
 }
 #pragma endregion inputHandling
 

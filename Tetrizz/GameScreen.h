@@ -12,6 +12,7 @@ public:
   void        SetScreen(GameScreen* newScreen);
   GameScreen* GetScreen();
 private:
+  GameScreen* m_PreviousScreen{ nullptr };
   GameScreen* m_CurrentScreen{ nullptr };
 };
 
@@ -19,6 +20,8 @@ private:
 class GameScreen
 {
 public:
+  virtual ~GameScreen() {};
+
   // General game functions
   virtual void Draw()                                            = 0;
   virtual void Update(float deltaTime)                           = 0;

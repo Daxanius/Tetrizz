@@ -5,17 +5,13 @@ MenuScreen::MenuScreen(ScreenManager* screenManager)
 {
   m_ScreenManager = screenManager;
 
-  if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 1, 2048) < 0) {
-    SDL_Quit(); // Quit SDL if Mixer initialization fails
-  }
-
   m_MusicPtr = Mix_LoadWAV("../Resources/hard.wav");
   Mix_PlayChannel(-1, m_MusicPtr, -1);
 }
 
 MenuScreen::~MenuScreen()
 {
-  Mix_CloseAudio();
+  Mix_FreeChunk(m_MusicPtr);
 }
 
 void MenuScreen::Draw()

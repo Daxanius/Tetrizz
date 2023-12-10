@@ -136,25 +136,23 @@ bool Playfield::IsTileTaken(int row, int col) const
 
 bool Playfield::CanMove(Point2f direction, int rotations) const
 {
-  Tetromino* t = new Tetromino(*m_State->GetTetromino());
+  Tetromino t = Tetromino(*m_State->GetTetromino());
 
   for(int i = 0; i < rotations; ++i) {
-    t->Rotate();
+    t.Rotate();
   }
 
 	for (int i = 0; i < MINO_COUNT; ++i)
 	{
-		Point2f minosPos{ t->GetMinos()[i] };
+		Point2f minosPos{ t.GetMinos()[i] };
 		int gridColumn{ int(m_State->GetTetrominoPosition().x + minosPos.x + direction.x)};
 		int gridRow{ int((m_State->GetTetrominoPosition().y + minosPos.y) + direction.y ) };
 
     if (IsTileTaken(gridRow, gridColumn)) {
-      delete t;
       return false;
     }
 	}
 
-  delete t;
 	return true;
 }
 

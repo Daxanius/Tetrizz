@@ -1,13 +1,10 @@
 #include "pch.h"
 #include "TetrizzScreen.h"
+#include "MenuScreen.h"
 
 TetrizzScreen::TetrizzScreen(ScreenManager* screenManager)
 {
   m_ScreenManager = screenManager;
-
-  if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 6, 2048) < 0) {
-    SDL_Quit(); // Quit SDL if Mixer initialization fails
-  }
 
   m_MusicPtr = Mix_LoadWAV("../Resources/theme.wav");
   m_WelcomePtr = Mix_LoadWAV("../Resources/welcome.wav");
@@ -24,16 +21,27 @@ TetrizzScreen::TetrizzScreen(ScreenManager* screenManager)
   Mix_PlayChannel(0, m_MusicPtr, -1);
   Mix_PlayChannel(-1, m_WelcomePtr, 0);
 
-  m_CameraManager = new CameraManager();
+  m_CameraManager = CameraManager();
   m_PlayfieldPtr = new Playfield(TETROMINOS_ARR, TETROMINO_COUNT);
 }
 
 TetrizzScreen::~TetrizzScreen()
 {
   // free game resources here
-  delete m_CameraManager;
   delete m_PlayfieldPtr;
-  Mix_CloseAudio();
+  m_ScoreTextEffects.clear();
+
+  Mix_FreeChunk(m_MusicPtr);
+  Mix_FreeChunk(m_WelcomePtr);
+  Mix_FreeChunk(m_PlacePtr);
+  Mix_FreeChunk(m_RotatePointer);
+  Mix_FreeChunk(m_SmallRizzlerPtr);
+  Mix_FreeChunk(m_LilBitOfRizzPtr);
+  Mix_FreeChunk(m_YouGotRizzPtr);
+  Mix_FreeChunk(m_TetRizzPtr);
+  Mix_FreeChunk(m_GameOverPtr);
+  Mix_FreeChunk(m_DeathPtr);
+  Mix_FreeChunk(m_ScorePtr);
 }
 
 // Put your own draw statements here
@@ -97,7 +105,7 @@ void TetrizzScreen::FixedUpdate(float fixedDeltaTime)
     }
   }
 
-  m_CameraManager->Update();
+  m_CameraManager.Update();
   ++m_TickCount;
 }
 #pragma endregion gameFunctions
@@ -105,6 +113,11 @@ void TetrizzScreen::FixedUpdate(float fixedDeltaTime)
 #pragma region inputHandling											
 void TetrizzScreen::OnKeyDownEvent(SDL_Keycode key)
 {
+  if (key == SDLK_ESCAPE) {
+    m_ScreenManager->SetScreen(new MenuScreen(m_ScreenManager));
+    return;
+  }
+
   if (m_GameOver) {
     if (key == SDLK_r)
     {
@@ -192,7 +205,7 @@ void TetrizzScreen::PlaceTetromino()
     break;
   }
 
-  m_CameraManager->SetShake(intensity, 10);
+  m_CameraManager.SetShake(intensity, 10);
 
   m_PlayfieldPtr->MoveLinesDown();
   m_PlayfieldPtr->NextTetromino();

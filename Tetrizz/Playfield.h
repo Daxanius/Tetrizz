@@ -23,17 +23,17 @@ public:
 
   void            NextTetromino();
 
-  void			  ResetBoard();
+  void			      ResetBoard();
 
   void            Draw(Point2f position);
   TetrominoManager* GetState();
 
-  bool            m_CanSaveTetromino{ true };
+  bool             m_CanSaveTetromino{ true };
 
   Point2f          GetQuickPlacePosition();
 private:
   Color4f* m_GridArr[FIELD_HEIGHT][FIELD_WIDTH]{ nullptr };
-  TetrominoManager* m_State{};
+  TetrominoManager* m_State;
 
   void             MoveLineDown(int line);   // Moves a line down
   bool             IsLineFull(int line) const;

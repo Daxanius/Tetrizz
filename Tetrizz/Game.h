@@ -4,7 +4,7 @@
 #include "MenuScreen.h"
 
 #pragma region ownDeclarations
-ScreenManager* g_ScreenManagerPtr;
+ScreenManager g_ScreenManager;
 
 #pragma endregion ownDeclarations
 

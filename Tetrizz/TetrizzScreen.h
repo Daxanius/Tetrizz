@@ -46,7 +46,6 @@ private:
   Mix_Chunk* m_MusicPtr;
   Mix_Chunk* m_WelcomePtr;
   Mix_Chunk* m_PlacePtr;
-  Mix_Chunk* m_ClearPtr;
   Mix_Chunk* m_RotatePointer;
   Mix_Chunk* m_SmallRizzlerPtr;
   Mix_Chunk* m_LilBitOfRizzPtr;
@@ -56,7 +55,7 @@ private:
   Mix_Chunk* m_DeathPtr;
   Mix_Chunk* m_ScorePtr;
 
-  CameraManager* m_CameraManager;
+  CameraManager m_CameraManager;
   Playfield* m_PlayfieldPtr;
 
   std::vector<ScoreText> m_ScoreTextEffects;

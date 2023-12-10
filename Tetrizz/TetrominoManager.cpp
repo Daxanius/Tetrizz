@@ -64,7 +64,7 @@ void TetrominoManager::SetTetrominoPosition(Point2f position)
   m_TetrominoPosition = position;
 }
 
-Tetromino* TetrominoManager::GetTetromino()
+Tetromino* TetrominoManager::GetTetromino() const
 {
   return m_CurrentTetrominoPtr;
 }

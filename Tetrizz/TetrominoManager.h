@@ -12,14 +12,14 @@ public:
   void       SaveTetromino();    // Swaps the current tetromino with the one storage
   void       NextTetromino();    // Generates the next tetromino
   int        GetQueuedTetromino() const;// Gets the tetromino next in queue
-  int	     GetSavedTetromino() const;
+  int	       GetSavedTetromino() const;
 
   Point2f    GetTetrominoPosition() const;
   void       SetTetrominoPosition(Point2f position);
 
   void       Reset();
   
-  Tetromino* GetTetromino();
+  Tetromino* GetTetromino() const;
   int        GetTetrominoIndex() const;
 private:
   const Tetromino* m_TetrominosArr;   // DO NOT DELETE, array pointer to all predefined tetrominos
