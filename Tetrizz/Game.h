@@ -27,6 +27,7 @@ Mix_Chunk* g_YouGotRizzPtr;
 Mix_Chunk* g_TetRizzPtr;
 Mix_Chunk* g_GameOverPtr;
 Mix_Chunk* g_DeathPtr;
+Mix_Chunk* g_ScorePtr;
 
 CameraManager* g_CameraManager;
 Playfield* g_PlayfieldPtr;

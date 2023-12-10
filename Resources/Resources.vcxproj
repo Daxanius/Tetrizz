@@ -132,6 +132,7 @@
     <Media Include="lil_bit_of_rizz.wav" />
     <Media Include="place.wav" />
     <Media Include="rotate.wav" />
+    <Media Include="score.wav" />
     <Media Include="small_rizzler.wav" />
     <Media Include="tet_rizz.wav" />
     <Media Include="theme.wav" />

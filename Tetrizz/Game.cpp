@@ -6,7 +6,7 @@
 #pragma region gameFunctions
 void Start()
 {
-	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 4, 2048) < 0) {
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 6, 2048) < 0) {
 		std::cerr << "SDL Mixer could not initialize! Mix_Error: " << Mix_GetError() << std::endl;
 		SDL_Quit(); // Quit SDL if Mixer initialization fails
 	}
@@ -21,6 +21,7 @@ void Start()
   g_TetRizzPtr = Mix_LoadWAV("../Resources/tet_rizz.wav");
   g_GameOverPtr = Mix_LoadWAV("../Resources/game_over.wav");
   g_DeathPtr = Mix_LoadWAV("../Resources/death.wav");
+  g_ScorePtr = Mix_LoadWAV("../Resources/score.wav");
 
   Mix_PlayChannel(0, g_MusicPtr, -1);
   Mix_PlayChannel(-1, g_WelcomePtr, 0);
@@ -114,6 +115,7 @@ void Update(float deltaTime)
     g_ScoreTextEffects[i].animatedText.Update(deltaTime);
 
     if (g_ScoreTextEffects[i].animatedText.GetGoalsLeft() < 1) {
+      Mix_PlayChannel(-1, g_ScorePtr, 0);
       g_Score += g_ScoreTextEffects[i].score;
       g_ScoreTextEffects.erase(g_ScoreTextEffects.begin() + i);
     }

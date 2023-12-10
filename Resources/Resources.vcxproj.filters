@@ -45,6 +45,9 @@
     <Media Include="death.wav">
       <Filter>Sounds</Filter>
     </Media>
+    <Media Include="score.wav">
+      <Filter>Sounds</Filter>
+    </Media>
   </ItemGroup>
   <ItemGroup>
     <Font Include="..\..\..\Users\balde\Downloads\dhurjati.otf">
