@@ -30,5 +30,7 @@ public:
 private:
   // Variables
   ScreenManager* m_ScreenManager;
+
+  Mix_Chunk* m_MusicPtr;
 };
 
