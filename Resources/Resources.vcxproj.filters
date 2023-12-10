@@ -42,6 +42,9 @@
     <Media Include="you_got_rizz.wav">
       <Filter>Sounds</Filter>
     </Media>
+    <Media Include="death.wav">
+      <Filter>Sounds</Filter>
+    </Media>
   </ItemGroup>
   <ItemGroup>
     <Font Include="..\..\..\Users\balde\Downloads\dhurjati.otf">

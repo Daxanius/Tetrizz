@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Media Include="death.wav" />
     <Media Include="game_over.wav" />
     <Media Include="lil_bit_of_rizz.wav" />
     <Media Include="place.wav" />
