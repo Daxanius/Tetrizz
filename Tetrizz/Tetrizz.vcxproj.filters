@@ -107,5 +107,8 @@
     <ClInclude Include="MenuScreen.h">
       <Filter>Header Files\Screens</Filter>
     </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

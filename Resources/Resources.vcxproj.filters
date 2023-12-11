@@ -48,14 +48,11 @@
     <Media Include="score.wav">
       <Filter>Sounds</Filter>
     </Media>
+    <Media Include="hard.wav">
+      <Filter>Sounds</Filter>
+    </Media>
   </ItemGroup>
   <ItemGroup>
-    <Font Include="..\..\..\Users\balde\Downloads\dhurjati.otf">
-      <Filter>Fonts</Filter>
-    </Font>
-    <Font Include="spritz.otf">
-      <Filter>Fonts</Filter>
-    </Font>
     <Font Include="dhurjati.otf">
       <Filter>Fonts</Filter>
     </Font>

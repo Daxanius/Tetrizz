@@ -1,22 +1,23 @@
 #include "pch.h"
 #include "TetrizzScreen.h"
 #include "MenuScreen.h"
+#include "Resource.h"
 
 TetrizzScreen::TetrizzScreen(ScreenManager* screenManager)
 {
   m_ScreenManager = screenManager;
 
-  m_MusicPtr = Mix_LoadWAV("../Resources/theme.wav");
-  m_WelcomePtr = Mix_LoadWAV("../Resources/welcome.wav");
-  m_PlacePtr = Mix_LoadWAV("../Resources/place.wav");
-  m_RotatePointer = Mix_LoadWAV("../Resources/rotate.wav");
-  m_SmallRizzlerPtr = Mix_LoadWAV("../Resources/small_rizzler.wav");
-  m_LilBitOfRizzPtr = Mix_LoadWAV("../Resources/lil_bit_of_rizz.wav");
-  m_YouGotRizzPtr = Mix_LoadWAV("../Resources/you_got_rizz.wav");
-  m_TetRizzPtr = Mix_LoadWAV("../Resources/tet_rizz.wav");
-  m_GameOverPtr = Mix_LoadWAV("../Resources/game_over.wav");
-  m_DeathPtr = Mix_LoadWAV("../Resources/death.wav");
-  m_ScorePtr = Mix_LoadWAV("../Resources/score.wav");
+  m_MusicPtr = Mix_LoadWAV(THEME_GAME);
+  m_WelcomePtr = Mix_LoadWAV(FX_START);
+  m_PlacePtr = Mix_LoadWAV(FX_PLACE);
+  m_RotatePointer = Mix_LoadWAV(FX_ROTATE);
+  m_SmallRizzlerPtr = Mix_LoadWAV(FX_CLEAR_1);
+  m_LilBitOfRizzPtr = Mix_LoadWAV(FX_CLEAR_2);
+  m_YouGotRizzPtr = Mix_LoadWAV(FX_CLEAR_3);
+  m_TetRizzPtr = Mix_LoadWAV(FX_CLEAR_4);
+  m_GameOverPtr = Mix_LoadWAV(FX_GAME_OVER);
+  m_DeathPtr = Mix_LoadWAV(THEME_GAME_OVER);
+  m_ScorePtr = Mix_LoadWAV(FX_SCORE);
 
   Mix_PlayChannel(0, m_MusicPtr, -1);
   Mix_PlayChannel(-1, m_WelcomePtr, 0);
@@ -59,7 +60,7 @@ void TetrizzScreen::Draw()
 
   m_PlayfieldPtr->Draw({ centerX - boardWidthOffset, centerY - boardHeightOffset });
 
-  DrawString("Rizz: " + std::to_string(m_Score), Point2f{ 10, 0 }, 40, { 1.0 , 1.0 ,1.0 , 1.0 }, "Resources/dhurjati.otf");
+  DrawString("Rizz: " + std::to_string(m_Score), Point2f{ 10, 0 }, 40, { 1.0 , 1.0 ,1.0 , 1.0 }, FONT_MAIN);
 
   for (ScoreText scoreText : m_ScoreTextEffects) {
     scoreText.animatedText.Draw();
@@ -76,8 +77,8 @@ void TetrizzScreen::Draw()
     SetColor({ 1.0 , 0.0 , 0.0 , 0.5 });
     FillRect(sourceRect);
 
-    DrawString("Game Over!", Point2f{ centerX - 105 ,centerY - 75 }, 50, { 1.0 , 1.0 ,1.0 , 1.0 }, "Resources/dhurjati.otf");
-    DrawString("Press 'R' to Reset", Point2f{ centerX - 155 ,centerY - 15 }, 50, { 1.0 , 1.0 ,1.0 , 1.0 }, "Resources/dhurjati.otf");
+    DrawString("Game Over!", Point2f{ centerX - 105 ,centerY - 75 }, 50, { 1.0 , 1.0 ,1.0 , 1.0 }, FONT_MAIN);
+    DrawString("Press 'R' to Reset", Point2f{ centerX - 155 ,centerY - 15 }, 50, { 1.0 , 1.0 ,1.0 , 1.0 }, FONT_MAIN);
   }
 }
 
@@ -247,7 +248,7 @@ void TetrizzScreen::DrawSaved(const Point2f& position)
     delete savedTetromino;
   }
 
-  DrawString("Saved", { position.x - 12, position.y - 50 }, 30, { 1.0 ,1.0 ,1.0 }, "Resources/dhurjati.otf");
+  DrawString("Saved", { position.x - 12, position.y - 50 }, 30, { 1.0 ,1.0 ,1.0 }, FONT_MAIN);
 }
 
 void TetrizzScreen::DrawNext(const Point2f& position)
@@ -279,7 +280,7 @@ void TetrizzScreen::DrawNext(const Point2f& position)
 
   delete nextTetromino;
 
-  DrawString("Next", { position.x - 4, position.y - 50 }, 30, { 1.0 ,1.0 ,1.0 }, "Resources/dhurjati.otf");
+  DrawString("Next", { position.x - 4, position.y - 50 }, 30, { 1.0 ,1.0 ,1.0 }, FONT_MAIN);
 }
 
 void TetrizzScreen::AddToScore(int value)
@@ -301,7 +302,7 @@ void TetrizzScreen::AddToScore(int value)
     "+" + std::to_string(value),
     0,
     { 0.1f, 1.f, 0.1f, 1.f },
-    "Resources/dhurjati.otf"
+    FONT_MAIN
   );
 
   textAnim.AddGoal(

@@ -228,6 +228,7 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClInclude Include="CameraManager.h" />
     <ClInclude Include="GameScreen.h" />
     <ClInclude Include="MenuScreen.h" />
+    <ClInclude Include="Resource.h" />
     <ClInclude Include="TetrizzScreen.h" />
     <ClInclude Include="TetrominoManager.h" />
     <ClInclude Include="Tetrominos.h" />

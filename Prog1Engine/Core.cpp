@@ -601,7 +601,7 @@ void FillPolygon(const Point2f* pVertices, size_t nrVertices)
 bool TextureFromFile(const std::string& path, Texture& texture)
 {
 	//Load file for use as an image in a new surface.
-	SDL_Surface* pLoadedSurface = IMG_Load(("..\\" + path).c_str());
+	SDL_Surface* pLoadedSurface = IMG_Load((path).c_str());
 	if (pLoadedSurface == nullptr)
 	{
 		std::cerr << "TextureFromFile: SDL Error when calling IMG_Load: " << SDL_GetError() << std::endl;
@@ -620,7 +620,7 @@ bool TextureFromString(const std::string& text, const std::string& fontPath, int
 {
 	// Create font
 	TTF_Font* pFont{};
-	pFont = TTF_OpenFont(("..\\" + fontPath).c_str(), ptSize);
+	pFont = TTF_OpenFont((fontPath).c_str(), ptSize);
 	if (pFont == nullptr)
 	{
 		std::cout << "TextureFromString: Failed to load font! SDL_ttf Error: " << TTF_GetError();
