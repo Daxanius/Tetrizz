@@ -46,12 +46,12 @@ void MenuScreen::Draw()
 void MenuScreen::Update(float deltaTime)
 {
   if (m_NormalButton->WasClicked()) {
-    m_ScreenManager->SetScreen(new TetrizzScreen(m_ScreenManager, TICKS_PER_SECOND / 2));
+    m_ScreenManager->SetScreen(new TetrizzScreen(m_ScreenManager, Difficulty::Normal));
     return;
   }
 
   if (m_HardButton->WasClicked()) {
-    m_ScreenManager->SetScreen(new TetrizzScreen(m_ScreenManager, TICKS_PER_SECOND / 4));
+    m_ScreenManager->SetScreen(new TetrizzScreen(m_ScreenManager, Difficulty::Hard));
     return;
   }
 

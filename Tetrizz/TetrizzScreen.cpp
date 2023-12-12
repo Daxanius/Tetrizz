@@ -3,10 +3,11 @@
 #include "MenuScreen.h"
 #include "Resource.h"
 
-TetrizzScreen::TetrizzScreen(ScreenManager* screenManager, int ticksPerUpdate)
+TetrizzScreen::TetrizzScreen(ScreenManager* screenManager, Difficulty difficulty)
 {
   m_ScreenManager = screenManager;
-  m_TicksPerUpdate = ticksPerUpdate;
+  m_Difficulty = difficulty;
+  m_TicksPerUpdate = TICKS_PER_UPDATE / m_Difficulty;
 
   m_MusicPtr = Mix_LoadWAV(THEME_GAME);
   m_WelcomePtr = Mix_LoadWAV(FX_START);
@@ -186,7 +187,7 @@ void TetrizzScreen::PlaceTetromino()
   int linesCleaared = m_PlayfieldPtr->ClearFullLines();
 
   if (linesCleaared > 0) {
-    m_TicksPerUpdate = std::max(1, m_TicksPerUpdate + SPEEDUP_PER_TICK);
+    m_TicksPerUpdate = std::max(1, m_TicksPerUpdate + SPEEDUP_PER_CLEAR * m_Difficulty);
   }
 
   switch (linesCleaared)

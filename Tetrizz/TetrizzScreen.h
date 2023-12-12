@@ -9,6 +9,12 @@
 #include "AnimatedText.h"
 #include "GameScreen.h"
 
+enum Difficulty
+{
+  Normal = 1,
+  Hard
+};
+
 struct ScoreText
 {
   AnimatedText animatedText;
@@ -18,7 +24,7 @@ struct ScoreText
 class TetrizzScreen : public GameScreen
 {
 public:
-  TetrizzScreen(ScreenManager* screenManager, int ticksPerUpdate);
+  TetrizzScreen(ScreenManager* screenManager, Difficulty difficulty);
   ~TetrizzScreen();
 
   // From it's abstract declarations
@@ -55,8 +61,9 @@ private:
   Mix_Chunk* m_DeathPtr;
   Mix_Chunk* m_ScorePtr;
 
+  Difficulty    m_Difficulty{};
   CameraManager m_CameraManager;
-  Playfield* m_PlayfieldPtr;
+  Playfield*    m_PlayfieldPtr;
 
   std::vector<ScoreText> m_ScoreTextEffects;
 
