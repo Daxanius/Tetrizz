@@ -43,18 +43,22 @@ void DifficultyScreen::Update(float deltaTime)
   if (m_EasyButton->WasClicked()) {
     // use the parent because this screen will be inside of another screen for the music
     m_ScreenManager->GetParent()->SetScreen(new TetrizzScreen(m_ScreenManager->GetParent(), Difficulty::Easy));
+    return;
   }
 
   if (m_PlayButton->WasClicked()) {
     m_ScreenManager->GetParent()->SetScreen(new TetrizzScreen(m_ScreenManager->GetParent(), Difficulty::Normal));
+    return;
   }
 
   if (m_HardButton->WasClicked()) {
     m_ScreenManager->GetParent()->SetScreen(new TetrizzScreen(m_ScreenManager->GetParent(), Difficulty::Hard));
+    return;
   }
 
   if (m_BackButton->WasClicked()) {
     m_ScreenManager->SetScreen(new MenuScreen(m_ScreenManager));
+    return;
   }
 }
 
