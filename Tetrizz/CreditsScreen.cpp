@@ -39,7 +39,7 @@ void CreditsScreen::Draw()
 
 void CreditsScreen::Update(float deltaTime)
 {
-  if (m_BackButton->IsPressed()) {
+  if (m_BackButton->WasClicked()) {
     m_ScreenManager->SetScreen(new MenuScreen(m_ScreenManager));
   }
 }
