@@ -3,9 +3,10 @@
 #include "MenuScreen.h"
 #include "Resource.h"
 
-TetrizzScreen::TetrizzScreen(ScreenManager* screenManager)
+TetrizzScreen::TetrizzScreen(ScreenManager* screenManager, int ticksPerUpdate)
 {
   m_ScreenManager = screenManager;
+  m_TicksPerUpdate = ticksPerUpdate;
 
   m_MusicPtr = Mix_LoadWAV(THEME_GAME);
   m_WelcomePtr = Mix_LoadWAV(FX_START);
@@ -97,7 +98,7 @@ void TetrizzScreen::Update(float deltaTime)
 
 void TetrizzScreen::FixedUpdate(float fixedDeltaTime)
 {
-  if (m_TickCount % TICKS_PER_UPDATE == 0 && !m_GameOver) {
+  if (m_TickCount % m_TicksPerUpdate == 0 && !m_GameOver) {
     if (!m_PlayfieldPtr->CanMove({ 0, 1 }))
     {
       PlaceTetromino();

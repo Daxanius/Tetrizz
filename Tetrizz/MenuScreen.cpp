@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "MenuScreen.h"
 #include "Resource.h"
+#include "GameDefines.h"
 
 MenuScreen::MenuScreen(ScreenManager* screenManager)
 {
@@ -45,7 +46,12 @@ void MenuScreen::Draw()
 void MenuScreen::Update(float deltaTime)
 {
   if (m_NormalButton->WasClicked()) {
-    m_ScreenManager->SetScreen(new TetrizzScreen(m_ScreenManager));
+    m_ScreenManager->SetScreen(new TetrizzScreen(m_ScreenManager, TICKS_PER_SECOND / 2));
+    return;
+  }
+
+  if (m_HardButton->WasClicked()) {
+    m_ScreenManager->SetScreen(new TetrizzScreen(m_ScreenManager, TICKS_PER_SECOND / 4));
     return;
   }
 

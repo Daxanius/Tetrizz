@@ -18,7 +18,7 @@ struct ScoreText
 class TetrizzScreen : public GameScreen
 {
 public:
-  TetrizzScreen(ScreenManager* screenManager);
+  TetrizzScreen(ScreenManager* screenManager, int ticksPerUpdate);
   ~TetrizzScreen();
 
   // From it's abstract declarations
@@ -60,9 +60,9 @@ private:
 
   std::vector<ScoreText> m_ScoreTextEffects;
 
+  int        m_TicksPerUpdate{};
   bool       m_GameOver{};
   int        m_TickCount{};
-
   int        m_Score{ 0 };
 
   // Declare your own functions here
