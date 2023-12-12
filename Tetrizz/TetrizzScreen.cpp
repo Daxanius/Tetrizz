@@ -60,7 +60,7 @@ void TetrizzScreen::Draw()
   DrawSaved(Point2f{ boardWidthOffset , boardHeightOffset });
   DrawNext(Point2f{ windowSettings.width - boardWidthOffset - 30, boardHeightOffset });
 
-  m_PlayfieldPtr->Draw({ centerX - boardWidthOffset, centerY - boardHeightOffset });
+  m_PlayfieldPtr->Draw({ centerX - boardWidthOffset, centerY - boardHeightOffset }, m_Difficulty < Difficulty::Hard);
 
   DrawString("Rizz: " + std::to_string(m_Score), Point2f{ 10, 0 }, 40, { 1.0 , 1.0 ,1.0 , 1.0 }, FONT_MAIN);
 
@@ -188,7 +188,7 @@ void TetrizzScreen::PlaceTetromino()
   int linesCleaared{ m_PlayfieldPtr->ClearFullLines() };
 
   if (linesCleaared > 0) {
-    m_TicksPerUpdate = std::max(1, m_TicksPerUpdate - SPEEDUP_PER_CLEAR * m_Difficulty);
+    m_TicksPerUpdate = std::max(MIN_TICKS_PER_UPDATE, m_TicksPerUpdate - SPEEDUP_PER_CLEAR * m_Difficulty);
   }
 
   switch (linesCleaared)

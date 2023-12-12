@@ -181,7 +181,7 @@ bool Playfield::PlaceTetromino()
   return success;
 }
 
-void Playfield::Draw(Point2f position)
+void Playfield::Draw(Point2f position, bool drawGhost)
 {
 	for (int colIndex = 0; colIndex < FIELD_WIDTH; ++colIndex)
 	{
@@ -212,6 +212,10 @@ void Playfield::Draw(Point2f position)
     tetrominoPosition.x * TILE_SIZE + position.x,
     tetrominoPosition.y * TILE_SIZE + position.y,
   });
+
+  if (!drawGhost) {
+    return;
+  }
 
   currentTetromino->Draw({
     quickPlacePosition.x * TILE_SIZE + position.x,

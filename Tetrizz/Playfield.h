@@ -25,7 +25,7 @@ public:
 
   void			      ResetBoard();
 
-  void            Draw(Point2f position);
+  void            Draw(Point2f position, bool drawGhost);
   TetrominoManager* GetState();
 
   bool             m_CanSaveTetromino{ true };
