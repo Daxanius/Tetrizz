@@ -1,7 +1,6 @@
 #pragma once
 #include <Core.h>
 #include "GameScreen.h"
-#include "TetrizzScreen.h"
 #include "Utils.h"
 #include "Button.h"
 
@@ -16,11 +15,11 @@ public:
 
   void Update(float deltaTime);
 
-  void FixedUpdate(float fixedDeltaTime);
+  void FixedUpdate(float fixedDeltaTime) {};
 
   void OnKeyDownEvent(SDL_Keycode key);
 
-  void OnKeyUpEvent(SDL_Keycode key);
+  void OnKeyUpEvent(SDL_Keycode key) {};
 
   void OnMouseMotionEvent(const SDL_MouseMotionEvent& e);
 

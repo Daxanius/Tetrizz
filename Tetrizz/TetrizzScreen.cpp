@@ -7,7 +7,7 @@ TetrizzScreen::TetrizzScreen(ScreenManager* screenManager, Difficulty difficulty
 {
   m_ScreenManager = screenManager;
   m_Difficulty = difficulty;
-  m_TicksPerUpdate = TICKS_PER_UPDATE / m_Difficulty;
+  m_TicksPerUpdate = TICKS_PER_UPDATE / std::max(1, int(m_Difficulty));
 
   m_MusicPtr = Mix_LoadWAV(THEME_GAME);
   m_WelcomePtr = Mix_LoadWAV(FX_START);

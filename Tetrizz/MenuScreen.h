@@ -1,10 +1,9 @@
 #pragma once
 #include <Core.h>
 #include "GameScreen.h"
-#include "TetrizzScreen.h"
-#include "CreditsScreen.h"
 #include "Utils.h"
 #include "Button.h"
+
 
 class MenuScreen : public GameScreen
 {
@@ -17,11 +16,11 @@ public:
 
   void Update(float deltaTime);
 
-  void FixedUpdate(float fixedDeltaTime);
+  void FixedUpdate(float fixedDeltaTime) {};
 
   void OnKeyDownEvent(SDL_Keycode key);
 
-  void OnKeyUpEvent(SDL_Keycode key);
+  void OnKeyUpEvent(SDL_Keycode key) {};
 
   void OnMouseMotionEvent(const SDL_MouseMotionEvent& e);
 
@@ -33,8 +32,7 @@ private:
   // Variables
   ScreenManager* m_ScreenManager;
 
-  Button*        m_NormalButton;
-  Button*        m_HardButton;
+  Button*        m_PlayButton;
   Button*        m_CreditsButton;
   Button*        m_ExitButton;
 };

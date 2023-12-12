@@ -11,3 +11,10 @@ static const int FIELD_HEIGHT{ 24 };
 
 static const float TILE_SIZE{ 23.f };
 static const int LINE_CLEAR_SCORE{ 300 };
+
+enum Difficulty
+{
+  Easy,
+  Normal,
+  Hard
+};

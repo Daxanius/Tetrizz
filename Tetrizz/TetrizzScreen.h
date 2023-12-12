@@ -9,12 +9,6 @@
 #include "AnimatedText.h"
 #include "GameScreen.h"
 
-enum Difficulty
-{
-  Normal = 1,
-  Hard
-};
-
 struct ScoreText
 {
   AnimatedText animatedText;

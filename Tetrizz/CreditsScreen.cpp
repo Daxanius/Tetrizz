@@ -44,19 +44,11 @@ void CreditsScreen::Update(float deltaTime)
   }
 }
 
-void CreditsScreen::FixedUpdate(float fixedDeltaTime)
-{
-}
-
 void CreditsScreen::OnKeyDownEvent(SDL_Keycode key)
 {
   if (key == SDLK_ESCAPE) {
     m_ScreenManager->SetScreen(new MenuScreen(m_ScreenManager));
   }
-}
-
-void CreditsScreen::OnKeyUpEvent(SDL_Keycode key)
-{
 }
 
 void CreditsScreen::OnMouseMotionEvent(const SDL_MouseMotionEvent& e)
