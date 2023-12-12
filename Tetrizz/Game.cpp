@@ -27,7 +27,7 @@ void Start()
       int(displayMode.w / 2) - int(sizeX / 2),   // posX
       int(displayMode.h / 2) - int(sizeY / 2),   // posY
       1.f,                                       // opacity
-      true,                                      // vsync
+      false,                                     // vsync
       true,                                      // lineSmoothing
       false,                                     // alwaysOnTop
       true                                       // bordered
@@ -42,7 +42,7 @@ void Start()
       int(displayMode.w / 2) - int(sizeX / 2),   // posX
       int(displayMode.h / 2) - int(sizeY / 2),   // posY
       1.f,                                       // opacity
-      true,                                      // vsync
+      false,                                     // vsync
       true,                                      // lineSmoothing
       false,                                     // alwaysOnTop
       true                                       // bordered
