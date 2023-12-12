@@ -1,6 +1,5 @@
 #pragma once
 #include <Core.h>
-#include "Utils.h"
 
 static const float PADDING{ 0 };
 static const float SCALE_DIFF_CLICKED{ 5 };

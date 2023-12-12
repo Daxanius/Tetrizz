@@ -2,15 +2,14 @@
 #include <Core.h>
 #include "GameScreen.h"
 #include "TetrizzScreen.h"
-#include "CreditsScreen.h"
 #include "Utils.h"
 #include "Button.h"
 
-class MenuScreen : public GameScreen
+class CreditsScreen : public GameScreen
 {
 public:
-  MenuScreen(ScreenManager* screenManager);
-  ~MenuScreen();
+  CreditsScreen(ScreenManager* screenManager);
+  ~CreditsScreen();
 
   // From it's abstract declarations
   void Draw();
@@ -33,11 +32,8 @@ private:
   // Variables
   ScreenManager* m_ScreenManager;
 
-  Mix_Chunk*     m_MusicPtr;
+  Mix_Chunk* m_MusicPtr;
 
-  Button*        m_NormalButton;
-  Button*        m_HardButton;
-  Button*        m_CreditsButton;
-  Button*        m_ExitButton;
+  Button* m_BackButton;
 };
 
