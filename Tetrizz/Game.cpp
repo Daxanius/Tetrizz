@@ -7,7 +7,7 @@
 void Start()
 {
   if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 6, 2048) < 0) {
-    SDL_Quit(); // Quit SDL if Mixer initialization fails
+    Quit();
   }
 
   g_ScreenManager = ScreenManager();

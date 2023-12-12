@@ -38,3 +38,9 @@ Color4f Lerp(const Color4f& start, const Color4f& end, float t)
       start.a + t * (end.a - start.a)
   };
 }
+
+void Quit()
+{
+  RemoveWindow(0);
+  SDL_Quit();
+}

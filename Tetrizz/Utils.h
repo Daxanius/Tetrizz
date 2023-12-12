@@ -10,3 +10,5 @@ void DrawString(const std::string& output, const Point2f topLeft, const int font
 float Lerp(float start, float end, float t);
 
 Color4f Lerp(const Color4f& start, const Color4f& end, float t);
+
+void Quit();

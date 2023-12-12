@@ -36,7 +36,7 @@ void MenuScreen::FixedUpdate(float fixedDeltaTime)
 void MenuScreen::OnKeyDownEvent(SDL_Keycode key)
 {
   if (key == SDLK_ESCAPE) {
-    SDL_Quit();
+    Quit();
   }
 }
 
