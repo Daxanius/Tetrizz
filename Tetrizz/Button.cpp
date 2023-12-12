@@ -4,7 +4,7 @@
 #include "GameDefines.h"
 
 Button::Button(std::string text, Rectf area, int fontSize)
-  : m_WasClicked(false), m_IsPressed(false)
+  : m_WasClicked(false), m_IsPressed(false), m_IsHovering(false)
 {
   m_Text = text;
   m_FontSize = fontSize;
@@ -47,8 +47,24 @@ void Button::Draw() const
     sizeDiff = SCALE_DIFF_CLICKED;
   }
 
+  Color4f color{
+    1.f,
+    1.f,
+    1.f,
+    1.f
+  };
+
+  if (m_IsHovering) {
+    color = {
+      .5f,
+      .5f,
+      .5f,
+      1.f
+    };
+  }
+
   Texture texture;
-  TextureFromString(m_Text, FONT_MAIN, m_FontSize - sizeDiff / 2.f, { 1.f, 1.f, 1.f, 1.f }, texture);
+  TextureFromString(m_Text, FONT_MAIN, m_FontSize - sizeDiff / 2.f, color, texture);
 
   float width = m_Area.width < texture.width ? (texture.width + PADDING) : m_Area.width;
   float height = m_Area.height < texture.height ? (texture.height + PADDING) : m_Area.height;
@@ -66,8 +82,6 @@ void Button::Draw() const
     area.top + (area.height - texture.height) / 2.f
   };
   
-  SetColor({ 0.f, 0.f, 0.f, 1.f });
-
   DrawTexture(texture, textPosition);
   DeleteTexture(texture);
 }
@@ -82,21 +96,12 @@ void Button::OnMouseUp(const SDL_MouseButtonEvent& e)
 
 void Button::OnMouseDown(const SDL_MouseButtonEvent& e)
 {
-  if (e.x < m_Area.left) {
-    return;
+  if (m_IsHovering) {
+    m_IsPressed = true;
   }
+}
 
-  if (e.x > m_Area.left + m_Area.width) {
-    return;
-  }
-
-  if (e.y < m_Area.top) {
-    return;
-  }
-
-  if (e.y > m_Area.top + m_Area.height) {
-    return;
-  }
-
-  m_IsPressed = true;
+void Button::OnMouseMotion(const SDL_MouseMotionEvent& e)
+{
+  m_IsHovering = !(e.x < m_Area.left || e.x > m_Area.left + m_Area.width || e.y < m_Area.top || e.y > m_Area.top + m_Area.height);
 }

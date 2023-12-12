@@ -61,6 +61,7 @@ void CreditsScreen::OnKeyUpEvent(SDL_Keycode key)
 
 void CreditsScreen::OnMouseMotionEvent(const SDL_MouseMotionEvent& e)
 {
+  m_BackButton->OnMouseMotion(e);
 }
 
 void CreditsScreen::OnMouseDownEvent(const SDL_MouseButtonEvent& e)

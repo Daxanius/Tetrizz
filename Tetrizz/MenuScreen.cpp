@@ -78,6 +78,10 @@ void MenuScreen::OnKeyUpEvent(SDL_Keycode key)
 
 void MenuScreen::OnMouseMotionEvent(const SDL_MouseMotionEvent& e)
 {
+  m_NormalButton->OnMouseMotion(e);
+  m_HardButton->OnMouseMotion(e);
+  m_CreditsButton->OnMouseMotion(e);
+  m_ExitButton->OnMouseMotion(e);
 }
 
 void MenuScreen::OnMouseDownEvent(const SDL_MouseButtonEvent& e)

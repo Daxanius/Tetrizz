@@ -15,7 +15,9 @@ public:
 
   void        OnMouseUp(const SDL_MouseButtonEvent& e);
   void        OnMouseDown(const SDL_MouseButtonEvent& e);
+  void        OnMouseMotion(const SDL_MouseMotionEvent& e);
 private:
+  bool        m_IsHovering;
   bool        m_IsPressed;
   bool        m_WasClicked;
 
