@@ -188,7 +188,7 @@ void TetrizzScreen::PlaceTetromino()
   int linesCleaared{ m_PlayfieldPtr->ClearFullLines() };
 
   if (linesCleaared > 0) {
-    m_TicksPerUpdate = std::max(1, m_TicksPerUpdate + SPEEDUP_PER_CLEAR * m_Difficulty);
+    m_TicksPerUpdate = std::max(1, m_TicksPerUpdate - SPEEDUP_PER_CLEAR * m_Difficulty);
   }
 
   switch (linesCleaared)
