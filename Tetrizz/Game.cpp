@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "Game.h"
 #include <iostream>
+#include "MainScreen.h"
+#include "Utils.h"
 
 //Basic game functions
 #pragma region gameFunctions
@@ -54,7 +56,7 @@ void Start()
   MakeWindow(window);
 
   g_ScreenManager = ScreenManager();
-  GameScreen* screen{ new MenuScreen(&g_ScreenManager) };
+  GameScreen* screen{ new MainScreen(&g_ScreenManager) };
   g_ScreenManager.SetScreen(screen);
 }
 

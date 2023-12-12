@@ -7,9 +7,6 @@ MenuScreen::MenuScreen(ScreenManager* screenManager)
 {
   m_ScreenManager = screenManager;
 
-  m_MusicPtr = Mix_LoadWAV(THEME_MENU);
-  Mix_PlayChannel(-1, m_MusicPtr, -1);
-
   const WindowSettings windowSettings{ GetWindowInfo() };
   const float centerX = windowSettings.width / 2.f;
   const float centerY = windowSettings.height / 2.f;
@@ -25,7 +22,6 @@ MenuScreen::~MenuScreen()
   delete m_NormalButton;
   delete m_HardButton;
   delete m_ExitButton;
-  Mix_FreeChunk(m_MusicPtr);
 }
 
 void MenuScreen::Draw()
@@ -46,12 +42,14 @@ void MenuScreen::Draw()
 void MenuScreen::Update(float deltaTime)
 {
   if (m_NormalButton->WasClicked()) {
-    m_ScreenManager->SetScreen(new TetrizzScreen(m_ScreenManager, Difficulty::Normal));
+    // use the parent because this screen will be inside of another screen for the music
+    m_ScreenManager->GetParent()->SetScreen(new TetrizzScreen(m_ScreenManager->GetParent(), Difficulty::Normal));
     return;
   }
 
   if (m_HardButton->WasClicked()) {
-    m_ScreenManager->SetScreen(new TetrizzScreen(m_ScreenManager, Difficulty::Hard));
+    // use the parent because this screen will be inside of another screen for the music
+    m_ScreenManager->GetParent()->SetScreen(new TetrizzScreen(m_ScreenManager->GetParent(), Difficulty::Hard));
     return;
   }
 

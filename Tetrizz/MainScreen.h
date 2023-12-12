@@ -1,16 +1,13 @@
 #pragma once
-#include <Core.h>
 #include "GameScreen.h"
-#include "TetrizzScreen.h"
-#include "CreditsScreen.h"
-#include "Utils.h"
-#include "Button.h"
 
-class MenuScreen : public GameScreen
+// This manages all the menu screens and plays the audio 
+// this way audio is not reset with every menu screen and menu screens are neatly organized
+class MainScreen : public GameScreen
 {
 public:
-  MenuScreen(ScreenManager* screenManager);
-  ~MenuScreen();
+  MainScreen(ScreenManager* screenManager);
+  ~MainScreen();
 
   // From it's abstract declarations
   void Draw();
@@ -30,12 +27,8 @@ public:
   void OnMouseUpEvent(const SDL_MouseButtonEvent& e);
 
 private:
-  // Variables
-  ScreenManager* m_ScreenManager;
+  ScreenManager* m_ParentScreenManager;
+  ScreenManager m_ScreenManager;
 
-  Button*        m_NormalButton;
-  Button*        m_HardButton;
-  Button*        m_CreditsButton;
-  Button*        m_ExitButton;
+  Mix_Chunk* m_MusicPtr;
 };
-

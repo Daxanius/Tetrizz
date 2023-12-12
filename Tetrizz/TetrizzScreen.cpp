@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "TetrizzScreen.h"
-#include "MenuScreen.h"
+#include "MainScreen.h"
 #include "Resource.h"
 
 TetrizzScreen::TetrizzScreen(ScreenManager* screenManager, Difficulty difficulty)
@@ -117,7 +117,7 @@ void TetrizzScreen::FixedUpdate(float fixedDeltaTime)
 void TetrizzScreen::OnKeyDownEvent(SDL_Keycode key)
 {
   if (key == SDLK_ESCAPE) {
-    m_ScreenManager->SetScreen(new MenuScreen(m_ScreenManager));
+    m_ScreenManager->SetScreen(new MainScreen(m_ScreenManager));
     return;
   }
 

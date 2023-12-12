@@ -10,10 +10,14 @@ public:
   ~ScreenManager();
 
   void        SetScreen(GameScreen* newScreen);
-  GameScreen* GetScreen();
+  void        SetParent(ScreenManager* parent);
+
+  GameScreen*    GetScreen();
+  ScreenManager* GetParent(); // In case you have screenception
 private:
-  GameScreen* m_PreviousScreen{ nullptr };
-  GameScreen* m_CurrentScreen{ nullptr };
+  ScreenManager* m_Parent{};
+  GameScreen*    m_PreviousScreen{ nullptr };
+  GameScreen*    m_CurrentScreen{ nullptr };
 };
 
 // An abstract GameScreen class that all sceens can implement

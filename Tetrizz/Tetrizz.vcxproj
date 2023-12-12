@@ -210,7 +210,9 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="CameraManager.cpp" />
     <ClCompile Include="CreditsScreen.cpp" />
+    <ClCompile Include="DifficultyScreen.cpp" />
     <ClCompile Include="GameScreen.cpp" />
+    <ClCompile Include="MainScreen.cpp" />
     <ClCompile Include="MenuScreen.cpp" />
     <ClCompile Include="TetrizzScreen.cpp" />
     <ClCompile Include="TetrominoManager.cpp" />
@@ -230,7 +232,9 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClInclude Include="Button.h" />
     <ClInclude Include="CameraManager.h" />
     <ClInclude Include="CreditsScreen.h" />
+    <ClInclude Include="DifficultyScreen.h" />
     <ClInclude Include="GameScreen.h" />
+    <ClInclude Include="MainScreen.h" />
     <ClInclude Include="MenuScreen.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="TetrizzScreen.h" />

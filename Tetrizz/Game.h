@@ -1,7 +1,6 @@
 #pragma once
 #include <Core.h>
 #include "GameScreen.h"
-#include "MenuScreen.h"
 
 #pragma region ownDeclarations
 ScreenManager g_ScreenManager;
