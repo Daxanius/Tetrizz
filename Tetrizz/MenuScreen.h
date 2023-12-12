@@ -3,6 +3,7 @@
 #include "GameScreen.h"
 #include "TetrizzScreen.h"
 #include "Utils.h"
+#include "Button.h"
 
 class MenuScreen : public GameScreen
 {
@@ -31,6 +32,10 @@ private:
   // Variables
   ScreenManager* m_ScreenManager;
 
-  Mix_Chunk* m_MusicPtr;
+  Mix_Chunk*     m_MusicPtr;
+
+  Button*        m_NormalButton;
+  Button*        m_HardButton;
+  Button*        m_ExitButton;
 };
 

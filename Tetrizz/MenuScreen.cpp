@@ -8,10 +8,21 @@ MenuScreen::MenuScreen(ScreenManager* screenManager)
 
   m_MusicPtr = Mix_LoadWAV(THEME_MENU);
   Mix_PlayChannel(-1, m_MusicPtr, -1);
+
+  const WindowSettings windowSettings{ GetWindowInfo() };
+  const float centerX = windowSettings.width / 2.f;
+  const float centerY = windowSettings.height / 2.f;
+
+  m_NormalButton = new Button("Normal", { centerX - 50, centerY - 60, 100, 0 }, 30);
+  m_HardButton   = new Button("Hard",   { centerX - 50, centerY     , 100, 0 }, 30);
+  m_ExitButton =   new Button("Quit",   { centerX - 50, centerY + 60, 100, 0 }, 30);
 }
 
 MenuScreen::~MenuScreen()
 {
+  delete m_NormalButton;
+  delete m_HardButton;
+  delete m_ExitButton;
   Mix_FreeChunk(m_MusicPtr);
 }
 
@@ -22,11 +33,24 @@ void MenuScreen::Draw()
   const float centerY = windowSettings.height / 2.f;
 
   DrawString("Tetrizz", { centerX - 90, 40 }, 70, { 1.f, 1.f, 1.f, 1.f }, FONT_MAIN);
-  DrawString("Click to start", { centerX - 95, 100 }, 40, { 1.f, 1.f, 1.f, 1.f }, FONT_MAIN);
+  DrawString("Thommy couldn't open the door", { centerX - 220, 100 }, 40, { 1.f, 1.f, 1.f, 1.f }, FONT_MAIN);
+
+  m_NormalButton->Draw();
+  m_HardButton->Draw();
+  m_ExitButton->Draw();
 }
 
 void MenuScreen::Update(float deltaTime)
 {
+  if (m_NormalButton->WasClicked()) {
+    m_ScreenManager->SetScreen(new TetrizzScreen(m_ScreenManager));
+    return;
+  }
+
+  if (m_ExitButton->WasClicked()) {
+    Quit();
+    return;
+  }
 }
 
 void MenuScreen::FixedUpdate(float fixedDeltaTime)
@@ -51,9 +75,14 @@ void MenuScreen::OnMouseMotionEvent(const SDL_MouseMotionEvent& e)
 
 void MenuScreen::OnMouseDownEvent(const SDL_MouseButtonEvent& e)
 {
-  m_ScreenManager->SetScreen(new TetrizzScreen(m_ScreenManager));
+  m_NormalButton->OnMouseDown(e);
+  m_HardButton->OnMouseDown(e);
+  m_ExitButton->OnMouseDown(e);
 }
 
 void MenuScreen::OnMouseUpEvent(const SDL_MouseButtonEvent& e)
 {
+  m_NormalButton->OnMouseUp(e);
+  m_HardButton->OnMouseUp(e);
+  m_ExitButton->OnMouseUp(e);
 }

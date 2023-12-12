@@ -10,10 +10,6 @@ void Start()
     Quit();
   }
 
-  g_ScreenManager = ScreenManager();
-  GameScreen* screen{ new MenuScreen(&g_ScreenManager) };
-  g_ScreenManager.SetScreen(screen);
-
   SDL_DisplayMode displayMode{ GetDisplayMode() };
   const float sizeX{ 800.f };
   const float sizeY{ 600.f };
@@ -56,6 +52,10 @@ void Start()
   // select the window to update and draw to. 
   // This function returns the int id of the window created
   MakeWindow(window);
+
+  g_ScreenManager = ScreenManager();
+  GameScreen* screen{ new MenuScreen(&g_ScreenManager) };
+  g_ScreenManager.SetScreen(screen);
 }
 
 void End()
