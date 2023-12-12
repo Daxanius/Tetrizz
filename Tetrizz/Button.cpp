@@ -69,7 +69,7 @@ void Button::Draw() const
   }
 
   Texture texture;
-  TextureFromString(m_Text, FONT_MAIN, m_FontSize - sizeDiff / 2.f, color, texture);
+  TextureFromString(m_Text, FONT_MAIN, int(m_FontSize - sizeDiff / 2.f), color, texture);
 
   float width = m_Area.width < texture.width ? (texture.width + PADDING) : m_Area.width;
   float height = m_Area.height < texture.height ? (texture.height + PADDING) : m_Area.height;

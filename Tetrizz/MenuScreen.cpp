@@ -8,8 +8,8 @@ MenuScreen::MenuScreen(ScreenManager* screenManager)
   m_ScreenManager = screenManager;
 
   const WindowSettings windowSettings{ GetWindowInfo() };
-  const float centerX = windowSettings.width / 2.f;
-  const float centerY = windowSettings.height / 2.f;
+  const float centerX{ windowSettings.width / 2.f };
+  const float centerY{ windowSettings.height / 2.f };
 
   m_NormalButton  = new Button("Normal",  { centerX - 50, centerY - 90, 100, 0 }, 30);
   m_HardButton    = new Button("Hard",    { centerX - 50, centerY - 30, 100, 0 }, 30);
@@ -27,8 +27,8 @@ MenuScreen::~MenuScreen()
 void MenuScreen::Draw()
 {
   const WindowSettings windowSettings{ GetWindowInfo() };
-  const float centerX = windowSettings.width / 2.f;
-  const float centerY = windowSettings.height / 2.f;
+  const float centerX{ windowSettings.width / 2.f };
+  const float centerY{ windowSettings.height / 2.f };
 
   DrawString("Tetrizz", { centerX - 90, 40 }, 70, { 1.f, 1.f, 1.f, 1.f }, FONT_MAIN);
   DrawString("Test your rizz", { centerX - 100, 100 }, 40, { 1.f, 1.f, 1.f, 1.f }, FONT_MAIN);

@@ -20,9 +20,9 @@ void CameraManager::Update()
 
 void CameraManager::Shake() const
 {
-  const float offsetX = RandFloat(0, 1, 4) * m_ShakeIntensity;
-  const float offsetY = RandFloat(0, 1, 4) * m_ShakeIntensity;
-  const float offsetRotation = RandFloat(0, 1, 4) * m_ShakeIntensity;
+  const float offsetX{ RandFloat(0, 1, 4) * m_ShakeIntensity };
+  const float offsetY{ RandFloat(0, 1, 4) * m_ShakeIntensity };
+  const float offsetRotation{ RandFloat(0, 1, 4) * m_ShakeIntensity };
 
   SetCamera(offsetX, offsetY, offsetRotation);
 }

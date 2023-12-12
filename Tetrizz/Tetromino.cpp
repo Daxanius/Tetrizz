@@ -47,15 +47,16 @@ void Tetromino::Draw(Point2f position, float opacity)
 {
   for (int minoIndex = 0; minoIndex < MINO_COUNT; ++minoIndex)
   {
-    Point2f mino = m_MinosArr[minoIndex];
+    Point2f mino{ m_MinosArr[minoIndex] };
 
-    Rectf sourceRect{};
-    sourceRect.height = TILE_SIZE;
-    sourceRect.width = TILE_SIZE;
-    sourceRect.left = position.x + TILE_SIZE * mino.x;
-    sourceRect.top = position.y + TILE_SIZE * mino.y;
+    Rectf sourceRect{
+      position.x + TILE_SIZE * mino.x,
+      position.y + TILE_SIZE * mino.y,
+      TILE_SIZE,
+      TILE_SIZE
+    };
 
-    Color4f color = GetColor();
+    Color4f color{ GetColor() };
     color.a = opacity;
 
     SetColor(color);

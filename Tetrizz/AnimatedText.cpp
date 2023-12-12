@@ -29,7 +29,7 @@ void AnimatedText::Update(float deltaTime)
   }
 
   float t = m_CurrentTime / float(m_Goals.front().time);
-  float interpolationFactor = 0.5f - 0.5f * cosf(t * M_PI);
+  float interpolationFactor = 0.5f - 0.5f * cosf(t * (float)M_PI);
 
   m_Color = Lerp(m_Color, m_Goals.front().color, interpolationFactor);
 
@@ -54,7 +54,7 @@ void AnimatedText::Draw()
 
 int AnimatedText::GetGoalsLeft()
 {
-  return m_Goals.size();
+  return (int)m_Goals.size();
 }
 
 std::string AnimatedText::GetText()

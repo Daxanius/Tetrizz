@@ -136,7 +136,7 @@ bool Playfield::IsTileTaken(int row, int col) const
 
 bool Playfield::CanMove(Point2f direction, int rotations) const
 {
-  Tetromino t = Tetromino(*m_State->GetTetromino());
+  Tetromino t{ Tetromino(*m_State->GetTetromino()) };
 
   for(int i = 0; i < rotations; ++i) {
     t.Rotate();
@@ -163,7 +163,7 @@ void Playfield::QuickPlace()
 
 bool Playfield::PlaceTetromino()
 {
-  bool success = true;
+  bool success{ true };
 
 	for (int i = 0; i < MINO_COUNT; ++i)
 	{
@@ -204,9 +204,9 @@ void Playfield::Draw(Point2f position)
 		}
 	}
 
-  Tetromino* currentTetromino = m_State->GetTetromino();
-  Point2f tetrominoPosition = m_State->GetTetrominoPosition();
-  Point2f quickPlacePosition = GetQuickPlacePosition();
+  Tetromino* currentTetromino{ m_State->GetTetromino() };
+  Point2f tetrominoPosition{ m_State->GetTetrominoPosition() };
+  Point2f quickPlacePosition{ GetQuickPlacePosition() };
 
   currentTetromino->Draw({
     tetrominoPosition.x * TILE_SIZE + position.x,
