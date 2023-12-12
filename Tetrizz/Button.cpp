@@ -35,9 +35,14 @@ bool Button::WasClicked()
   return false;
 }
 
-bool Button::IsPressed()
+bool Button::IsPressed() const
 {
   return m_IsPressed;
+}
+
+bool Button::IsHovering() const
+{
+  return m_IsHovering;
 }
 
 void Button::Draw() const

@@ -10,7 +10,8 @@ public:
   Button(std::string text, Rectf area, int fontSize);
 
   bool        WasClicked(); // Checks if the button was pressed, will reset the pressed state when called
-  bool        IsPressed(); // Checks if the button was pressed, will reset the pressed state when called
+  bool        IsPressed() const; // Checks if the button was pressed, will reset the pressed state when called
+  bool        IsHovering() const;
   void        Draw() const;
 
   void        OnMouseUp(const SDL_MouseButtonEvent& e);
