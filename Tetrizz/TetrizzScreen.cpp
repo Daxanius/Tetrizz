@@ -183,7 +183,13 @@ void TetrizzScreen::PlaceTetromino()
   Mix_PlayChannel(-1, m_PlacePtr, 0);
   float intensity{};
 
-  switch (m_PlayfieldPtr->ClearFullLines())
+  int linesCleaared = m_PlayfieldPtr->ClearFullLines();
+
+  if (linesCleaared > 0) {
+    m_TicksPerUpdate = std::max(1, m_TicksPerUpdate + SPEEDUP_PER_TICK);
+  }
+
+  switch (linesCleaared)
   {
   case 1:
     Mix_PlayChannel(-1, m_SmallRizzlerPtr, 0);
