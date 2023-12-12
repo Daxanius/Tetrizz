@@ -123,6 +123,7 @@ void TetrizzScreen::OnKeyDownEvent(SDL_Keycode key)
     if (key == SDLK_r)
     {
       m_PlayfieldPtr->ResetBoard();
+      m_ScoreTextEffects.clear();
       m_GameOver = false;
       m_Score = 0;
       Mix_PlayChannel(0, m_MusicPtr, -1);
