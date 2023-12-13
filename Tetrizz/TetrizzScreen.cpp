@@ -125,6 +125,7 @@ void TetrizzScreen::OnKeyDownEvent(SDL_Keycode key)
   if (m_GameOver) {
     if (key == SDLK_r)
     {
+      m_TicksPerUpdate = TICKS_PER_UPDATE / std::max(1, int(m_Difficulty));
       m_PlayfieldPtr->ResetBoard();
       m_ScoreTextEffects.clear();
       m_GameOver = false;
