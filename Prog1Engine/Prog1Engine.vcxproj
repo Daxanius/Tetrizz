@@ -24,6 +24,7 @@
     <ProjectGuid>{a781f204-da1f-44dd-9ef8-7c93777bb97b}</ProjectGuid>
     <RootNamespace>Prog1Engine</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Engine</ProjectName>
   </PropertyGroup>
   <!-- Search libraries -->
   <PropertyGroup>

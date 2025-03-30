@@ -10,7 +10,6 @@ static void PrintCredits()
     << "[The Dyson Project]\n"
     << "The Programming 1 engine modified by and for students\n"
     << "Credits:\n\n"
-    << "- Lies Pinket (original engine, probably)\n"
     << "- Balder Huybreghs (random student or something)\n"
     << "- Dontu Cristian (proud writer of fixedUpdate)\n"
     << "- Thomas (couldn't open the door)\n\n"

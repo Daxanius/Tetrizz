@@ -1,138 +1,120 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="Source">
+      <UniqueIdentifier>{ed09cf48-8c18-40b8-bfa8-b70b7fcad193}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Header Files\Screens">
-      <UniqueIdentifier>{764f6c04-82de-4e48-ba44-0db08f049425}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Utility">
-      <UniqueIdentifier>{ef05123e-b777-4346-800b-f04bcb17f69a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Game">
-      <UniqueIdentifier>{df220c4b-0f62-4504-b13e-9a680bf02365}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Game">
+    <Filter Include="Source\Game">
       <UniqueIdentifier>{cec3ea6a-5635-4153-8670-dffad359c5fd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Utility">
-      <UniqueIdentifier>{24473b2d-cd86-4851-a62c-435f6ee707a2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Screens">
+    <Filter Include="Source\Screens">
       <UniqueIdentifier>{1f9a158c-aa87-4cc2-b5b6-16c11a81cb15}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Utility">
+      <UniqueIdentifier>{24473b2d-cd86-4851-a62c-435f6ee707a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="pch.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CameraManager.cpp">
-      <Filter>Source Files\Utility</Filter>
+      <Filter>Source\Utility</Filter>
     </ClCompile>
     <ClCompile Include="AnimatedText.cpp">
-      <Filter>Source Files\Utility</Filter>
+      <Filter>Source\Utility</Filter>
     </ClCompile>
     <ClCompile Include="Utils.cpp">
-      <Filter>Source Files\Utility</Filter>
+      <Filter>Source\Utility</Filter>
     </ClCompile>
     <ClCompile Include="TetrominoManager.cpp">
-      <Filter>Source Files\Game</Filter>
+      <Filter>Source\Game</Filter>
     </ClCompile>
     <ClCompile Include="Tetromino.cpp">
-      <Filter>Source Files\Game</Filter>
+      <Filter>Source\Game</Filter>
     </ClCompile>
     <ClCompile Include="Playfield.cpp">
-      <Filter>Source Files\Game</Filter>
+      <Filter>Source\Game</Filter>
     </ClCompile>
     <ClCompile Include="TetrizzScreen.cpp">
-      <Filter>Source Files\Screens</Filter>
+      <Filter>Source\Screens</Filter>
     </ClCompile>
     <ClCompile Include="GameScreen.cpp">
-      <Filter>Source Files\Screens</Filter>
+      <Filter>Source\Screens</Filter>
     </ClCompile>
     <ClCompile Include="MenuScreen.cpp">
-      <Filter>Source Files\Screens</Filter>
+      <Filter>Source\Screens</Filter>
     </ClCompile>
     <ClCompile Include="Button.cpp">
-      <Filter>Source Files\Utility</Filter>
+      <Filter>Source\Utility</Filter>
     </ClCompile>
     <ClCompile Include="CreditsScreen.cpp">
-      <Filter>Source Files\Screens</Filter>
+      <Filter>Source\Screens</Filter>
     </ClCompile>
     <ClCompile Include="DifficultyScreen.cpp">
-      <Filter>Source Files\Screens</Filter>
+      <Filter>Source\Screens</Filter>
     </ClCompile>
     <ClCompile Include="MainScreen.cpp">
-      <Filter>Source Files\Screens</Filter>
+      <Filter>Source\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pch.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraManager.h">
-      <Filter>Header Files\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="AnimatedText.h">
-      <Filter>Header Files\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils.h">
-      <Filter>Header Files\Utility</Filter>
-    </ClInclude>
     <ClInclude Include="Game.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="Playfield.h">
-      <Filter>Header Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Tetromino.h">
-      <Filter>Header Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="TetrominoManager.h">
-      <Filter>Header Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Tetrominos.h">
-      <Filter>Header Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="GameDefines.h">
-      <Filter>Header Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="GameScreen.h">
-      <Filter>Header Files\Screens</Filter>
-    </ClInclude>
-    <ClInclude Include="TetrizzScreen.h">
-      <Filter>Header Files\Screens</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuScreen.h">
-      <Filter>Header Files\Screens</Filter>
+    <ClInclude Include="pch.h">
+      <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatedText.h">
+      <Filter>Source\Utility</Filter>
     </ClInclude>
     <ClInclude Include="Button.h">
-      <Filter>Header Files\Utility</Filter>
+      <Filter>Source\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraManager.h">
+      <Filter>Source\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Source\Utility</Filter>
     </ClInclude>
     <ClInclude Include="CreditsScreen.h">
-      <Filter>Header Files\Screens</Filter>
+      <Filter>Source\Screens</Filter>
     </ClInclude>
     <ClInclude Include="DifficultyScreen.h">
-      <Filter>Header Files\Screens</Filter>
+      <Filter>Source\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScreen.h">
+      <Filter>Source\Screens</Filter>
     </ClInclude>
     <ClInclude Include="MainScreen.h">
-      <Filter>Header Files\Screens</Filter>
+      <Filter>Source\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuScreen.h">
+      <Filter>Source\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="TetrizzScreen.h">
+      <Filter>Source\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="GameDefines.h">
+      <Filter>Source\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Playfield.h">
+      <Filter>Source\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Tetromino.h">
+      <Filter>Source\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="TetrominoManager.h">
+      <Filter>Source\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Tetrominos.h">
+      <Filter>Source\Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
