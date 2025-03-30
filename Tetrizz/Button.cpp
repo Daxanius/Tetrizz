@@ -95,7 +95,6 @@ void Button::OnMouseUp(const SDL_MouseButtonEvent& e)
 {
   if (m_IsPressed) {
     m_WasClicked = true;
-    m_IsPressed = false;
   }
 }
 
@@ -109,4 +108,5 @@ void Button::OnMouseDown(const SDL_MouseButtonEvent& e)
 void Button::OnMouseMotion(const SDL_MouseMotionEvent& e)
 {
   m_IsHovering = !(e.x < m_Area.left || e.x > m_Area.left + m_Area.width || e.y < m_Area.top || e.y > m_Area.top + m_Area.height);
+  m_IsPressed = m_IsPressed && m_IsHovering;
 }
