@@ -5,7 +5,7 @@ VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tetrizz", "Tetrizz\Tetrizz.vcxproj", "{79B237E3-DFAA-4188-9053-51DD5DB8FD27}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Prog1Engine", "Prog1Engine\Prog1Engine.vcxproj", "{A781F204-DA1F-44DD-9EF8-7C93777BB97B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Engine\Engine.vcxproj", "{A781F204-DA1F-44DD-9EF8-7C93777BB97B}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Resources", "Resources\Resources.vcxproj", "{1797E938-7AB0-4727-A5D1-C5F34F49EFF1}"
 EndProject

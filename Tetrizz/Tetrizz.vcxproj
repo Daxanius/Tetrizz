@@ -83,23 +83,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(Prog1LibrariesPath)\SDLTtf\SDL2_ttf-2.20.2\include;$(Prog1LibrariesPath)\SDLImage\SDL2_image-2.6.3\include;$(Prog1LibrariesPath)\SDLMixer\SDL2_mixer-2.6.3\include;$(Prog1LibrariesPath)\SDLMain\SDL2-2.26.3\include;..\Prog1Engine;$(IncludePath)</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(Prog1LibrariesPath)\SDLTtf\SDL2_ttf-2.20.2\include;$(Prog1LibrariesPath)\SDLImage\SDL2_image-2.6.3\include;$(Prog1LibrariesPath)\SDLMixer\SDL2_mixer-2.6.3\include;$(Prog1LibrariesPath)\SDLMain\SDL2-2.26.3\include;..\Engine;$(IncludePath)</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(Prog1LibrariesPath)\SDLTtf\SDL2_ttf-2.20.2\lib\x86;$(Prog1LibrariesPath)\SDLMixer\SDL2_mixer-2.6.3\lib\x86;$(Prog1LibrariesPath)\SDLImage\SDL2_image-2.6.3\lib\x86;$(Prog1LibrariesPath)\SDLMain\SDL2-2.26.3\lib\x86;..\Debug</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(Prog1LibrariesPath)\SDLTtf\SDL2_ttf-2.20.2\include;$(Prog1LibrariesPath)\SDLImage\SDL2_image-2.6.3\include;$(Prog1LibrariesPath)\SDLMixer\SDL2_mixer-2.6.3\include;$(Prog1LibrariesPath)\SDLMain\SDL2-2.26.3\include;..\Prog1Engine;$(IncludePath)</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(Prog1LibrariesPath)\SDLTtf\SDL2_ttf-2.20.2\include;$(Prog1LibrariesPath)\SDLImage\SDL2_image-2.6.3\include;$(Prog1LibrariesPath)\SDLMixer\SDL2_mixer-2.6.3\include;$(Prog1LibrariesPath)\SDLMain\SDL2-2.26.3\include;..\Engine;$(IncludePath)</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(Prog1LibrariesPath)\SDLTtf\SDL2_ttf-2.20.2\lib\x86;$(Prog1LibrariesPath)\SDLMixer\SDL2_mixer-2.6.3\lib\x86;$(Prog1LibrariesPath)\SDLImage\SDL2_image-2.6.3\lib\x86;$(Prog1LibrariesPath)\SDLMain\SDL2-2.26.3\lib\x86;..\Release</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(Prog1LibrariesPath)\SDLTtf\SDL2_ttf-2.20.2\include;$(Prog1LibrariesPath)\SDLImage\SDL2_image-2.6.3\include;$(Prog1LibrariesPath)\SDLMixer\SDL2_mixer-2.6.3\include;$(Prog1LibrariesPath)\SDLMain\SDL2-2.26.3\include;..\Prog1Engine;$(IncludePath)</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(Prog1LibrariesPath)\SDLTtf\SDL2_ttf-2.20.2\include;$(Prog1LibrariesPath)\SDLImage\SDL2_image-2.6.3\include;$(Prog1LibrariesPath)\SDLMixer\SDL2_mixer-2.6.3\include;$(Prog1LibrariesPath)\SDLMain\SDL2-2.26.3\include;..\Engine;$(IncludePath)</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(Prog1LibrariesPath)\SDLTtf\SDL2_ttf-2.20.2\lib\x64;$(Prog1LibrariesPath)\SDLMixer\SDL2_mixer-2.6.3\lib\x64;$(Prog1LibrariesPath)\SDLImage\SDL2_image-2.6.3\lib\x64;$(Prog1LibrariesPath)\SDLMain\SDL2-2.26.3\lib\x64;..\x64\Debug</LibraryPath>
     <CustomBuildAfterTargets>BuildCompile</CustomBuildAfterTargets>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(Prog1LibrariesPath)\SDLTtf\SDL2_ttf-2.20.2\include;$(Prog1LibrariesPath)\SDLImage\SDL2_image-2.6.3\include;$(Prog1LibrariesPath)\SDLMixer\SDL2_mixer-2.6.3\include;$(Prog1LibrariesPath)\SDLMain\SDL2-2.26.3\include;..\Prog1Engine;$(IncludePath)</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(Prog1LibrariesPath)\SDLTtf\SDL2_ttf-2.20.2\include;$(Prog1LibrariesPath)\SDLImage\SDL2_image-2.6.3\include;$(Prog1LibrariesPath)\SDLMixer\SDL2_mixer-2.6.3\include;$(Prog1LibrariesPath)\SDLMain\SDL2-2.26.3\include;..\Engine;$(IncludePath)</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(Prog1LibrariesPath)\SDLTtf\SDL2_ttf-2.20.2\lib\x64;$(Prog1LibrariesPath)\SDLMixer\SDL2_mixer-2.6.3\lib\x64;$(Prog1LibrariesPath)\SDLImage\SDL2_image-2.6.3\lib\x64;$(Prog1LibrariesPath)\SDLMain\SDL2-2.26.3\lib\x64;..\x64\Release</LibraryPath>
   </PropertyGroup>
   <!-- set as startup project -->
@@ -118,7 +118,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Prog1Engine.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Engine.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(Prog1LibrariesPath)\SDLMain\SDL2-2.26.3\lib\x86\*.dll" "$(TargetDir)" /y /d
@@ -144,7 +144,7 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Prog1Engine.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Engine.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(Prog1LibrariesPath)\SDLMain\SDL2-2.26.3\lib\x86\*.dll" "$(TargetDir)" /y /d
@@ -166,7 +166,7 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Prog1Engine.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Engine.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(Prog1LibrariesPath)\SDLMain\SDL2-2.26.3\lib\x64\*.dll" "$(TargetDir)" /y /d
@@ -196,7 +196,7 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
       <OptimizeReferences>
       </OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Prog1Engine.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Engine.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(Prog1LibrariesPath)\SDLMain\SDL2-2.26.3\lib\x64\*.dll" "$(TargetDir)" /y /d
@@ -249,7 +249,7 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Prog1Engine\Prog1Engine.vcxproj">
+    <ProjectReference Include="..\Engine\Engine.vcxproj">
       <Project>{a781f204-da1f-44dd-9ef8-7c93777bb97b}</Project>
     </ProjectReference>
   </ItemGroup>

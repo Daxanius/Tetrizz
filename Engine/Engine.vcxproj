@@ -22,7 +22,7 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{a781f204-da1f-44dd-9ef8-7c93777bb97b}</ProjectGuid>
-    <RootNamespace>Prog1Engine</RootNamespace>
+    <RootNamespace>Engine</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectName>Engine</ProjectName>
   </PropertyGroup>
@@ -65,7 +65,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <!-- Import the custom .targets file -->
-  <Import Project="Prog1Engine.targets" />
+  <Import Project="Engine.targets" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
@@ -191,7 +191,7 @@
     <ClCompile Include="Core.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Prog1Engine.targets" />
+    <None Include="Engine.targets" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
